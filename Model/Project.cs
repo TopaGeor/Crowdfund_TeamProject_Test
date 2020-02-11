@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Crowdfund.Core.Model
 {
@@ -21,6 +20,9 @@ namespace Crowdfund.Core.Model
         /// </summary>
         public string Title;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Description;
 
         /// <summary>

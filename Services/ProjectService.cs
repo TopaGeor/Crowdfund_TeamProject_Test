@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Crowdfund.Core.Model;
+﻿using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
 using Crowdfund.Core.Services;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TinyCrm.Core.Services
 {
@@ -45,6 +43,7 @@ namespace TinyCrm.Core.Services
             if (string.IsNullOrWhiteSpace(options.Title)) {
                 return false;
             }
+
             var creator = userService.SearchByUser(
                 new SearchUserOptions()
                 {
@@ -72,15 +71,13 @@ namespace TinyCrm.Core.Services
                 Goal = options.Goal
                 };
 
-
             if (ProjectsList.Contains(newProj)) {
                 return false;
             }
             ProjectsList.Add(newProj);
+
             return true;
         }
-
-    
 
         public ICollection<Project> SearchProject(SearchProjectOptions options)
         {
@@ -97,6 +94,7 @@ namespace TinyCrm.Core.Services
             if (!string.IsNullOrWhiteSpace(options.Title)) {
                 result = ProjectsList.Where(p => p.Title == options.Title);
             }
+
             var creator = userService.SearchByUser(
                 new SearchUserOptions()
                 {
@@ -134,21 +132,27 @@ namespace TinyCrm.Core.Services
                 {
                     Id = id
                 }).SingleOrDefault();
+            
             if(proj == null) {
                 return false;
             }
+            
             if (string.IsNullOrWhiteSpace(options.Description)) {
                 proj.Description = options.Description;
             }
+            
             if (string.IsNullOrWhiteSpace(options.Photo)) {
                 proj.Photos.Add(options.Photo);
             }
+            
             if (string.IsNullOrWhiteSpace(options.Video)) {
                 proj.Videos.Add(options.Video);
             }
+            
             if(options.Status != ProjectStatus.Invalid) {
                 proj.Status = options.Status;
             }
+            
             return true;
         }
     }

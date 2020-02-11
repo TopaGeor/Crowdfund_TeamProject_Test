@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Crowdfund.Core.Model
+﻿namespace Crowdfund.Core.Model
 {
     public class Tiers
     {

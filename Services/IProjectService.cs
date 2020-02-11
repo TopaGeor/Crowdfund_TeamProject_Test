@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Crowdfund.Core.Model;
+﻿using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
-
+using System.Collections.Generic;
 
 namespace Crowdfund.Core.Services
 {
@@ -14,6 +11,5 @@ namespace Crowdfund.Core.Services
         bool UpdateProject(int id, UpdateProjectOptions options);
 
         ICollection<Project> SearchProject(SearchProjectOptions options);
-
     }
 }

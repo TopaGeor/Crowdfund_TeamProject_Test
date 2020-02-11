@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Crowdfund.Core.Model.Options
+﻿namespace Crowdfund.Core.Model.Options
 {
     class AddUserOptions
     {
@@ -11,7 +7,7 @@ namespace Crowdfund.Core.Model.Options
         public string Email { get; set; }
 
         public string Password { get; set; }
-        public int Id { get; set; }
 
+        public int Id { get; set; }
     }
 }

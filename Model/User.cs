@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Crowdfund.Core.Model
 {
@@ -44,6 +42,5 @@ namespace Crowdfund.Core.Model
             Backer = new List<ProjectBacker>();
             Founder = new List<ProjectFounder>();
         }
-
     }
 }
