@@ -21,6 +21,8 @@ namespace Crowdfund.Core.Model
         /// </summary>
         public string Title;
 
+        public string Description;
+
         /// <summary>
         /// 
         /// </summary>

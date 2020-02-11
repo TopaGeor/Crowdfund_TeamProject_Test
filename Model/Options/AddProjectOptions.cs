@@ -6,24 +6,24 @@ namespace Crowdfund.Core.Model.Options
 {
     class AddProjectOptions
     {
-        public int Id;
+        public int Id { get; set; }
         public string Description { get;  set; }
 
-        public decimal Goal;
+        public decimal Goal { get; set; }
 
-        public string Title;
+        public string Title { get; set; }
 
-        public User Creator;
+        public User Creator { get; set; }
 
-        public ProjectCategory Category;
+        public ProjectCategory Category { get; set; }
 
-        public ProjectStatus Status;
+        public ProjectStatus Status { get; set; }
 
-        public string Photo;
+        public string Photo { get; set; }
 
-        public string Video;
+        public string Video { get; set; }
 
-        public string Update;
+        public string Update { get; set; }
 
 
 
