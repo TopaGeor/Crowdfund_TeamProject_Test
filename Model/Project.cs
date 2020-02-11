@@ -1,0 +1,67 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Crowdfund.Core.Model
+{
+    public class Project
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Id;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal Goal;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Title;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public User Creator;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ProjectStatus Status;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ProjectCategory Category;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<Tiers> Tiers;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<String> Photos;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<String> Videos;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<String> Updates;
+
+        public Project()
+        {
+            Tiers = new List<Tiers>();
+            Photos = new List<String>();
+            Videos = new List<String>();
+            Updates = new List<String>();
+        }
+    }
+}
