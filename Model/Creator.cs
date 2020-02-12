@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Crowdfund.Core.Model
 {
-   public class Tiers
+  public  class Creator 
     {
         /// <summary>
         /// 
@@ -14,21 +14,25 @@ namespace Crowdfund.Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public int TotalTiers { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Project Project { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public decimal Amount { get; set; }
+        public string Password { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Description { get; set; }
+        ICollection<Project> CreatedProject { get; set; }
+
+
+        public Creator()
+        {
+            CreatedProject = new List<Project>();
+        }
+
     }
 }

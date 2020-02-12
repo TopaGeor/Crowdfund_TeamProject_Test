@@ -1,64 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Crowdfund.Core.Model
 {
-    public class Project
+   public class Project
     {
         /// <summary>
         /// 
         /// </summary>
-        public int Id;
+        public int Id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public decimal Goal;
+        public decimal Goal { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Title;
+        public string Title { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Description;
+        public string Description { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public User Creator;
+        public Creator Creator { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ProjectStatus Status;
+        public ICollection<Backer> Backers { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ProjectCategory Category;
+        public ProjectStatus Status { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<Tiers> Tiers;
+        public ProjectCategory Category { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<String> Photos;
+        public ICollection<Tiers> Tiers { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<String> Videos;
+        public ICollection<String> Photos { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<String> Updates;
+        public ICollection<String> Videos { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<String> Updates { get; set; }
 
         public Project()
         {
@@ -66,6 +72,8 @@ namespace Crowdfund.Core.Model
             Photos = new List<String>();
             Videos = new List<String>();
             Updates = new List<String>();
+            Backers = new List<Backer>();
         }
+
     }
 }
