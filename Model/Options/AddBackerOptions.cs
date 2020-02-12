@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Crowdfund.Core.Model.Options
 {
-  public  class AddCBackerOptions
+  public  class AddBackerOptions
     {
         public string Name { get; set; }
 
