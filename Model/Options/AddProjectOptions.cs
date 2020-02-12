@@ -11,7 +11,7 @@
         public string Title { get; set; }
 
         public User Creator { get; set; }
-
+        
         public ProjectCategory Category { get; set; }
 
         public ProjectStatus Status { get; set; }
