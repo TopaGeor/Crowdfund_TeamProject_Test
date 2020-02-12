@@ -5,26 +5,27 @@
         /// <summary>
         /// 
         /// </summary>
-        public int Id;
+        public int Id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int TotalTiers;
+        //public int TotalTiers;
+        //I do not see a value to that
 
         /// <summary>
         /// 
         /// </summary>
-        public int ProjectId;
+        public Project Project { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public decimal Amount;
+        public decimal Amount { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Description;
+        public string Description { get; set; }
     }
 }
