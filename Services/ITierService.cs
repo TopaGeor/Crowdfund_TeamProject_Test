@@ -6,5 +6,9 @@ namespace Crowdfund_TeamProject.Services
     public interface ITierService
     {
         Tier AddTierService(AddTierOptions options);
+
+        Tier UpdateTierService(UpdateTierOptions options);
+
+        Tier GetTierById(int id);
     }
 }
