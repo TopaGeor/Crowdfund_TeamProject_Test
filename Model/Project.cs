@@ -43,7 +43,7 @@ namespace Crowdfund.Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<Tiers> Tiers;
+        public ICollection<Tier> Tiers;
 
         /// <summary>
         /// 
@@ -62,7 +62,7 @@ namespace Crowdfund.Core.Model
 
         public Project()
         {
-            Tiers = new List<Tiers>();
+            Tiers = new List<Tier>();
             Photos = new List<String>();
             Videos = new List<String>();
             Updates = new List<String>();

@@ -1,6 +1,6 @@
 ﻿namespace Crowdfund.Core.Model
 {
-    public class Tiers
+    public class Tier
     {
         /// <summary>
         /// 
