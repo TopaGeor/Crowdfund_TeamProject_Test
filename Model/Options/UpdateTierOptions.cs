@@ -1,9 +1,4 @@
-﻿using Crowdfund.Core.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Crowdfund_TeamProject.Model.Options
+﻿namespace Crowdfund_TeamProject.Model.Options
 {
     public class UpdateTierOptions
     {

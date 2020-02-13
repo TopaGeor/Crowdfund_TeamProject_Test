@@ -40,7 +40,5 @@ namespace Crowdfund.Core.Model
         {
             FundedProject = new List<Project>();
         }
-
-
     }
 }
