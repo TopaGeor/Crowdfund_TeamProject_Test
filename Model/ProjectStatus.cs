@@ -1,4 +1,8 @@
-﻿namespace Crowdfund.Core.Model
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Crowdfund.Core.Model
 {
     public enum ProjectStatus
     {

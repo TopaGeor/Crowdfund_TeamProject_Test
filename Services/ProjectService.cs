@@ -1,14 +1,19 @@
-﻿using Crowdfund.Core.Model;
-using Crowdfund.Core.Model.Options;
-using Crowdfund.Core.Services;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Crowdfund.Core.Model;
+using Crowdfund.Core.Model.Options;
 
-namespace TinyCrm.Core.Services
+namespace Crowdfund.Core.Services
 {
     class ProjectService : IProjectService
     {
-        public UserService userService = new UserService();
+        public ICreatorService CrService = new CreatorService();
+
+        public  IBackerService BrService = new BackerService();
+
+
         ICollection<Project> ProjectsList = new List<Project>();
         public bool CreateProject(AddProjectOptions options)
         {
@@ -28,24 +33,26 @@ namespace TinyCrm.Core.Services
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(options.Photo)) {
-                return false;
+            foreach (var p in options.Photo) {
+                if (string.IsNullOrWhiteSpace(p)) {
+                    return false;
+                }
             }
 
             if (string.IsNullOrWhiteSpace(options.Description)) {
                 return false;
             }
-
-            if (string.IsNullOrWhiteSpace(options.Video)) {
-                return false;
+            foreach (var v in options.Video) {
+                if (string.IsNullOrWhiteSpace(v)) {
+                    return false;
+                }
             }
 
             if (string.IsNullOrWhiteSpace(options.Title)) {
                 return false;
             }
-
-            var creator = userService.SearchByUser(
-                new SearchUserOptions()
+            var creator = CrService.SearchCreator(
+                new SearchCreatorOptions()
                 {
                     Id = options.Creator.Id
                 });
@@ -54,30 +61,31 @@ namespace TinyCrm.Core.Services
                 return false;
             }
 
-            if(options.Status != ProjectStatus.Running) {
-                return false;
-            }
             if(options.Category == ProjectCategory.Invalid) {
                 return false;
             }
 
-            var newProj = new Project() { 
+            var newProj = new Project() {
                 Id = options.Id,
                 Description = options.Description,
                 Title = options.Title,
                 Creator = creator.SingleOrDefault(),
-                Category= options.Category,
+                Category = options.Category,
                 Status = ProjectStatus.Running,
-                Goal = options.Goal
+                Goal = options.Goal,
+                Photos = options.Photo,
+                Videos = options.Video
                 };
+
 
             if (ProjectsList.Contains(newProj)) {
                 return false;
             }
             ProjectsList.Add(newProj);
-
             return true;
         }
+
+    
 
         public ICollection<Project> SearchProject(SearchProjectOptions options)
         {
@@ -94,9 +102,8 @@ namespace TinyCrm.Core.Services
             if (!string.IsNullOrWhiteSpace(options.Title)) {
                 result = ProjectsList.Where(p => p.Title == options.Title);
             }
-
-            var creator = userService.SearchByUser(
-                new SearchUserOptions()
+            var creator = CrService.SearchCreator(
+                new SearchCreatorOptions()
                 {
                     Id = options.Creator.Id
                 }
@@ -119,11 +126,11 @@ namespace TinyCrm.Core.Services
 
         public bool UpdateProject(int id, UpdateProjectOptions options)
         {
-           if(options == null) {
+            if (options == null) {
                 return false;
             }
 
-           if(id <= 0) {
+            if (id <= 0) {
                 return false;
             }
 
@@ -132,27 +139,27 @@ namespace TinyCrm.Core.Services
                 {
                     Id = id
                 }).SingleOrDefault();
-            
-            if(proj == null) {
+            if (proj == null) {
                 return false;
             }
-            
             if (string.IsNullOrWhiteSpace(options.Description)) {
                 proj.Description = options.Description;
             }
-            
-            if (string.IsNullOrWhiteSpace(options.Photo)) {
-                proj.Photos.Add(options.Photo);
+            foreach (var p in options.Photo) {
+                if (string.IsNullOrWhiteSpace(p)) {
+                    proj.Photos.Add(p);
+                }
             }
-            
-            if (string.IsNullOrWhiteSpace(options.Video)) {
-                proj.Videos.Add(options.Video);
+            foreach (var v in options.Video) {
+                if (string.IsNullOrWhiteSpace(v)) {
+                    proj.Videos.Add(v);
+                }
             }
-            
+        
             if(options.Status != ProjectStatus.Invalid) {
                 proj.Status = options.Status;
             }
-            
+
             return true;
         }
     }

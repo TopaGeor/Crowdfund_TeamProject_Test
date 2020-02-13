@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Crowdfund.Core.Model
 {
-    public class User
+  public  class Backer
     {
         /// <summary>
         /// 
@@ -27,20 +29,18 @@ namespace Crowdfund.Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<ProjectBacker> Backer { get; set; }
+        ICollection<Project> FundedProject { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<ProjectFounder> Founder { get; set; }
+        public decimal FundAmount { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public User()
+        public Backer()
         {
-            Backer = new List<ProjectBacker>();
-            Founder = new List<ProjectFounder>();
+            FundedProject = new List<Project>();
         }
+
+
     }
 }
