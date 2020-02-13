@@ -1,46 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
-using Crowdfund.Core.Model;
+using Crowdfund_TeamProject.Data;
+using Crowdfund_TeamProject.Model;
+using System.Linq;
 
 namespace Crowdfund.Core.Services
 {
     public class BackerService : IBackerService
     {
-        ICollection<Backer> BackersList = new List<Backer>();
+        readonly private Crowdfund_TeamProjectDbContext context_;
+        readonly private IProjectService Project;
 
-        ICollection<Project> ProjectList = new List<Project>();
-
-        //IProjectService Project = new ProjectService();
-
-        public bool AddBacker(AddBackerOptions options)
+        public BackerService(Crowdfund_TeamProjectDbContext context)
         {
-            if (options == null) {
-                return false;
+            context_ = context;
+            Project = new ProjectService(
+                new CreatorService(new Crowdfund_TeamProjectDbContext()),
+                new BackerService(new Crowdfund_TeamProjectDbContext()),
+                new Crowdfund_TeamProjectDbContext());
+        }
+
+        public Backer AddBacker(AddBackerOptions options)
+        {
+            if (options == null)
+            {
+                return null;
             }
 
-            if (string.IsNullOrWhiteSpace(options.Email)) {
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(options.Name)) {
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(options.Password)) {
-                return false;
+            if (string.IsNullOrWhiteSpace(options.Name) ||
+                string.IsNullOrWhiteSpace(options.Email) ||
+                string.IsNullOrWhiteSpace(options.Password))
+            {
+                return null;
             }
 
             var exist = SearchBacker(
                 new SearchBackerOptions()
                 {
+                    Name = options.Name,
                     Email = options.Email
                 }).Any();
 
-            if (exist) {
-                return false;
+            if (exist)
+            {
+                return null;
             }
 
             var newBacker = new Backer()
@@ -49,88 +52,160 @@ namespace Crowdfund.Core.Services
                 Name = options.Name,
                 Password = options.Password
             };
+            context_.Add(newBacker);
 
-            if (BackersList.Contains(newBacker)) {
-                return false;
+            try
+            {
+                context_.SaveChanges();
             }
-
-            BackersList.Add(newBacker);
-            return true;
-        }
-
-        public ICollection<Backer> SearchBacker(SearchBackerOptions options)
-        {
-            var result = BackersList.Take(100);
-
-            if (options == null) {
+            catch
+            {
                 return null;
             }
 
-            if (options.Id != 0 && options.Id > 0) {
-                result = BackersList.Where(u => u.Id == options.Id);
-            }
-
-            if (string.IsNullOrWhiteSpace(options.Name)) {
-                result = BackersList.Where(u => u.Name == options.Name);
-            }
-
-            if (string.IsNullOrWhiteSpace(options.Email)) {
-                result = BackersList.Where(u => u.Email == options.Email);
-            }
-
-            return result.ToList();
+            return newBacker;
         }
 
-        public bool UpdateBacker(int id, UpdateBackerOptions options)
+        public IQueryable<Backer> SearchBacker(SearchBackerOptions options)
         {
-            if(options == null) {
-                return false;
+            if (options == null)
+            {
+                return null;
             }
 
-            if (id <= 0) {
-                return false;
+            var query = context_.
+                Set<Backer>().
+                AsQueryable();
+
+            if (options.Id > 0)
+            {
+                query = query.
+                    Where(b => b.Id == options.Id);
             }
 
-            var user = GetBackerById(id);
-
-            if (user == null) {
-                return false;
+            if (string.IsNullOrWhiteSpace(options.Name))
+            {
+                query = query.
+                    Where(b => b.Name == options.Name);
             }
 
-            if (!string.IsNullOrWhiteSpace(options.Password)) {
+            if (string.IsNullOrWhiteSpace(options.Email))
+            {
+                query = query.Where(b => b.Email == options.Email);
+            }
+
+            return query.Take(500);
+        }
+
+        public Backer UpdateBacker(UpdateBackerOptions options)
+        {
+            if (options == null)
+            {
+                return null;
+            }
+
+            if (options.Id <= 0)
+            {
+                return null;
+            }
+
+            var user = GetBackerById(options.Id);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            //The name needs to be unique
+            var exist = SearchBacker(
+                new SearchBackerOptions()
+                {
+                    Name = options.Name
+                }).Any();
+
+            if (exist)
+            {
+                return null;
+            }
+
+            if (!string.IsNullOrWhiteSpace(options.Password))
+            {
                 user.Password = options.Password;
             }
 
-            if (!string.IsNullOrWhiteSpace(options.Name)) {
+            if (!string.IsNullOrWhiteSpace(options.Name))
+            {
                 user.Name = options.Name;
             }
 
-            return true;
+            context_.Update(user);
+            try
+            {
+                context_.SaveChanges();
+            }
+            catch
+            {
+                return null;
+            }
+
+            return user;
         }
 
         public Backer GetBackerById(int id)
         {
-            if (id <= 0) {
+            if (id <= 0)
+            {
                 return null;
             }
 
-            return BackersList.Where(s => s.Id == id)
-                 .SingleOrDefault();
+            return context_.
+                Set<Backer>().
+                SingleOrDefault(s => s.Id == id);
         }
 
-        //public ICollection<Project> SelectProject(int projectid)
-        //{
-        //    var proj = Project.SearchProject(
-        //        new SearchProjectOptions()
-        //        {
-        //            Id = projectid
-        //        }).SingleOrDefault();
-        //    if(proj == null) {
-        //        return null;
-        //    }
+        public bool SelectProject(int backerId, int projectId)
+        {
+            var proj = Project.SearchProject(
+                new SearchProjectOptions()
+                {
+                    Id = projectId
+                }).SingleOrDefault();
 
-        //    ProjectList.Add(proj);
-        //    return ProjectList;
-        //}
+            if (proj == null)
+            {
+                return false;
+            }
+
+            var backer = GetBackerById(backerId);
+
+            if (backer == null)
+            {
+                return false;
+            }
+
+            var pb = new ProjectBacker()
+            {
+                BackerId = backer.Id,
+                ProjectId = proj.Id,
+                Backer = backer,
+                Project = proj
+            };
+
+            backer.FundedProject.Add(pb);
+            proj.Backers.Add(pb);
+
+            context_.Update(backer);
+            context_.Update(proj);
+            try
+            {
+                context_.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

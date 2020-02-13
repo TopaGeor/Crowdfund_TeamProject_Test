@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Crowdfund_TeamProject.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Crowdfund.Core.Model
 {
-   public class Project
+    public class Project
     {
         /// <summary>
         /// 
@@ -35,7 +35,7 @@ namespace Crowdfund.Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<Backer> Backers { get; set; }
+        public ICollection<ProjectBacker> Backers { get; set; }
 
         /// <summary>
         /// 
@@ -76,7 +76,7 @@ namespace Crowdfund.Core.Model
             Photos = new List<String>();
             Videos = new List<String>();
             Updates = new List<String>();
-            Backers = new List<Backer>();
+            Backers = new List<ProjectBacker>();
         }
 
     }

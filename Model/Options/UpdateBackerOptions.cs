@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Crowdfund.Core.Model.Options
+﻿namespace Crowdfund.Core.Model.Options
 {
-   public class UpdateBackerOptions
+    public class UpdateBackerOptions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Password { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name { get; set; }
     }
 }
