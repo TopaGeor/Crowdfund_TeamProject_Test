@@ -4,14 +4,16 @@ using Crowdfund_TeamProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Crowdfund_TeamProject.Migrations
 {
     [DbContext(typeof(Crowdfund_TeamProjectDbContext))]
-    partial class Crowdfund_TeamProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200213174726_bracker_project")]
+    partial class bracker_project
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,16 +61,12 @@ namespace Crowdfund_TeamProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Creator");
                 });
@@ -96,7 +94,6 @@ namespace Crowdfund_TeamProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -129,6 +126,21 @@ namespace Crowdfund_TeamProject.Migrations
                     b.ToTable("Tier");
                 });
 
+            modelBuilder.Entity("Crowdfund_TeamProject.Model.BackerProject", b =>
+                {
+                    b.Property<int>("BackerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BackerId", "ProjectId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("BackerProject");
+                });
+
             modelBuilder.Entity("Crowdfund.Core.Model.Backer", b =>
                 {
                     b.HasOne("Crowdfund.Core.Model.Project", null)
@@ -148,6 +160,21 @@ namespace Crowdfund_TeamProject.Migrations
                     b.HasOne("Crowdfund.Core.Model.Project", "Project")
                         .WithMany("Tiers")
                         .HasForeignKey("ProjectId");
+                });
+
+            modelBuilder.Entity("Crowdfund_TeamProject.Model.BackerProject", b =>
+                {
+                    b.HasOne("Crowdfund.Core.Model.Backer", "Order")
+                        .WithMany()
+                        .HasForeignKey("BackerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Crowdfund.Core.Model.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

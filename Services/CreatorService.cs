@@ -4,37 +4,56 @@ using System.Linq;
 using System.Text;
 using Crowdfund.Core.Model.Options;
 using Crowdfund.Core.Model;
+using Crowdfund_TeamProject.Data;
+
 
 namespace Crowdfund.Core.Services
 {
     public class CreatorService : ICreatorService
     {
-        ICollection<Creator> CreatorList = new List<Creator>();
-        public bool AddCreator(AddCreatorOptions options)
+        private readonly Crowdfund_TeamProjectDbContext context_;
+
+        public CreatorService( Crowdfund_TeamProjectDbContext context)
+        {
+            context_ = context ??
+                throw new ArgumentException(nameof(context));
+        }
+       
+        
+        public Creator AddCreator(AddCreatorOptions options)
         {
             if (options == null) {
-                return false;
+                return null;
             }
 
             if (string.IsNullOrWhiteSpace(options.Email)) {
-                return false;
+                return null;
             }
 
             if (string.IsNullOrWhiteSpace(options.Name)) {
-                return false;
+                return null;
+            }
+            var existName = SearchCreator(
+                new SearchCreatorOptions()
+                {
+                    Name= options.Name
+                }).Any();
+           
+            if (existName) {
+                return null;
             }
 
             if (string.IsNullOrWhiteSpace(options.Password)) {
-                return false;
+                return null;
             }
 
-            var exist = SearchCreator(
+            var existEmail = SearchCreator(
                 new SearchCreatorOptions() { 
                 Email = options.Email
                 }).Any();
 
-            if(exist) {
-                return false;
+            if(existEmail) {
+                return null;
             }
 
             var newCreator = new Creator()
@@ -44,32 +63,41 @@ namespace Crowdfund.Core.Services
                 Password = options.Password
             };
 
-            if (CreatorList.Contains(newCreator)) {
-                return false;
+            context_.Add(newCreator);
+            try {
+                context_.SaveChanges();
+            } catch (Exception) {
+                return null;
             }
 
-            CreatorList.Add(newCreator);
-            return true;
+            return newCreator;
 
         }
 
-        public ICollection<Creator> SearchCreator(SearchCreatorOptions options)
-        {
-            var result = CreatorList.Take(100);
+        public IQueryable<Creator> SearchCreator(SearchCreatorOptions options)
+        { 
 
             if (options == null) {
                 return null;
             }
+
+            var query = context_
+                .Set<Creator>()
+                .AsQueryable();
+
             if (options.Id != 0 && options.Id > 0) {
-                result = CreatorList.Where(u => u.Id == options.Id);
+                query = query
+                    .Where(c => c.Id == options.Id);
             }
             if (string.IsNullOrWhiteSpace(options.Name)) {
-                result = CreatorList.Where(u => u.Name == options.Name);
+                query = query
+                    .Where(c => c.Name == options.Name);
             }
             if (string.IsNullOrWhiteSpace(options.Email)) {
-                result = CreatorList.Where(u => u.Email == options.Email);
+                query = query
+                    .Where(c => c.Email == options.Email);
             }
-            return result.ToList();
+            return query.Take(500);
         }
 
         public bool UpdateCreator(int id, UpdateCreatorOptions options)
@@ -98,10 +126,13 @@ namespace Crowdfund.Core.Services
 
         public Creator GetCustomerById(int id)
         {
-            if (id <= 0) {
-                return null;
-            }
-            return CreatorList.Where(s => s.Id == id)
+          if (id <= 0) {
+             return null;
+          }
+
+          return context_
+                 .Set<Creator>()
+                 .Where(s => s.Id == id)
                  .SingleOrDefault();
         }
     }

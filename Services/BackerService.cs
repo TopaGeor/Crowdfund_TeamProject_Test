@@ -13,7 +13,7 @@ namespace Crowdfund.Core.Services
 
         ICollection<Project> ProjectList = new List<Project>();
 
-        IProjectService Project = new ProjectService();
+        //IProjectService Project = new ProjectService();
 
         public bool AddBacker(AddBackerOptions options)
         {
@@ -118,19 +118,19 @@ namespace Crowdfund.Core.Services
                  .SingleOrDefault();
         }
 
-        public ICollection<Project> SelectProject(int projectid)
-        {
-            var proj = Project.SearchProject(
-                new SearchProjectOptions()
-                {
-                    Id = projectid
-                }).SingleOrDefault();
-            if(proj == null) {
-                return null;
-            }
+        //public ICollection<Project> SelectProject(int projectid)
+        //{
+        //    var proj = Project.SearchProject(
+        //        new SearchProjectOptions()
+        //        {
+        //            Id = projectid
+        //        }).SingleOrDefault();
+        //    if(proj == null) {
+        //        return null;
+        //    }
 
-            ProjectList.Add(proj);
-            return ProjectList;
-        }
+        //    ProjectList.Add(proj);
+        //    return ProjectList;
+        //}
     }
 }

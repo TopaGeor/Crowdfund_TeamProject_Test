@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Crowdfund.Core.Model;
+using Crowdfund_TeamProject.Model;
 
 namespace Crowdfund_TeamProject.Data
 {
@@ -30,10 +31,34 @@ namespace Crowdfund_TeamProject.Data
             modelBuilder.
                 Entity<Tier>().
                 ToTable("Tier");
+           
 
             modelBuilder.
                 Entity<Project>().
                 ToTable("Project");
+
+            modelBuilder
+                .Entity<Project>()
+                .Property(p => p.Title)
+                .IsRequired();
+
+            modelBuilder.
+                Entity<Creator>().
+                ToTable("Creator");
+
+            modelBuilder
+               .Entity<Creator>()
+               .Property(c => c.Name)
+               .IsRequired();
+
+            modelBuilder
+                .Entity<Creator>()
+                .HasIndex(c => c.Name)
+                .IsUnique();
+
+
+
+
         }
     }
 }

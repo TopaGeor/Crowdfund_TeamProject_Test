@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Crowdfund.Core.Model.Options
 {
-    class SearchProjectOptions
+   public class SearchProjectOptions
     {
         public int Id { get; set; }
         public string Title { get; set; }

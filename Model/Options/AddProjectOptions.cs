@@ -6,7 +6,6 @@ namespace Crowdfund.Core.Model.Options
 {
     class AddProjectOptions
     {
-        public int Id;
         public string Description { get;  set; }
 
         public decimal Goal { get; set; }

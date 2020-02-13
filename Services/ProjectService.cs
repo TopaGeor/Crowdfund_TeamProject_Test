@@ -4,74 +4,91 @@ using System.Linq;
 using System.Text;
 using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
+using Crowdfund_TeamProject.Data;
 
 namespace Crowdfund.Core.Services
 {
     class ProjectService : IProjectService
     {
-        public ICreatorService CrService = new CreatorService();
+        private readonly ICreatorService creator_;
+        private readonly IBackerService backers_;
+        private readonly Crowdfund_TeamProjectDbContext context_;
 
-        public  IBackerService BrService = new BackerService();
+        public ProjectService(
+           ICreatorService creator,
+           BackerService backers,
+           Crowdfund_TeamProjectDbContext context)
+        {
+            creator_ = creator;
+            context_ = context;
+            backers_ = backers;
+        }
 
 
-        ICollection<Project> ProjectsList = new List<Project>();
-        public bool CreateProject(AddProjectOptions options)
+        public Project CreateProject(int creatorId, AddProjectOptions options)
         {
             if(options == null) {
-                return false;
+                return null;
             }
 
-            if(options.Id <= 0) {
-                return false;
+            if(creatorId <= 0) {
+                return null;
             }
 
-            if (ProjectsList.Where(p => p.Id == options.Id) != null) {
-                return false;
+            var creator = creator_.SearchCreator(
+               new SearchCreatorOptions()
+               {
+                   Id = creatorId
+               }).SingleOrDefault();
+
+            if(creator == null) {
+                return null;
             }
+            if (string.IsNullOrWhiteSpace(options.Title)) {
+                return null;
+            }
+
+            var exist = SearchProject(
+                new SearchProjectOptions(){
+                    Title = options.Title
+                }).Any();
+            if (exist) {
+                return null;
+            }
+
 
             if (options.Goal <= 0.00M) {
-                return false;
+                return null;
             }
 
-            foreach (var p in options.Photo) {
-                if (string.IsNullOrWhiteSpace(p)) {
-                    return false;
+            if (options.Photo.Count > 0) {
+                foreach (var p in options.Photo) {
+                    if (string.IsNullOrWhiteSpace(p)) {
+                        return null;
+                    }
                 }
             }
 
             if (string.IsNullOrWhiteSpace(options.Description)) {
-                return false;
+                return null;
             }
 
-            foreach (var v in options.Video) {
-                if (string.IsNullOrWhiteSpace(v)) {
-                    return false;
+            if (options.Video.Count > 0) {
+                foreach (var v in options.Video) {
+                    if (string.IsNullOrWhiteSpace(v)) {
+                        return null;
+                    }
                 }
             }
 
-            if (string.IsNullOrWhiteSpace(options.Title)) {
-                return false;
-            }
-
-            var creator = CrService.SearchCreator(
-                new SearchCreatorOptions()
-                {
-                    Id = options.Creator.Id
-                });
-
-            if(creator == null) {
-                return false;
-            }
-
             if(options.Category == ProjectCategory.Invalid) {
-                return false;
+                return null;
             }
 
             var newProj = new Project() {
-                Id = options.Id,
                 Description = options.Description,
                 Title = options.Title,
-                Creator = creator.SingleOrDefault(),
+                Creator = creator,
                 Category = options.Category,
                 Status = ProjectStatus.Running,
                 Goal = options.Goal,
@@ -79,87 +96,95 @@ namespace Crowdfund.Core.Services
                 Videos = options.Video
             };
 
-            if (ProjectsList.Contains(newProj)) {
-                return false;
+            context_.Add(newProj);
+            try {
+                context_.SaveChanges();
+            } catch (Exception) {
+                return null;
             }
 
-            ProjectsList.Add(newProj);
-            return true;
+            return newProj;
         }
 
     
 
-        public ICollection<Project> SearchProject(SearchProjectOptions options)
+        public IQueryable<Project> SearchProject(SearchProjectOptions options)
         {
-            var result = ProjectsList.Take(100);
+            
             if(options == null) {
                 return null;
             }
+            var query = context_
+                .Set<Project>()
+                .AsQueryable();
 
-            if(options.Id >0 ) {
-                result = ProjectsList
-                    .Where(p => p.Id == options.Id);  
+            if (options.Id >0 ) {
+                query = query
+                     .Where(p => p.Id == options.Id);
             }
 
             if (!string.IsNullOrWhiteSpace(options.Title)) {
-                result = ProjectsList.Where(p => p.Title == options.Title);
+                query = query
+                    .Where(p => p.Title == options.Title);
             }
-            var creator = CrService.SearchCreator(
+            var creator = creator_.SearchCreator(
                 new SearchCreatorOptions()
                 {
                     Id = options.Creator.Id
-                }
-                );
+                }).SingleOrDefault();
 
             if(creator != null) {
-                result = ProjectsList.Where(p => p.Creator == options.Creator);
+                query = query
+                    .Where(p => p.Creator == creator);
             }
 
             if(options.Category != ProjectCategory.Invalid) {
-                result = ProjectsList.Where(p => p.Category == options.Category);
+                query = query
+                    .Where(p => p.Category == options.Category);
             }
 
             if(options.Status == ProjectStatus.Running) {
-                result = ProjectsList.Where(p => p.Status == options.Status);
+                query = query
+                    .Where(p => p.Status == options.Status);
             }
 
-            return result.ToList();
+            return query.Take(500);
         }
 
-        public bool UpdateProject(int id, UpdateProjectOptions options)
+        public bool UpdateProject(int Projectid, UpdateProjectOptions options)
         {
             if (options == null) {
                 return false;
             }
 
-            if (id <= 0) {
+            if (Projectid <= 0) {
                 return false;
             }
 
-            var proj = SearchProject(
-                new SearchProjectOptions()
-                {
-                    Id = id
-                }).SingleOrDefault();
-            if (proj == null) {
+            var project = SearchProject(
+                new SearchProjectOptions(){
+                 Id = Projectid})
+                .SingleOrDefault();
+
+            if (project == null) {
                 return false;
             }
             if (string.IsNullOrWhiteSpace(options.Description)) {
-                proj.Description = options.Description;
+                project.Description = options.Description;
             }
             foreach (var p in options.Photo) {
                 if (string.IsNullOrWhiteSpace(p)) {
-                    proj.Photos.Add(p);
+                    project.Photos.Add(p);
                 }
             }
             foreach (var v in options.Video) {
                 if (string.IsNullOrWhiteSpace(v)) {
-                    proj.Videos.Add(v);
+                    project.Videos.Add(v);
                 }
             }
         
             if(options.Status != ProjectStatus.Invalid) {
-                proj.Status = options.Status;
+                project.Status = options.Status;
             }
 
             return true;

@@ -14,7 +14,7 @@ namespace Crowdfund.Core.Services
 
         ICollection<Backer> SearchBacker(SearchBackerOptions options);
 
-        ICollection<Project> SelectProject(int projectid);
+        //ICollection<Project> SelectProject(int projectid);
 
        
     }
