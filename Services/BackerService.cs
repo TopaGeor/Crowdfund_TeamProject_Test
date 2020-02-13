@@ -56,7 +56,6 @@ namespace Crowdfund.Core.Services
 
             BackersList.Add(newBacker);
             return true;
-
         }
 
         public ICollection<Backer> SearchBacker(SearchBackerOptions options)
@@ -66,15 +65,19 @@ namespace Crowdfund.Core.Services
             if (options == null) {
                 return null;
             }
+
             if (options.Id != 0 && options.Id > 0) {
                 result = BackersList.Where(u => u.Id == options.Id);
             }
+
             if (string.IsNullOrWhiteSpace(options.Name)) {
                 result = BackersList.Where(u => u.Name == options.Name);
             }
+
             if (string.IsNullOrWhiteSpace(options.Email)) {
                 result = BackersList.Where(u => u.Email == options.Email);
             }
+
             return result.ToList();
         }
 
@@ -83,21 +86,24 @@ namespace Crowdfund.Core.Services
             if(options == null) {
                 return false;
             }
+
             if (id <= 0) {
                 return false;
             }
+
             var user = GetBackerById(id);
 
             if (user == null) {
                 return false;
             }
+
             if (!string.IsNullOrWhiteSpace(options.Password)) {
                 user.Password = options.Password;
             }
+
             if (!string.IsNullOrWhiteSpace(options.Name)) {
                 user.Name = options.Name;
             }
-
 
             return true;
         }
@@ -107,6 +113,7 @@ namespace Crowdfund.Core.Services
             if (id <= 0) {
                 return null;
             }
+
             return BackersList.Where(s => s.Id == id)
                  .SingleOrDefault();
         }
@@ -124,7 +131,6 @@ namespace Crowdfund.Core.Services
 
             ProjectList.Add(proj);
             return ProjectList;
-            
         }
     }
 }
