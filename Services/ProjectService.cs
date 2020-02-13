@@ -42,6 +42,7 @@ namespace Crowdfund.Core.Services
             if (string.IsNullOrWhiteSpace(options.Description)) {
                 return false;
             }
+
             foreach (var v in options.Video) {
                 if (string.IsNullOrWhiteSpace(v)) {
                     return false;
@@ -51,6 +52,7 @@ namespace Crowdfund.Core.Services
             if (string.IsNullOrWhiteSpace(options.Title)) {
                 return false;
             }
+
             var creator = CrService.SearchCreator(
                 new SearchCreatorOptions()
                 {
@@ -75,12 +77,12 @@ namespace Crowdfund.Core.Services
                 Goal = options.Goal,
                 Photos = options.Photo,
                 Videos = options.Video
-                };
-
+            };
 
             if (ProjectsList.Contains(newProj)) {
                 return false;
             }
+
             ProjectsList.Add(newProj);
             return true;
         }

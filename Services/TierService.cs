@@ -1,14 +1,17 @@
 ﻿using Crowdfund.Core.Model;
+using Crowdfund_TeamProject.Data;
 using Crowdfund_TeamProject.Model.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Crowdfund_TeamProject.Services
 {
     public class TierService : ITierService
     {
-        ICollection<Tier> TierList = new List<Tier>();
+        private readonly Crowdfund_TeamProjectDbContext context_;
+
+        public TierService(Crowdfund_TeamProjectDbContext context)
+        {
+            context_ = context;
+        }
 
         public Tier AddTierService(AddTierOptions options)
         {
@@ -44,7 +47,16 @@ namespace Crowdfund_TeamProject.Services
                 Description = options.Description
             };
 
-            TierList.Add(tier);
+            context_.Add(tier);
+            try
+            {
+                context_.SaveChanges();
+            }
+            catch
+            {
+                return null;
+            }
+
             return tier;
         }
 
@@ -72,15 +84,29 @@ namespace Crowdfund_TeamProject.Services
                 tier.Description = options.Description;
             }
 
+            context_.Update(tier);
+            try
+            {
+                context_.SaveChanges();
+            }
+            catch
+            {
+                return null;
+            }
+
             return tier;
         }
 
         public Tier GetTierById(int id)
         {
             if (id < 1)
+            {
                 return null;
+            }
 
-            return TierList.SingleOrDefault(t => t.Id == id);
+            return context_.
+                Set<Tier>().
+                Find(id);
         }
     }
 }

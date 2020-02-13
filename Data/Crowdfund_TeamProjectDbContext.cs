@@ -26,6 +26,14 @@ namespace Crowdfund_TeamProject.Data
             modelBuilder.
                 Entity<Backer>().
                 ToTable("Backer");
+
+            modelBuilder.
+                Entity<Tier>().
+                ToTable("Tier");
+
+            modelBuilder.
+                Entity<Project>().
+                ToTable("Project");
         }
     }
 }

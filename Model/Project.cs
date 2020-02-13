@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Crowdfund.Core.Model
@@ -51,16 +52,19 @@ namespace Crowdfund.Core.Model
         /// </summary>
         public ICollection<Tier> Tiers { get; set; }
 
+        [NotMapped]
         /// <summary>
         /// 
         /// </summary>
         public ICollection<String> Photos { get; set; }
 
+        [NotMapped]
         /// <summary>
         /// 
         /// </summary>
         public ICollection<String> Videos { get; set; }
 
+        [NotMapped]
         /// <summary>
         /// 
         /// </summary>
