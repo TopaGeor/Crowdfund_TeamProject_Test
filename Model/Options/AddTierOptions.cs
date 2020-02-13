@@ -1,21 +1,12 @@
-﻿using System;
+﻿using Crowdfund.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Crowdfund.Core.Model
+namespace Crowdfund_TeamProject.Model.Options
 {
-   public class Tiers
+    public class AddTierOptions
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int TotalTiers { get; set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -24,7 +15,7 @@ namespace Crowdfund.Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public decimal Amount { get; set; }
+        public decimal Ammount { get; set; }
 
         /// <summary>
         /// 
