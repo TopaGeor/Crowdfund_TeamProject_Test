@@ -8,7 +8,7 @@ namespace Crowdfund.Core.Services
 {
   public  interface IBackerService
     {
-        bool AddBacker( AddCBackerOptions options);
+        bool AddBacker(AddBackerOptions options);
 
         bool UpdateBacker(int id, UpdateBackerOptions options);
 

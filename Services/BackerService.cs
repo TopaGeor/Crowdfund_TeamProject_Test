@@ -15,7 +15,7 @@ namespace Crowdfund.Core.Services
 
         IProjectService Project = new ProjectService();
 
-        public bool AddBacker(AddCBackerOptions options)
+        public bool AddBacker(AddBackerOptions options)
         {
             if (options == null) {
                 return false;
