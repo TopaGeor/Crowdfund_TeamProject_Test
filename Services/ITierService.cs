@@ -1,7 +1,7 @@
 ﻿using Crowdfund.Core.Model;
 using Crowdfund_TeamProject.Model.Options;
 
-namespace Crowdfund_TeamProject.Services
+namespace Crowdfund.Core.Services
 {
     public interface ITierService
     {

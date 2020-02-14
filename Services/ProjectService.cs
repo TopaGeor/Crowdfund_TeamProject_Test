@@ -54,6 +54,19 @@ namespace Crowdfund.Core.Services
                 return null;
             }
 
+            if(options.TiersId == null ||
+              options.TiersId.Count == 0) {
+                return null;
+            }
+
+           var  tiers = context_
+                .Set<Tier>()
+                .Where(t => options.TiersId.Contains(t.Id))
+                .ToList();
+
+            if (tiers.Count != options.TiersId.Count) {
+                return null;
+            }
 
             if (options.Goal <= 0.00M) {
                 return null;
@@ -93,6 +106,10 @@ namespace Crowdfund.Core.Services
                 Photos = options.Photo,
                 Videos = options.Video
             };
+
+            foreach (var t in tiers) {
+                newProj.Tiers.Add(t);
+                   }
 
             context_.Add(newProj);
             try {

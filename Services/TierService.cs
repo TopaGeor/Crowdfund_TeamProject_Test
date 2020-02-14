@@ -2,7 +2,7 @@
 using Crowdfund_TeamProject.Data;
 using Crowdfund_TeamProject.Model.Options;
 
-namespace Crowdfund_TeamProject.Services
+namespace Crowdfund.Core.Services
 {
     public class TierService : ITierService
     {

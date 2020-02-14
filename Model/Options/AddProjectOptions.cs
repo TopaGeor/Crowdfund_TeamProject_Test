@@ -16,6 +16,7 @@ namespace Crowdfund.Core.Model.Options
 
         public ProjectCategory Category { get; set; }
 
+        public ICollection<int> TiersId { get; set; }
 
         public ICollection<string> Photo { get; set; }
 
