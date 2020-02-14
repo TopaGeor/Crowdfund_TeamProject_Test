@@ -22,7 +22,6 @@ namespace Crowdfund.Core.Services
             backers_ = backers;
         }
 
-
         public Project CreateProject(int creatorId, AddProjectOptions options)
         {
             if(options == null) {
@@ -42,6 +41,7 @@ namespace Crowdfund.Core.Services
             if(creator == null) {
                 return null;
             }
+
             if (string.IsNullOrWhiteSpace(options.Title)) {
                 return null;
             }
@@ -50,10 +50,10 @@ namespace Crowdfund.Core.Services
                 new SearchProjectOptions(){
                     Title = options.Title
                 }).Any();
+
             if (exist) {
                 return null;
             }
-
 
             if (options.Goal <= 0.00M) {
                 return null;
@@ -104,14 +104,13 @@ namespace Crowdfund.Core.Services
             return newProj;
         }
 
-    
-
         public IQueryable<Project> SearchProject(SearchProjectOptions options)
         {
             
             if(options == null) {
                 return null;
             }
+
             var query = context_
                 .Set<Project>()
                 .AsQueryable();
@@ -125,6 +124,7 @@ namespace Crowdfund.Core.Services
                 query = query
                     .Where(p => p.Title == options.Title);
             }
+
             var creator = creator_.SearchCreator(
                 new SearchCreatorOptions()
                 {
@@ -167,14 +167,17 @@ namespace Crowdfund.Core.Services
             if (project == null) {
                 return false;
             }
+
             if (string.IsNullOrWhiteSpace(options.Description)) {
                 project.Description = options.Description;
             }
+
             foreach (var p in options.Photo) {
                 if (string.IsNullOrWhiteSpace(p)) {
                     project.Photos.Add(p);
                 }
             }
+
             foreach (var v in options.Video) {
                 if (string.IsNullOrWhiteSpace(v)) {
                     project.Videos.Add(v);

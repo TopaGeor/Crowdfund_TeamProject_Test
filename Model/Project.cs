@@ -70,6 +70,9 @@ namespace Crowdfund.Core.Model
         /// </summary>
         public ICollection<String> Updates { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Project()
         {
             Tiers = new List<Tier>();

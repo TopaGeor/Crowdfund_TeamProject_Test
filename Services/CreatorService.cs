@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
-using Crowdfund.Core.Model;
 using Crowdfund_TeamProject.Data;
+using System;
+using System.Linq;
 
 
 namespace Crowdfund.Core.Services
@@ -19,7 +17,6 @@ namespace Crowdfund.Core.Services
                 throw new ArgumentException(nameof(context));
         }
        
-        
         public Creator AddCreator(AddCreatorOptions options)
         {
             if (options == null) {
@@ -33,6 +30,7 @@ namespace Crowdfund.Core.Services
             if (string.IsNullOrWhiteSpace(options.Name)) {
                 return null;
             }
+
             var existName = SearchCreator(
                 new SearchCreatorOptions()
                 {
@@ -64,6 +62,7 @@ namespace Crowdfund.Core.Services
             };
 
             context_.Add(newCreator);
+
             try {
                 context_.SaveChanges();
             } catch (Exception) {
@@ -89,14 +88,17 @@ namespace Crowdfund.Core.Services
                 query = query
                     .Where(c => c.Id == options.Id);
             }
+
             if (string.IsNullOrWhiteSpace(options.Name)) {
                 query = query
                     .Where(c => c.Name == options.Name);
             }
+
             if (string.IsNullOrWhiteSpace(options.Email)) {
                 query = query
                     .Where(c => c.Email == options.Email);
             }
+
             return query.Take(500);
         }
 
@@ -105,35 +107,38 @@ namespace Crowdfund.Core.Services
             if (options == null) {
                 return false;
             }
+
             if (id <= 0) {
                 return false;
             }
+
             var user = GetCustomerById(id);
 
             if (user == null) {
                 return false;
             }
+
             if (!string.IsNullOrWhiteSpace(options.Password)) {
                 user.Password = options.Password;
             }
+
             if (!string.IsNullOrWhiteSpace(options.Name)) {
                 user.Name = options.Name;
             }
-
 
             return true;
         }
 
         public Creator GetCustomerById(int id)
         {
-          if (id <= 0) {
-             return null;
-          }
+            if (id <= 0) {
+                 return null;
+            }
 
-          return context_
-                 .Set<Creator>()
-                 .Where(s => s.Id == id)
-                 .SingleOrDefault();
+            return context_
+                .Set<Creator>()
+                .Where(s => s.Id == id)
+                .SingleOrDefault();
         }
     }
 }
