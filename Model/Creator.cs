@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Crowdfund.Core.Model
 {
-  public  class Creator 
+    public  class Creator 
     {
         /// <summary>
         /// 
@@ -28,7 +26,9 @@ namespace Crowdfund.Core.Model
 
         ICollection<Project> CreatedProject { get; set; }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public Creator()
         {
             CreatedProject = new List<Project>();

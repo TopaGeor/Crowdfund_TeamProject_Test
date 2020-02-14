@@ -1,16 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Crowdfund.Core.Model.Options
+﻿namespace Crowdfund.Core.Model.Options
 {
-   public class SearchProjectOptions
+    public class SearchProjectOptions
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public int Id { get; set; }
-        public string Title { get; set; }
-        public Creator Creator { get; set; }
-        public ProjectStatus Status { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Creator Creator { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ProjectStatus Status { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public ProjectCategory Category { get; set; }
     }
 }
