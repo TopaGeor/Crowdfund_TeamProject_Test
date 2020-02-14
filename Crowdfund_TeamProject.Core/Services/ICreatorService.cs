@@ -19,7 +19,7 @@ namespace Crowdfund.Core.Services
         /// <param name="id"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        bool UpdateCreator(int id, UpdateCreatorOptions options);
+        Creator UpdateCreator(int id, UpdateCreatorOptions options);
 
         /// <summary>
         /// 

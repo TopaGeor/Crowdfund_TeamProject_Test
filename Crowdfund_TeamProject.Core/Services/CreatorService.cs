@@ -102,20 +102,30 @@ namespace Crowdfund.Core.Services
             return query.Take(500);
         }
 
-        public bool UpdateCreator(int id, UpdateCreatorOptions options)
+        public Creator UpdateCreator(int id, UpdateCreatorOptions options)
         {
             if (options == null) {
-                return false;
+                return null;
             }
 
             if (id <= 0) {
-                return false;
+                return null;
             }
 
-            var user = GetCustomerById(id);
+            var user = GetCreatorById(id);
 
             if (user == null) {
-                return false;
+                return null;
+            }
+
+            var exist = SearchCreator(
+               new SearchCreatorOptions()
+               {
+                   Name = options.Name
+               }).Any();
+
+            if (exist) {
+                return null;
             }
 
             if (!string.IsNullOrWhiteSpace(options.Password)) {
@@ -126,10 +136,17 @@ namespace Crowdfund.Core.Services
                 user.Name = options.Name;
             }
 
-            return true;
-        }
+            context_.Update(user);
+            try {
+                context_.SaveChanges();
+            } catch {
+                return null;
+            }
 
-        public Creator GetCustomerById(int id)
+            return user;
+          }
+
+        public Creator GetCreatorById(int id)
         {
             if (id <= 0) {
                  return null;
@@ -140,5 +157,7 @@ namespace Crowdfund.Core.Services
                 .Where(s => s.Id == id)
                 .SingleOrDefault();
         }
+
+        
     }
 }

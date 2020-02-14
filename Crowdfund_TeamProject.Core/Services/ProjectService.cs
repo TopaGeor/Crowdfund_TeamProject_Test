@@ -167,14 +167,14 @@ namespace Crowdfund.Core.Services
             return query.Take(500);
         }
 
-        public bool UpdateProject(int Projectid, UpdateProjectOptions options)
+        public Project UpdateProject(int Projectid, UpdateProjectOptions options)
         {
             if (options == null) {
-                return false;
+                return null;
             }
 
             if (Projectid <= 0) {
-                return false;
+                return null;
             }
 
             var project = SearchProject(
@@ -183,7 +183,7 @@ namespace Crowdfund.Core.Services
                 .SingleOrDefault();
 
             if (project == null) {
-                return false;
+                return null;
             }
 
             if (string.IsNullOrWhiteSpace(options.Description)) {
@@ -206,7 +206,14 @@ namespace Crowdfund.Core.Services
                 project.Status = options.Status;
             }
 
-            return true;
+            context_.Update(project);
+            try {
+                context_.SaveChanges();
+            } catch {
+                return null;
+            }
+
+            return project;
         }
     }
 }

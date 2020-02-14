@@ -20,7 +20,7 @@ namespace Crowdfund.Core.Services
         /// <param name="Projectid"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        bool UpdateProject(int Projectid, UpdateProjectOptions options);
+        Project UpdateProject(int Projectid, UpdateProjectOptions options);
 
         /// <summary>
         /// 
