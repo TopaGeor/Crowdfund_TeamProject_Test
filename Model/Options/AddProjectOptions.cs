@@ -32,6 +32,8 @@ namespace Crowdfund.Core.Model.Options
         /// <summary>
         /// 
         /// </summary>
+        public ICollection<int> TiersId { get; set; }
+
         public ICollection<string> Photo { get; set; }
 
         /// <summary>
