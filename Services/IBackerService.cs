@@ -1,21 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Crowdfund.Core.Model;
+﻿using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
+using System.Linq;
 
 namespace Crowdfund.Core.Services
 {
-  public  interface IBackerService
+    public  interface IBackerService
     {
-        bool AddBacker(AddBackerOptions options);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        Backer AddBacker(AddBackerOptions options);
 
-        bool UpdateBacker(int id, UpdateBackerOptions options);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        Backer UpdateBacker(UpdateBackerOptions options);
 
-        ICollection<Backer> SearchBacker(SearchBackerOptions options);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        IQueryable<Backer> SearchBacker(SearchBackerOptions options);
 
-        //ICollection<Project> SelectProject(int projectid);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Backer GetBackerById(int id);
 
-       
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="backerId"></param>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        bool SelectProject(int backerId, int projectId);
+
     }
 }

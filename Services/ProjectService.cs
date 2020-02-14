@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Crowdfund.Core.Model;
+﻿using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
 using Crowdfund_TeamProject.Data;
+using System;
+using System.Linq;
 
 namespace Crowdfund.Core.Services
 {

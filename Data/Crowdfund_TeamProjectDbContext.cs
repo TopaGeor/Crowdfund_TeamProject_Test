@@ -31,7 +31,16 @@ namespace Crowdfund_TeamProject.Data
             modelBuilder.
                 Entity<Tier>().
                 ToTable("Tier");
-           
+
+            modelBuilder.
+                Entity<Backer>().
+                HasIndex(b => b.Name).
+                IsUnique();
+
+            modelBuilder.
+                Entity<Backer>().
+                HasIndex(b => b.Email).
+                IsUnique();
 
             modelBuilder.
                 Entity<Project>().
@@ -56,9 +65,9 @@ namespace Crowdfund_TeamProject.Data
                 .HasIndex(c => c.Name)
                 .IsUnique();
 
-
-
-
+            modelBuilder
+                .Entity<ProjectBacker>()
+                .HasKey(pb => new { pb.BackerId, pb.ProjectId });
         }
     }
 }
