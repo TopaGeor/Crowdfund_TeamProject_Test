@@ -6,7 +6,7 @@ using Crowdfund.Core.Services;
 
 namespace Crowdfund_TeamProject
 {
-    class ServiceRegistrator
+    public class ServiceRegistrator
     {
         public static IContainer GetContainer()
         {
