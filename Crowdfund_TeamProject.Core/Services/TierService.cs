@@ -1,6 +1,10 @@
 ﻿using Crowdfund.Core.Model;
+using Crowdfund_TeamProject.Core;
 using Crowdfund_TeamProject.Data;
 using Crowdfund_TeamProject.Model.Options;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Crowdfund.Core.Services
 {
@@ -13,31 +17,36 @@ namespace Crowdfund.Core.Services
             context_ = context;
         }
 
-        public Tier AddTierService(AddTierOptions options)
+        public async Task<ApiResult<Tier>> AddTierServiceAsync(AddTierOptions options)
         {
             if (options == null)
             {
-                return null;
+                return new ApiResult<Tier>
+                     (StatusCode.BadRequest, $"null {options}");
             }
 
             if (options.Project == null)
             {
-                return null;
+                return new ApiResult<Tier>
+                    (StatusCode.BadRequest, $"not valid {options.Project}");
             }
 
             if (options.Project.Id < 1)
             {
-                return null;
+                return new ApiResult<Tier>
+                    (StatusCode.BadRequest, $"not valid {options.Project.Id}");
             }
 
             if (options.Ammount < 1)
             {
-                return null;
+                return new ApiResult<Tier>
+                     (StatusCode.BadRequest, $"not valid {options.Ammount}");
             }
 
             if (string.IsNullOrWhiteSpace(options.Description))
             {
-                return null;
+                return new ApiResult<Tier>
+                    (StatusCode.BadRequest, $"not valid {options.Description}");
             }
 
             Tier tier = new Tier()
@@ -47,66 +56,76 @@ namespace Crowdfund.Core.Services
                 Description = options.Description
             };
 
-            context_.Add(tier);
+           await context_.AddAsync(tier);
             try
             {
-                context_.SaveChanges();
+              await  context_.SaveChangesAsync();
             }
             catch
             {
-                return null;
+                return new ApiResult<Tier>
+                     (StatusCode.InternalServerError,
+                       "Error Save Tier");
             }
 
-            return tier;
+            return ApiResult<Tier>
+                    .CreateSuccess(tier);
         }
 
-        public Tier UpdateTierService(UpdateTierOptions options)
+        public async Task<ApiResult<Tier>> UpdateTierServiceAsync(int id, UpdateTierOptions options)
         {
-            if (options.Id < 1)
-            {
-                return null;
+            if (options == null) {
+                return new ApiResult<Tier>
+                   (StatusCode.BadRequest, $"null {options}");
             }
 
-            Tier tier = GetTierById(options.Id);
+            if (id < 1)
+            {
+                return new ApiResult<Tier>
+                   (StatusCode.BadRequest, $"not valid  {id}");
+            }
+
+            var tier =  await GetTierByIdAsync(id);
 
             if (tier == null)
             {
-                return null;
+                return new ApiResult<Tier>
+                   (StatusCode.NotFound, $"not found {tier}");
             }
 
             if(options.Ammount > 0)
             {
-                tier.Amount = options.Ammount;
+                tier.Data.Amount = options.Ammount;
             }
 
             if(!string.IsNullOrWhiteSpace(options.Description))
             {
-                tier.Description = options.Description;
+                tier.Data.Description = options.Description;
             }
 
-            context_.Update(tier);
-            try
-            {
-                context_.SaveChanges();
-            }
-            catch
-            {
-                return null;
-            }
-
-            return tier;
+           return ApiResult<Tier>.CreateSuccess(tier.Data);
         }
 
-        public Tier GetTierById(int id)
+        public async Task<ApiResult<Tier>> GetTierByIdAsync(int id)
         {
             if (id < 1)
             {
-                return null;
+                return new ApiResult<Tier>(
+                   StatusCode.BadRequest, $"not valid {id}");
+
             }
 
-            return context_.
-                Set<Tier>().
-                Find(id);
+            var result = await context_
+                        .Set<Tier>()
+                        .Where(t => t.Id == id)
+                        .SingleOrDefaultAsync();
+
+            if (result == null) {
+                return new ApiResult<Tier>(
+                     StatusCode.NotFound, $"this {result} dont exist");
+            }
+
+            return ApiResult<Tier>.CreateSuccess(result);
         }
     }
 }

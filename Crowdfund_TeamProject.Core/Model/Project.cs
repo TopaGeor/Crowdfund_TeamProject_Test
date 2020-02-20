@@ -35,12 +35,12 @@ namespace Crowdfund.Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<ProjectBacker> Backers { get; set; }
+        public Backer Backer { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ProjectStatus Status { get; set; }
+        public DateTimeOffset ExplirationDate { get; set; }
 
         /// <summary>
         /// 
@@ -79,7 +79,6 @@ namespace Crowdfund.Core.Model
             Photos = new List<String>();
             Videos = new List<String>();
             Updates = new List<String>();
-            Backers = new List<ProjectBacker>();
         }
 
     }

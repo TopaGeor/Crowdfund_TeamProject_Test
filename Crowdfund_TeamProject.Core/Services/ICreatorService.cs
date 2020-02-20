@@ -1,6 +1,8 @@
 ﻿using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
+using Crowdfund_TeamProject.Core;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Crowdfund.Core.Services
 {
@@ -11,7 +13,7 @@ namespace Crowdfund.Core.Services
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        Creator AddCreator(AddCreatorOptions options);
+       Task<ApiResult<Creator>> AddCreatorAsync(AddCreatorOptions options);
 
         /// <summary>
         /// 
@@ -19,7 +21,7 @@ namespace Crowdfund.Core.Services
         /// <param name="id"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        Creator UpdateCreator(int id, UpdateCreatorOptions options);
+        Task<ApiResult<Creator>> UpdateCreatorAsync(int id, UpdateCreatorOptions options);
 
         /// <summary>
         /// 

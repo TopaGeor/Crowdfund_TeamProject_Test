@@ -19,11 +19,6 @@ namespace Crowdfund.Core.Model
         /// </summary>
         public string Email { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Password { get; set; }
-
         ICollection<Project> CreatedProject { get; set; }
 
         /// <summary>
@@ -33,6 +28,5 @@ namespace Crowdfund.Core.Model
         {
             CreatedProject = new List<Project>();
         }
-
     }
 }

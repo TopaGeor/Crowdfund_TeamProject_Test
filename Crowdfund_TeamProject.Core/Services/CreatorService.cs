@@ -1,9 +1,11 @@
 ﻿using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
+using Crowdfund_TeamProject.Core;
 using Crowdfund_TeamProject.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace Crowdfund.Core.Services
 {
@@ -17,59 +19,63 @@ namespace Crowdfund.Core.Services
                 throw new ArgumentException(nameof(context));
         }
        
-        public Creator AddCreator(AddCreatorOptions options)
+        public async Task<ApiResult<Creator>> AddCreatorAsync(AddCreatorOptions options)
         {
             if (options == null) {
-                return null;
+                return new ApiResult<Creator>
+                    (StatusCode.BadRequest, $"null {options}");
             }
 
             if (string.IsNullOrWhiteSpace(options.Email)) {
-                return null;
+                return new ApiResult<Creator>
+                   (StatusCode.BadRequest, $"null {options.Email} ");
             }
 
             if (string.IsNullOrWhiteSpace(options.Name)) {
-                return null;
+                return new ApiResult<Creator>
+                   (StatusCode.BadRequest, $"null {options.Name}");
             }
 
-            var existName = SearchCreator(
+            var existName =  await SearchCreator(
                 new SearchCreatorOptions()
                 {
                     Name= options.Name
-                }).Any();
-           
+                }).AnyAsync();
+
             if (existName) {
-                return null;
+                return new ApiResult<Creator>
+                    (StatusCode.Conflict, "creator already exist");
             }
 
-            if (string.IsNullOrWhiteSpace(options.Password)) {
-                return null;
-            }
-
-            var existEmail = SearchCreator(
+            var existEmail = await SearchCreator(
                 new SearchCreatorOptions() { 
                 Email = options.Email
-                }).Any();
+                }).AnyAsync();
 
             if(existEmail) {
-                return null;
+                return new ApiResult<Creator>
+                     (StatusCode.Conflict, "this email address already used");
             }
 
             var newCreator = new Creator()
             {
                 Email = options.Email,
                 Name = options.Name,
-                Password = options.Password
             };
 
-            context_.Add(newCreator);
+           await context_.AddAsync(newCreator);
 
             try {
-                context_.SaveChanges();
+               await context_.SaveChangesAsync();
             } catch (Exception) {
-                return null;
+
+                return new ApiResult<Creator>
+                    (StatusCode.InternalServerError,
+                      "Error Save creator account");
             }
 
-            return newCreator;
+            return ApiResult<Creator>
+                    .CreateSuccess(newCreator);
 
         }
 
@@ -102,60 +108,64 @@ namespace Crowdfund.Core.Services
             return query.Take(500);
         }
 
-        public Creator UpdateCreator(int id, UpdateCreatorOptions options)
+        public async Task<ApiResult<Creator>> UpdateCreatorAsync(int id, UpdateCreatorOptions options)
         {
             if (options == null) {
-                return null;
+                return new ApiResult<Creator>
+                   (StatusCode.BadRequest, $"null {options}");
             }
 
             if (id <= 0) {
-                return null;
+                return new ApiResult<Creator>
+                   (StatusCode.BadRequest, $"not valid creator {id}");
             }
 
-            var user = GetCreatorById(id);
+            var user = await GetCreatorByIdAsync(id);
 
             if (user == null) {
-                return null;
+                return new ApiResult<Creator>
+                   (StatusCode.NotFound, $"not found {user}");
             }
 
-            var exist = SearchCreator(
+            var exist = await SearchCreator(
                new SearchCreatorOptions()
                {
                    Name = options.Name
-               }).Any();
+               }).AnyAsync();
 
             if (exist) {
-                return null;
-            }
-
-            if (!string.IsNullOrWhiteSpace(options.Password)) {
-                user.Password = options.Password;
+                return new ApiResult<Creator>
+                       (StatusCode.Conflict, "this name already used");
             }
 
             if (!string.IsNullOrWhiteSpace(options.Name)) {
-                user.Name = options.Name;
+                user.Data.Name = options.Name;
             }
 
-            context_.Update(user);
-            try {
-                context_.SaveChanges();
-            } catch {
-                return null;
-            }
+            return ApiResult<Creator>
+                    .CreateSuccess(user.Data);
+        }
 
-            return user;
-          }
-
-        public Creator GetCreatorById(int id)
+        public async Task<ApiResult<Creator>> GetCreatorByIdAsync(int id)
         {
             if (id <= 0) {
-                 return null;
+                return new ApiResult<Creator>(
+                   StatusCode.BadRequest, $"not valid {id}");
             }
 
-            return context_
+            var result =  await context_
                 .Set<Creator>()
                 .Where(s => s.Id == id)
-                .SingleOrDefault();
+                .SingleOrDefaultAsync();
+
+            if (result == null) {
+                return new ApiResult<Creator>(
+                     StatusCode.NotFound, $"this {result} dont exist");
+            }
+
+            return ApiResult<Creator>.CreateSuccess(result);
+
+
         }
 
         

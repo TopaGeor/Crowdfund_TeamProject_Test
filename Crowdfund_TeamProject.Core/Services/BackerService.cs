@@ -1,69 +1,77 @@
 ﻿using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
+using Crowdfund_TeamProject.Core;
 using Crowdfund_TeamProject.Data;
 using Crowdfund_TeamProject.Model;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Crowdfund.Core.Services
 {
     public class BackerService : IBackerService
     {
         readonly private Crowdfund_TeamProjectDbContext context_;
-        readonly private IProjectService Project;
+        readonly private IProjectService project_;
 
-        public BackerService(Crowdfund_TeamProjectDbContext context)
+        public BackerService(Crowdfund_TeamProjectDbContext context,
+           IProjectService prsv )
         {
             context_ = context;
-            Project = new ProjectService(
-                new CreatorService(new Crowdfund_TeamProjectDbContext()),
-                new BackerService(new Crowdfund_TeamProjectDbContext()),
-                new Crowdfund_TeamProjectDbContext());
+            project_ = prsv;
         }
 
-        public Backer AddBacker(AddBackerOptions options)
+        public  async Task<ApiResult<Backer>> AddBackerAsync(AddBackerOptions options)
         {
             if (options == null)
             {
-                return null;
+                return new ApiResult<Backer>
+                    (StatusCode.BadRequest, $"null {options}");
             }
 
-            if (string.IsNullOrWhiteSpace(options.Name) ||
-                string.IsNullOrWhiteSpace(options.Email) ||
-                string.IsNullOrWhiteSpace(options.Password))
-            {
-                return null;
+            if (string.IsNullOrWhiteSpace(options.Name)) {
+                return new ApiResult<Backer>
+                   (StatusCode.BadRequest, $"null {options.Name}");
             }
 
-            var exist = SearchBacker(
+            if (string.IsNullOrWhiteSpace(options.Email)) {
+                return new ApiResult<Backer>
+                   (StatusCode.BadRequest, $"null {options.Email} ");
+            }
+
+            var exist = await SearchBacker(
                 new SearchBackerOptions()
                 {
                     Name = options.Name,
                     Email = options.Email
-                }).Any();
+                }).AnyAsync();
 
-            if (exist)
-            {
-                return null;
+            if (exist) {
+               return new ApiResult<Backer>
+                  (StatusCode.Conflict, "this backer account already exist");
             }
 
             var newBacker = new Backer()
             {
                 Email = options.Email,
                 Name = options.Name,
-                Password = options.Password
             };
-            context_.Add(newBacker);
+
+            await context_.AddAsync(newBacker);
 
             try
             {
-                context_.SaveChanges();
+               await context_.SaveChangesAsync();
             }
             catch
             {
-                return null;
+                return new ApiResult<Backer>
+                     (StatusCode.InternalServerError,
+                       "Error Save Backer account");
             }
 
-            return newBacker;
+            return ApiResult<Backer>
+                    .CreateSuccess(newBacker);
         }
 
         public IQueryable<Backer> SearchBacker(SearchBackerOptions options)
@@ -97,115 +105,92 @@ namespace Crowdfund.Core.Services
             return query.Take(500);
         }
 
-        public Backer UpdateBacker(UpdateBackerOptions options)
+        public async Task<ApiResult<Backer>> UpdateBackerAsync(int id, UpdateBackerOptions options)
         {
-            if (options == null)
-            {
-                return null;
+            if (options == null){
+
+                return new ApiResult<Backer>(
+                    StatusCode.BadRequest, $"null {options}");
             }
 
-            if (options.Id <= 0)
+            if (id <= 0)
             {
-                return null;
+                return new ApiResult<Backer>(
+                    StatusCode.BadRequest, $"not valid creator {id}");
             }
 
-            var user = GetBackerById(options.Id);
+            var user = await GetBackerByIdAsync(id);
 
             if (user == null)
             {
-                return null;
+                return new ApiResult<Backer>(
+                    StatusCode.NotFound, $" {user} dont exist");
             }
 
             //The name needs to be unique
-            var exist = SearchBacker(
+            var exist = await SearchBacker(
                 new SearchBackerOptions()
                 {
                     Name = options.Name
-                }).Any();
+                }).AnyAsync();
 
             if (exist)
             {
-                return null;
-            }
-
-            if (!string.IsNullOrWhiteSpace(options.Password))
-            {
-                user.Password = options.Password;
+                return new ApiResult<Backer>
+                    (StatusCode.Conflict, $"this {options.Name} already exist");
             }
 
             if (!string.IsNullOrWhiteSpace(options.Name))
             {
-                user.Name = options.Name;
+                user.Data.Name = options.Name;
             }
 
-            context_.Update(user);
-            try
-            {
-                context_.SaveChanges();
-            }
-            catch
-            {
-                return null;
-            }
-
-            return user;
+            return ApiResult<Backer>
+                     .CreateSuccess(user.Data);
         }
 
-        public Backer GetBackerById(int id)
+        public async Task<ApiResult<Backer>> GetBackerByIdAsync(int id)
         {
             if (id <= 0)
             {
-                return null;
+                return new ApiResult<Backer>(
+                   StatusCode.BadRequest, $"not valid {id}");
             }
 
-            return context_.
-                Set<Backer>().
-                SingleOrDefault(s => s.Id == id);
+            var result = await context_
+                .Set<Backer>()
+                .Where(s => s.Id == id)
+                .SingleOrDefaultAsync();
+
+            if (result == null) {
+                return new ApiResult<Backer>(
+                     StatusCode.NotFound, $"this {result} dont exist");
+            }
+
+            return ApiResult<Backer>.CreateSuccess(result);
         }
 
-        public bool SelectProject(int backerId, int projectId)
+        public async Task<ApiResult<Backer>> SelectProjectAsync(int backerId, int projectId)
         {
-            var proj = Project.SearchProject(
-                new SearchProjectOptions()
-                {
-                    Id = projectId
-                }).SingleOrDefault();
+            var proj = await project_.SearchProjectByIdAaync(projectId);
 
             if (proj == null)
             {
-                return false;
+                return new ApiResult<Backer>(
+                   StatusCode.BadRequest, $"not valid {proj}");
             }
 
-            var backer = GetBackerById(backerId);
+            var backer = await GetBackerByIdAsync(backerId);
 
             if (backer == null)
             {
-                return false;
+                return new ApiResult<Backer>
+                   (StatusCode.NotFound, $"not found {backer}");
             }
 
-            var pb = new ProjectBacker()
-            {
-                BackerId = backer.Id,
-                ProjectId = proj.Id,
-                Backer = backer,
-                Project = proj
-            };
+            backer.Data.FundedProject.Add(proj.Data);
 
-            backer.FundedProject.Add(pb);
-            proj.Backers.Add(pb);
-
-            context_.Update(backer);
-            context_.Update(proj);
-            try
-            {
-                context_.SaveChanges();
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
+            return ApiResult<Backer>.CreateSuccess(backer.Data);
         }
     }
 }

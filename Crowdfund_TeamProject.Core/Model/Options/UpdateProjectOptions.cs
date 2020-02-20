@@ -2,7 +2,7 @@
 
 namespace Crowdfund.Core.Model.Options
 {
-    class UpdateProjectOptions
+   public class UpdateProjectOptions
     {
         /// <summary>
         /// 
@@ -18,11 +18,6 @@ namespace Crowdfund.Core.Model.Options
         /// 
         /// </summary>
         public string Description { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ProjectStatus Status { get; set; }
 
         /// <summary>
         /// 

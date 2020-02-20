@@ -1,4 +1,6 @@
-﻿using Crowdfund.Core.Model;
+﻿using System.Threading.Tasks;
+using Crowdfund.Core.Model;
+using Crowdfund_TeamProject.Core;
 using Crowdfund_TeamProject.Model.Options;
 
 namespace Crowdfund.Core.Services
@@ -10,20 +12,20 @@ namespace Crowdfund.Core.Services
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        Tier AddTierService(AddTierOptions options);
+       Task<ApiResult<Tier>> AddTierServiceAsync(AddTierOptions options);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        Tier UpdateTierService(UpdateTierOptions options);
+        Task<ApiResult<Tier>> UpdateTierServiceAsync(int id, UpdateTierOptions options);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Tier GetTierById(int id);
+        Task<ApiResult<Tier>> GetTierByIdAsync(int id);
     }
 }

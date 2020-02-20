@@ -1,10 +1,12 @@
 ﻿using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
+using Crowdfund_TeamProject.Core;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Crowdfund.Core.Services
 {
-    interface IProjectService
+  public  interface IProjectService
     {
         /// <summary>
         /// 
@@ -12,7 +14,7 @@ namespace Crowdfund.Core.Services
         /// <param name="creatorId"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        Project CreateProject(int creatorId,AddProjectOptions options);
+        Task<ApiResult<Project>> CreateProjectAsync(int creatorId,AddProjectOptions options);
 
         /// <summary>
         /// 
@@ -20,13 +22,20 @@ namespace Crowdfund.Core.Services
         /// <param name="Projectid"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        Project UpdateProject(int Projectid, UpdateProjectOptions options);
+        Task<ApiResult<Project>> UpdateProjectAsync(int Projectid, UpdateProjectOptions options);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        IQueryable<Project> SearchProject(SearchProjectOptions options);
+        IQueryable<Project> SearchProject(int id, SearchProjectOptions options);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<ApiResult<Project>> SearchProjectByIdAaync(int id);
     }
 }

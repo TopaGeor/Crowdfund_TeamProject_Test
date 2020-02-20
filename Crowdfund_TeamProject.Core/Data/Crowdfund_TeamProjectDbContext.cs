@@ -64,10 +64,6 @@ namespace Crowdfund_TeamProject.Data
                 .Entity<Creator>()
                 .HasIndex(c => c.Name)
                 .IsUnique();
-
-            modelBuilder
-                .Entity<ProjectBacker>()
-                .HasKey(pb => new { pb.BackerId, pb.ProjectId });
         }
     }
 }

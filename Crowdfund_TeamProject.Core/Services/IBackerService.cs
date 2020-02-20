@@ -1,6 +1,8 @@
 ﻿using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
+using Crowdfund_TeamProject.Core;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Crowdfund.Core.Services
 {
@@ -11,14 +13,14 @@ namespace Crowdfund.Core.Services
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        Backer AddBacker(AddBackerOptions options);
+         Task<ApiResult<Backer>> AddBackerAsync(AddBackerOptions options);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        Backer UpdateBacker(UpdateBackerOptions options);
+        Task<ApiResult<Backer>> UpdateBackerAsync(int id, UpdateBackerOptions options);
 
         /// <summary>
         /// 
@@ -32,7 +34,7 @@ namespace Crowdfund.Core.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Backer GetBackerById(int id);
+        Task<ApiResult<Backer>> GetBackerByIdAsync(int id);
 
         /// <summary>
         /// 
@@ -40,7 +42,7 @@ namespace Crowdfund.Core.Services
         /// <param name="backerId"></param>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        bool SelectProject(int backerId, int projectId);
+        Task<ApiResult<Backer>> SelectProjectAsync(int backerId, int projectId);
 
     }
 }

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Crowdfund.Core.Model.Options
 {
-    class AddProjectOptions
+   public class AddProjectOptions
     {
         /// <summary>
         /// 
@@ -34,6 +35,14 @@ namespace Crowdfund.Core.Model.Options
         /// </summary>
         public ICollection<int> TiersId { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTimeOffset ExplirationDate { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ICollection<string> Photo { get; set; }
 
         /// <summary>

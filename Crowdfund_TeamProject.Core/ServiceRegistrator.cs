@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using Autofac;
+using Autofac.Core;
+using Autofac.Core.Registration;
 using Crowdfund.Core.Services;
 
 namespace Crowdfund_TeamProject
 {
-    public class ServiceRegistrator
+    public class ServiceRegistrator : Module
     {
-        public static IContainer GetContainer()
+        public static IContainer RegisterServices(ContainerBuilder builder)
         {
 
-            var builder = new ContainerBuilder();
+            if(builder == null) {
+                throw new ArgumentNullException();
+            }
 
             builder
                 .RegisterType<ProjectService>()
@@ -35,6 +39,18 @@ namespace Crowdfund_TeamProject
 
             return builder.Build();
 
+        }
+
+        public static IContainer CreateContainer()
+        {
+            var builder = new ContainerBuilder();
+            RegisterServices(builder);
+            return builder.Build();
+        }
+
+        protected override void Load(ContainerBuilder builder)
+        {
+            RegisterServices(builder);
         }
     }
 }

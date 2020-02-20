@@ -23,16 +23,11 @@ namespace Crowdfund.Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public string Password { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ICollection<ProjectBacker> FundedProject { get; set; }
+        public ICollection<Project> FundedProject { get; set; }
 
         public Backer()
         {
-            FundedProject = new List<ProjectBacker>();
+            FundedProject = new List<Project>();
         }
     }
 }

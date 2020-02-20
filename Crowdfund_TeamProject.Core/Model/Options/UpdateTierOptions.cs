@@ -5,11 +5,6 @@
         /// <summary>
         /// 
         /// </summary>
-        public int Id;
-
-        /// <summary>
-        /// 
-        /// </summary>
         public decimal Ammount { get; set; }
 
         /// <summary>
