@@ -37,6 +37,11 @@ namespace Crowdfund_TeamProject
                 .InstancePerLifetimeScope()
                 .As<ITierService>();
 
+            builder
+                .RegisterType<LoggerService>()
+                .InstancePerLifetimeScope()
+                .As<ILoggerService>();
+
             return builder.Build();
 
         }

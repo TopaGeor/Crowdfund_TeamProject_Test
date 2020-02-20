@@ -11,14 +11,19 @@ namespace Crowdfund.Core.Services
 {
     public class BackerService : IBackerService
     {
-        readonly private Crowdfund_TeamProjectDbContext context_;
-        readonly private IProjectService project_;
+         private readonly Crowdfund_TeamProjectDbContext context_;
+         private readonly IProjectService project_;
+         private readonly ILoggerService logger_;
 
-        public BackerService(Crowdfund_TeamProjectDbContext context,
-           IProjectService prsv )
+
+        public BackerService(
+            Crowdfund_TeamProjectDbContext context,
+            IProjectService prsv,
+            ILoggerService logger)
         {
             context_ = context;
             project_ = prsv;
+            logger_ = logger;
         }
 
         public  async Task<ApiResult<Backer>> AddBackerAsync(AddBackerOptions options)
@@ -65,6 +70,9 @@ namespace Crowdfund.Core.Services
             }
             catch
             {
+                logger_.LogError(StatusCode.InternalServerError,
+                    $"Error Save account with Name {newBacker.Name}");
+                
                 return new ApiResult<Backer>
                      (StatusCode.InternalServerError,
                        "Error Save Backer account");

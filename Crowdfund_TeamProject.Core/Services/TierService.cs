@@ -11,40 +11,39 @@ namespace Crowdfund.Core.Services
     public class TierService : ITierService
     {
         private readonly Crowdfund_TeamProjectDbContext context_;
+        private readonly ILoggerService logger_;
 
-        public TierService(Crowdfund_TeamProjectDbContext context)
+        public TierService(
+            Crowdfund_TeamProjectDbContext context, 
+            ILoggerService logger)
         {
             context_ = context;
+            logger_ = logger;
         }
 
         public async Task<ApiResult<Tier>> AddTierServiceAsync(AddTierOptions options)
         {
-            if (options == null)
-            {
+            if (options == null){
                 return new ApiResult<Tier>
                      (StatusCode.BadRequest, $"null {options}");
             }
 
-            if (options.Project == null)
-            {
+            if (options.Project == null){
                 return new ApiResult<Tier>
                     (StatusCode.BadRequest, $"not valid {options.Project}");
             }
 
-            if (options.Project.Id < 1)
-            {
+            if (options.Project.Id < 1){
                 return new ApiResult<Tier>
                     (StatusCode.BadRequest, $"not valid {options.Project.Id}");
             }
 
-            if (options.Ammount < 1)
-            {
+            if (options.Ammount < 1){
                 return new ApiResult<Tier>
                      (StatusCode.BadRequest, $"not valid {options.Ammount}");
             }
 
-            if (string.IsNullOrWhiteSpace(options.Description))
-            {
+            if (string.IsNullOrWhiteSpace(options.Description)){
                 return new ApiResult<Tier>
                     (StatusCode.BadRequest, $"not valid {options.Description}");
             }
@@ -59,13 +58,17 @@ namespace Crowdfund.Core.Services
            await context_.AddAsync(tier);
             try
             {
-              await  context_.SaveChangesAsync();
+              await context_.SaveChangesAsync();
             }
             catch
             {
-                return new ApiResult<Tier>
-                     (StatusCode.InternalServerError,
-                       "Error Save Tier");
+                logger_.LogError(
+                    StatusCode.InternalServerError,
+                    "Error Save Tier");
+
+                return new ApiResult<Tier>(
+                    StatusCode.InternalServerError,
+                   "Error Save Tier");
             }
 
             return ApiResult<Tier>
@@ -112,7 +115,6 @@ namespace Crowdfund.Core.Services
             {
                 return new ApiResult<Tier>(
                    StatusCode.BadRequest, $"not valid {id}");
-
             }
 
             var result = await context_

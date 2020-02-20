@@ -11,7 +11,7 @@ namespace Crowdfund_TeamProject.Test
 
         public Crowdfund_TeamProjectFixure()
         {
-            Container = ServiceRegistrator.GetContainer().BeginLifetimeScope();
+            Container = ServiceRegistrator.CreateContainer().BeginLifetimeScope();
             DbContext = Container.Resolve<Crowdfund_TeamProjectDbContext>();
         }
 

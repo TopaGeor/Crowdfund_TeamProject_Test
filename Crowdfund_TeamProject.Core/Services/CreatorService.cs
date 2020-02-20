@@ -12,11 +12,14 @@ namespace Crowdfund.Core.Services
     public class CreatorService : ICreatorService
     {
         private readonly Crowdfund_TeamProjectDbContext context_;
+        private readonly ILoggerService logger_;
 
-        public CreatorService( Crowdfund_TeamProjectDbContext context)
+        public CreatorService(Crowdfund_TeamProjectDbContext context,
+            ILoggerService logger)
         {
             context_ = context ??
                 throw new ArgumentException(nameof(context));
+            logger_ = logger;
         }
        
         public async Task<ApiResult<Creator>> AddCreatorAsync(AddCreatorOptions options)
@@ -68,6 +71,8 @@ namespace Crowdfund.Core.Services
             try {
                await context_.SaveChangesAsync();
             } catch (Exception) {
+                logger_.LogError(StatusCode.InternalServerError,
+                    $"Error Save account with Name {newCreator.Name}");
 
                 return new ApiResult<Creator>
                     (StatusCode.InternalServerError,
@@ -76,7 +81,6 @@ namespace Crowdfund.Core.Services
 
             return ApiResult<Creator>
                     .CreateSuccess(newCreator);
-
         }
 
         public IQueryable<Creator> SearchCreator(SearchCreatorOptions options)
@@ -164,10 +168,6 @@ namespace Crowdfund.Core.Services
             }
 
             return ApiResult<Creator>.CreateSuccess(result);
-
-
         }
-
-        
     }
 }

@@ -15,18 +15,21 @@ namespace Crowdfund.Core.Services
         private readonly ICreatorService creator_;
         private readonly IBackerService backers_;
         private readonly ITierService tiers_;
+        private readonly ILoggerService logger_;
         private readonly Crowdfund_TeamProjectDbContext context_;
 
         public ProjectService(
            ICreatorService creator,
            IBackerService backers,
-           TierService tiers,
+           ITierService tiers,
+           ILoggerService logger,
            Crowdfund_TeamProjectDbContext context)
         {
             creator_ = creator;
             context_ = context;
             backers_ = backers;
             tiers_ = tiers;
+            logger_ = logger;
         }
 
         public async Task<ApiResult<Project>> CreateProjectAsync(int creatorId, AddProjectOptions options)
@@ -120,13 +123,17 @@ namespace Crowdfund.Core.Services
 
             newProj.Tiers = tierList;
 
-           await context_.AddAsync(newProj);
+            await context_.AddAsync(newProj);
             try {
-              await  context_.SaveChangesAsync();
+                await  context_.SaveChangesAsync();
             } catch (Exception) {
-                return new ApiResult<Project>
-                     (StatusCode.InternalServerError,
-                       "Error Save Project");
+
+                logger_.LogError(StatusCode.InternalServerError,
+                    $"Error Save Project with Title {newProj.Title}");
+
+                return new ApiResult<Project>(
+                    StatusCode.InternalServerError,
+                    "Error Save Project");
             }
 
             return ApiResult<Project>
@@ -177,7 +184,8 @@ namespace Crowdfund.Core.Services
             return query.Take(500);
         }
 
-        public async Task<ApiResult<Project>> UpdateProjectAsync(int Projectid, UpdateProjectOptions options)
+        public async Task<ApiResult<Project>> UpdateProjectAsync(int Projectid, 
+                        UpdateProjectOptions options)
         {
             if (options == null) {
                 return new ApiResult<Project>
