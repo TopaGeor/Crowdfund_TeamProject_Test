@@ -29,5 +29,7 @@ namespace Crowdfund.Core.Services
         /// <param name="options"></param>
         /// <returns></returns>
         IQueryable<Creator> SearchCreator(SearchCreatorOptions options);
+
+        Task<ApiResult<Creator>> GetCreatorByIdAsync(int id);
    }
 }

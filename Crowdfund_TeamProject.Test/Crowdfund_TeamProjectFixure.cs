@@ -1,9 +1,10 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Crowdfund_TeamProject.Data;
 
 namespace Crowdfund_TeamProject.Test
 {
-    public class Crowdfund_TeamProjectFixure
+    public class Crowdfund_TeamProjectFixure : IDisposable
     {
         public Crowdfund_TeamProjectDbContext DbContext { get; private set; }
 
@@ -17,7 +18,7 @@ namespace Crowdfund_TeamProject.Test
 
         public void Dispose()
         {
-            DbContext.Dispose();
+           
             Container.Dispose();
         }
     }

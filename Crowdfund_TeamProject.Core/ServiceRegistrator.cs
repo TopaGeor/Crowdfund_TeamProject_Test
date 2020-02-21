@@ -11,11 +11,12 @@ namespace Crowdfund_TeamProject
 {
     public class ServiceRegistrator : Module
     {
-        public static IContainer RegisterServices(ContainerBuilder builder)
+        public static void RegisterServices(ContainerBuilder builder)
         {
 
-            if(builder == null) {
-                throw new ArgumentNullException();
+            if (builder == null) {
+
+                throw new ArgumentNullException(nameof(builder));
             }
 
             builder
@@ -47,9 +48,11 @@ namespace Crowdfund_TeamProject
                .RegisterType<UpdatePostService>()
                .InstancePerLifetimeScope()
                .As<IUpdatePostService>();
-
-
-            return builder.Build();
+           
+            builder
+                .RegisterType<Data.Crowdfund_TeamProjectDbContext>()
+                .InstancePerLifetimeScope()
+                .AsSelf();
 
         }
 

@@ -15,7 +15,6 @@ namespace Crowdfund.Core.Services
     class ProjectService : IProjectService
     {
         private readonly ICreatorService creator_;
-        private readonly IBackerService backers_;
         private readonly ITierService tiers_;
         private readonly ILoggerService logger_;
         private readonly IUpdatePostService updatePost_;
@@ -23,7 +22,6 @@ namespace Crowdfund.Core.Services
 
         public ProjectService(
            ICreatorService creator,
-           IBackerService backers,
            ITierService tiers,
            ILoggerService logger,
            IUpdatePostService updatePost,
@@ -31,7 +29,6 @@ namespace Crowdfund.Core.Services
         {
             creator_ = creator;
             context_ = context;
-            backers_ = backers;
             tiers_ = tiers;
             logger_ = logger;
             updatePost_ = updatePost;
@@ -122,8 +119,8 @@ namespace Crowdfund.Core.Services
                 Category = options.Category,
                 ExplirationDate = options.ExplirationDate,
                 Goal = options.Goal,
-                PhotoUrl = options.PhotoUrl,
-                VideoUrl = options.VideoUrl
+                //PhotoUrl = options.PhotoUrl,
+                //VideoUrl = options.VideoUrl
             };
 
             newProj.Tiers = tierList;
