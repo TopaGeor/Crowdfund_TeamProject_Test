@@ -15,32 +15,25 @@ namespace Crowdfund_TeamProject.Core.Services
     {
         private readonly Crowdfund_TeamProjectDbContext context_;
         private readonly ILoggerService logger_;
-        private readonly IProjectService project_;
 
         public UpdatePostService(
             Crowdfund_TeamProjectDbContext context,
-            IProjectService project,
             ILoggerService logger)
         {
             context_ = context;
             logger_ = logger;
-            project_ = project;
         }
 
         public async Task<ApiResult<UpdatePost>> AddUpdatePostAsync(AddUpdatePostOptions options)
         {
             if(options == null) {
-                return new ApiResult<UpdatePost>
-                     (StatusCode.BadRequest, $"null {options}");
-            }
-            if(options.ProjectId <= 0) {
-                return new ApiResult<UpdatePost>
-                   (StatusCode.BadRequest, $"not valid  {options.ProjectId}");
+                return new ApiResult<UpdatePost>(
+                    StatusCode.BadRequest, $"null {options}");
             }
 
             if (string.IsNullOrWhiteSpace(options.Post)) {
-                return new ApiResult<UpdatePost>
-                   (StatusCode.BadRequest, $"not valid  {options.Post}");
+                return new ApiResult<UpdatePost>(
+                    StatusCode.BadRequest, $"not valid  {options.Post}");
             }
 
             var newUpdPost = new UpdatePost()
@@ -64,40 +57,6 @@ namespace Crowdfund_TeamProject.Core.Services
 
             return ApiResult<UpdatePost>
                     .CreateSuccess(newUpdPost);
-        }
-
-        public async Task<ApiResult<UpdatePost>> UpdatePostAsync(int postId, UpdatePostOptions options)
-        {
-            if(options == null) {
-                return new ApiResult<UpdatePost>
-                     (StatusCode.BadRequest, $"null {options}");
-            }
-
-            if(postId <= 0) {
-               return new ApiResult<UpdatePost>
-                   (StatusCode.BadRequest, $"not valid Project {postId}");
-            }
-
-            var post = await SearchUpdatePost(
-                new SearchUpdatePostOptions()
-                {
-                    Id = postId
-                }).SingleOrDefaultAsync();
-            
-            if(post == null) {
-                return new ApiResult<UpdatePost>
-                     (StatusCode.NotFound, $"not exist {post}");
-            }
-
-            if (string.IsNullOrWhiteSpace(options.Post)) {
-                post.Post = options.Post;
-            }
-            if (options.DatePost != (default)) {
-                post.DatePost = DateTimeOffset.Now;
-            }
-
-            return ApiResult<UpdatePost>
-                    .CreateSuccess(post);
         }
 
         public IQueryable<UpdatePost> SearchUpdatePost(SearchUpdatePostOptions options)
