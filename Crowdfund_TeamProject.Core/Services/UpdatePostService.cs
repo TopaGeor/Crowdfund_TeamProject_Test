@@ -17,7 +17,6 @@ namespace Crowdfund_TeamProject.Core.Services
         private readonly ILoggerService logger_;
         private readonly IProjectService project_;
 
-
         public UpdatePostService(
             Crowdfund_TeamProjectDbContext context,
             IProjectService project,
@@ -39,15 +38,6 @@ namespace Crowdfund_TeamProject.Core.Services
                    (StatusCode.BadRequest, $"not valid  {options.ProjectId}");
             }
 
-            var proj = await project_
-                .SearchProjectByIdAaync(
-                options.ProjectId);
-
-            if(proj.Data == null) {
-                return proj.GetApi<UpdatePost>();
-
-            }
-
             if (string.IsNullOrWhiteSpace(options.Post)) {
                 return new ApiResult<UpdatePost>
                    (StatusCode.BadRequest, $"not valid  {options.Post}");
@@ -57,7 +47,6 @@ namespace Crowdfund_TeamProject.Core.Services
             {
                 Post = options.Post,
                 DatePost = DateTime.Now,
-                Project = proj.Data
             };
 
             await context_.AddAsync(newUpdPost);
@@ -111,7 +100,6 @@ namespace Crowdfund_TeamProject.Core.Services
                     .CreateSuccess(post);
         }
 
-
         public IQueryable<UpdatePost> SearchUpdatePost(SearchUpdatePostOptions options)
         {
             if(options == null) {
@@ -133,8 +121,6 @@ namespace Crowdfund_TeamProject.Core.Services
             }
 
             return query.Take(500);
-        }
-
-       
+        }      
     }
 }

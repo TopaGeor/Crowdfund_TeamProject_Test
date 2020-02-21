@@ -12,7 +12,5 @@ namespace Crowdfund_TeamProject.Core.Model
         public string Post { get; set; }
 
         public DateTimeOffset DatePost { get; set; }
-
-        public Project Project { get; set; }
     }
 }
