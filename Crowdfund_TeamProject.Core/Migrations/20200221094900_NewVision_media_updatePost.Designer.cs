@@ -4,14 +4,16 @@ using Crowdfund_TeamProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Crowdfund_TeamProject.Migrations
 {
     [DbContext(typeof(Crowdfund_TeamProjectDbContext))]
-    partial class Crowdfund_TeamProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200221094900_NewVision_media_updatePost")]
+    partial class NewVision_media_updatePost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,8 +88,8 @@ namespace Crowdfund_TeamProject.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ExplirationDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTimeOffset>("ExplirationDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<decimal>("Goal")
                         .HasColumnType("decimal(18,2)");

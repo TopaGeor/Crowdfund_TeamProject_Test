@@ -5,16 +5,18 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Core.Registration;
 using Crowdfund.Core.Services;
+using Crowdfund_TeamProject.Core.Services;
 
 namespace Crowdfund_TeamProject
 {
     public class ServiceRegistrator : Module
     {
-        public static IContainer RegisterServices(ContainerBuilder builder)
+        public static void RegisterServices(ContainerBuilder builder)
         {
 
-            if(builder == null) {
-                throw new ArgumentNullException();
+            if (builder == null) {
+
+                throw new ArgumentNullException(nameof(builder));
             }
 
             builder
@@ -42,7 +44,15 @@ namespace Crowdfund_TeamProject
                 .InstancePerLifetimeScope()
                 .As<ILoggerService>();
 
-            return builder.Build();
+            builder
+               .RegisterType<UpdatePostService>()
+               .InstancePerLifetimeScope()
+               .As<IUpdatePostService>();
+           
+            builder
+                .RegisterType<Data.Crowdfund_TeamProjectDbContext>()
+                .InstancePerLifetimeScope()
+                .AsSelf();
 
         }
 

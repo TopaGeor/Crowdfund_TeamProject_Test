@@ -38,16 +38,23 @@ namespace Crowdfund.Core.Model.Options
         /// <summary>
         /// 
         /// </summary>
-        public DateTimeOffset ExplirationDate { get; set; }
+        public string ExplirationDate { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<string> Photo { get; set; }
+        public string PhotoUrl { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<string>  Video { get; set; }
+        public string  VideoUrl { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UpdatePost { get; set; }
+
+
     }
 }

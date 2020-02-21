@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Crowdfund.Core.Model;
 using Crowdfund_TeamProject.Model;
+using Crowdfund_TeamProject.Core.Model;
 
 namespace Crowdfund_TeamProject.Data
 {
@@ -64,6 +65,10 @@ namespace Crowdfund_TeamProject.Data
                 .Entity<Creator>()
                 .HasIndex(c => c.Name)
                 .IsUnique();
+
+            modelBuilder.
+                Entity<UpdatePost>().
+                ToTable("UpdatePost");
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Crowdfund.Core.Model;
 using Crowdfund.Core.Model.Options;
+using Crowdfund_TeamProject.Core.Model.Options;
 using Crowdfund_TeamProject.Core;
+using Crowdfund_TeamProject.Core.Services;
 using Crowdfund_TeamProject.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,23 +15,23 @@ namespace Crowdfund.Core.Services
     class ProjectService : IProjectService
     {
         private readonly ICreatorService creator_;
-        private readonly IBackerService backers_;
         private readonly ITierService tiers_;
         private readonly ILoggerService logger_;
+        private readonly IUpdatePostService updatePost_;
         private readonly Crowdfund_TeamProjectDbContext context_;
 
         public ProjectService(
            ICreatorService creator,
-           IBackerService backers,
            ITierService tiers,
            ILoggerService logger,
+           IUpdatePostService updatePost,
            Crowdfund_TeamProjectDbContext context)
         {
             creator_ = creator;
             context_ = context;
-            backers_ = backers;
             tiers_ = tiers;
             logger_ = logger;
+            updatePost_ = updatePost;
         }
 
         public async Task<ApiResult<Project>> CreateProjectAsync(int creatorId, AddProjectOptions options)
@@ -58,7 +60,8 @@ namespace Crowdfund.Core.Services
 
             if (string.IsNullOrWhiteSpace(options.Title)) {
                 return new ApiResult<Project>
-                   (StatusCode.BadRequest, $"not valid  {options.Title}");
+                   (StatusCode.BadRequest,
+                   $"not valid  {options.Title}");
             }
 
             if(options.TiersId == null ||
@@ -84,28 +87,27 @@ namespace Crowdfund.Core.Services
                    (StatusCode.BadRequest, $"not valid {options.Goal}");
             }
 
-            //if (options.Photo.Count > 0) {
-            //    foreach (var p in options.Photo) {
-            //        if (string.IsNullOrWhiteSpace(p)) {
-            //            return null;
-            //        }
-            //    }
-            //}
-
             if (string.IsNullOrWhiteSpace(options.Description)) {
                 return new ApiResult<Project>
                   (StatusCode.BadRequest, $"not valid  {options.Description}");
             }
 
-            //if (options.Video.Count > 0) {
-            //    foreach (var v in options.Video) {
-            //        if (string.IsNullOrWhiteSpace(v)) {
-            //            return null;
-            //        }
-            //    }
-            //}
+            if (string.IsNullOrWhiteSpace(options.PhotoUrl)) {
+                return new ApiResult<Project>
+                   (StatusCode.BadRequest, $"not valid  {options.PhotoUrl}");
+            }
 
-            if(options.Category == ProjectCategory.Invalid) {
+            if (string.IsNullOrWhiteSpace(options.VideoUrl)) {
+                return new ApiResult<Project>
+                   (StatusCode.BadRequest, $"not valid  {options.VideoUrl}");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.UpdatePost)) {
+                return new ApiResult<Project>
+                   (StatusCode.BadRequest, $"not valid  {options.UpdatePost}");
+            }
+
+            if (options.Category == ProjectCategory.Invalid) {
                 return new ApiResult<Project>
                   (StatusCode.BadRequest, $"not valid  {options.Category}");
             }
@@ -117,8 +119,8 @@ namespace Crowdfund.Core.Services
                 Category = options.Category,
                 ExplirationDate = options.ExplirationDate,
                 Goal = options.Goal,
-                //Photos = options.Photo,
-                //Videos = options.Video
+                //PhotoUrl = options.PhotoUrl,
+                //VideoUrl = options.VideoUrl
             };
 
             newProj.Tiers = tierList;
@@ -178,7 +180,8 @@ namespace Crowdfund.Core.Services
             }
 
             if(options.ExplirationDate != (default)) {
-
+                query = query
+                    .Where(p => p.ExplirationDate == options.ExplirationDate);
             }
 
             return query.Take(500);
@@ -210,18 +213,27 @@ namespace Crowdfund.Core.Services
                 project.Description = options.Description;
             }
 
-            //foreach (var p in options.Photo) {
-            //    if (string.IsNullOrWhiteSpace(p)) {
-            //        project.Photos.Add(p);
-            //    }
-            //}
+            if (string.IsNullOrWhiteSpace(options.PhotoUrl)) {
+                project.PhotoUrl = options.PhotoUrl;
+            }
 
-            //foreach (var v in options.Video) {
-            //    if (string.IsNullOrWhiteSpace(v)) {
-            //        project.Videos.Add(v);
-            //    }
-            //}
-           
+            if (string.IsNullOrWhiteSpace(options.VideoUrl)) {
+                project.PhotoUrl = options.VideoUrl;
+            }
+
+            if (options.ExplirationDate != (default)) {
+                project.ExplirationDate = options.ExplirationDate;
+            }
+
+            var updPost = updatePost_.SearchUpdatePost(
+                new SearchUpdatePostOptions()
+                {
+                    Id = options.UpdatePost.Id
+                }).SingleOrDefault();
+
+            if (updPost != null) {
+                project.UpdatePost.Add(updPost);
+            }
 
             return ApiResult<Project>
                     .CreateSuccess(project);
