@@ -1,4 +1,5 @@
-﻿using Crowdfund_TeamProject.Model;
+﻿using Crowdfund_TeamProject.Core.Model;
+using Crowdfund_TeamProject.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -52,23 +53,20 @@ namespace Crowdfund.Core.Model
         /// </summary>
         public ICollection<Tier> Tiers { get; set; }
 
-        [NotMapped]
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<String> Photos { get; set; }
+        public string PhotoUrl { get; set; }
 
-        [NotMapped]
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<String> Videos { get; set; }
+        public string VideoUrl { get; set; }
 
-        [NotMapped]
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<String> Updates { get; set; }
+        public ICollection<UpdatePost> UpdatePost { get; set; }
 
         /// <summary>
         /// 
@@ -76,9 +74,7 @@ namespace Crowdfund.Core.Model
         public Project()
         {
             Tiers = new List<Tier>();
-            Photos = new List<String>();
-            Videos = new List<String>();
-            Updates = new List<String>();
+            UpdatePost = new List<UpdatePost>();
         }
 
     }

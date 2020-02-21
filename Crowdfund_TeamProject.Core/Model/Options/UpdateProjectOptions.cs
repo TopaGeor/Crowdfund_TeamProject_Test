@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Crowdfund_TeamProject.Core.Model;
 
 namespace Crowdfund.Core.Model.Options
 {
@@ -27,6 +29,22 @@ namespace Crowdfund.Core.Model.Options
         /// <summary>
         /// 
         /// </summary>
-        public string Update { get; set; }
+        public DateTimeOffset ExplirationDate { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string PhotoUrl { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string VideoUrl { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public UpdatePost UpdatePost { get; set; }
+
     }
 }

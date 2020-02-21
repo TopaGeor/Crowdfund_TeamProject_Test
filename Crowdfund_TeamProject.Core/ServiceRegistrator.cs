@@ -5,6 +5,7 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Core.Registration;
 using Crowdfund.Core.Services;
+using Crowdfund_TeamProject.Core.Services;
 
 namespace Crowdfund_TeamProject
 {
@@ -41,6 +42,12 @@ namespace Crowdfund_TeamProject
                 .RegisterType<LoggerService>()
                 .InstancePerLifetimeScope()
                 .As<ILoggerService>();
+
+            builder
+               .RegisterType<UpdatePostService>()
+               .InstancePerLifetimeScope()
+               .As<IUpdatePostService>();
+
 
             return builder.Build();
 
