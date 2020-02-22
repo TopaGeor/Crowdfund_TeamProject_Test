@@ -11,14 +11,14 @@ using Crowdfund_TeamProject.Web.Extensions;
 
 namespace Crowdfund_TeamProject.Web.Controllers
 {
-    public class BackerController : Controller
+    public class TierController : Controller
     {
-        private readonly IBackerService bksrv_;
+        private readonly ITierService trsrv_;
 
-        public BackerController(
-         IBackerService bksrv)
+        public TierController(
+         ITierService trsrv)
         {
-            bksrv_ = bksrv;
+            trsrv_ = trsrv;
         }
 
         public IActionResult Index()
@@ -27,12 +27,11 @@ namespace Crowdfund_TeamProject.Web.Controllers
         }
 
         public async Task<IActionResult> Create(
-           [FromBody] Core.Model.Options.AddBackerOptions options)
+           [FromBody] Core.Model.Options.AddTierOptions options)
         {
-            var result = await bksrv_
-                .AddBackerAsync(options);
+            var result = await trsrv_
+                .AddTierServiceAsync(options);
                 
-
             return result.AsStatusResult();
 
         }

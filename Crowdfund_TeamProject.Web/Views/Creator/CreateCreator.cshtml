@@ -1,17 +1,12 @@
-﻿@model Crowdfund_TeamProject.Core.Model.Options.AddBackerOptions
-
-@*@section Scripts
-{
-    <script src="~/js/backer.js"></script>
-}*@
+﻿@model Crowdfund_TeamProject.Core.Model.Options.AddCreatorOptions
 
 
-    <form class="js-create-backer" method="post"
-          action="@Url.Action("create", "backer")" >
-        <img class="mb-4" src="~/images/backerimage1.jpg" alt="" width="150" height="150" >
+    <form class="js-create-creator" method="post"
+          action="@Url.Action("createCreator", "creator")">
+        <img class="mb-4" src="~/images/creatorimage.jpeg" alt="" width="190" height="150">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <div class="form-group">
-            <label for="@Html.IdFor(c => c.Name)">Backer Username</label>
+            <label for="@Html.IdFor(c => c.Name)">Creator Username</label>
             @Html.TextBoxFor(c => c.Name,
                 new { @class = "form-control js-name", placeholder = "enter your username" })
             <small id="namelHelp" class="form-text text-muted">
@@ -28,11 +23,8 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-primary js-submit-backer" disabled>Submit</button>
+        <button type="button" class="btn btn-primary js-submit-creator" disabled>Submit</button>
     </form>
-
-<div class="alert  js-create-backer-alert" role="alert"
-     style="display: none">
-</div>
-
-
+    <div class="alert  js-create-creator-alert" role="alert"
+         style="display: none">
+    </div>

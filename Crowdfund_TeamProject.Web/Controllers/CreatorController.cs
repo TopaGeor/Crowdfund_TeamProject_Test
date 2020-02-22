@@ -34,6 +34,13 @@ namespace Crowdfund_TeamProject.Web.Controllers
             return result.AsStatusResult();
 
         }
-    
+
+        [HttpGet]
+        public IActionResult CreateCreator()
+        {
+            return View();
+        }
+
+
     }
 }

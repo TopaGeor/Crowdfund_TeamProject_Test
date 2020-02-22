@@ -19,4 +19,8 @@
 		<Watch Include="**\*.cshtml" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Watch Remove="Views\Creator\CreateCreator.cshtml" />
+	</ItemGroup>
+
 </Project>
