@@ -1,16 +1,15 @@
-﻿using Crowdfund.Core.Model;
-using Crowdfund.Core.Model.Options;
-using Crowdfund_TeamProject.Core.Model.Options;
-using Crowdfund_TeamProject.Core;
-using Crowdfund_TeamProject.Core.Services;
-using Crowdfund_TeamProject.Data;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Crowdfund_TeamProject.Core;
+using Crowdfund_TeamProject.Core.Model;
+using Crowdfund_TeamProject.Core.Model.Options;
+using Crowdfund_TeamProject.Core.Services;
+using Crowdfund_TeamProject.Data;
+using Microsoft.EntityFrameworkCore;
 
-namespace Crowdfund.Core.Services
+namespace Crowdfund_TeamProject.Services
 {
     class ProjectService : IProjectService
     {

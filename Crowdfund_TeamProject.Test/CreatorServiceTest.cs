@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Autofac;
-using Crowdfund.Core.Services;
-using Crowdfund_TeamProject.Data;
-using Crowdfund.Core.Model.Options;
-using Xunit;
-using System.Linq;
 using Crowdfund_TeamProject.Core;
+using Crowdfund_TeamProject.Core.Model.Options;
+using Crowdfund_TeamProject.Data;
+using Crowdfund_TeamProject.Services;
+using Xunit;
 
 namespace Crowdfund_TeamProject.Test
 {
-   public class CreatorServiceTest : IClassFixture<Crowdfund_TeamProjectFixure>
+    public class CreatorServiceTest : IClassFixture<Crowdfund_TeamProjectFixure>
     {
         private readonly ICreatorService crsrv_;
         private readonly Crowdfund_TeamProjectDbContext context_;

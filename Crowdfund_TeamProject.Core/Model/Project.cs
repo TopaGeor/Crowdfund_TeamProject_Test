@@ -1,10 +1,7 @@
-﻿using Crowdfund_TeamProject.Core.Model;
-using Crowdfund_TeamProject.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Crowdfund.Core.Model
+namespace Crowdfund_TeamProject.Core.Model
 {
     public class Project
     {

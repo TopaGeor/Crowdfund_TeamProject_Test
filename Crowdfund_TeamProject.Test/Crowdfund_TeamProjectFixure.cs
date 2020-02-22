@@ -1,5 +1,6 @@
 ﻿using System;
 using Autofac;
+using Crowdfund_TeamProject.Core;
 using Crowdfund_TeamProject.Data;
 
 namespace Crowdfund_TeamProject.Test

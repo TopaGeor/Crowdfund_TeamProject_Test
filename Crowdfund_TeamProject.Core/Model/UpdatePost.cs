@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Crowdfund.Core.Model;
 
 namespace Crowdfund_TeamProject.Core.Model
 {

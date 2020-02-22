@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Crowdfund_TeamProject.Services;
 using Xunit;
-using Autofac;
-using Crowdfund.Core.Services;
 
 namespace Crowdfund_TeamProject.Test
 {

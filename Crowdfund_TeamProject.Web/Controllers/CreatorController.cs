@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Crowdfund_TeamProject.Web.Models;
 
 namespace Crowdfund_TeamProject.Web.Controllers
 {
@@ -23,10 +17,22 @@ namespace Crowdfund_TeamProject.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        //[HttpPost]
 
-    }
+        //public async Task<IActionResult> CreateCreator(
+
+        // [FromBody] Core.Model.Options. options)
+
+        //{
+
+        //    var result = await customers_.CreateCustomerAsync(
+
+        //        options);
+
+
+
+        //    return result.AsStatusResult();
+
+        //}
+    } 
 }
