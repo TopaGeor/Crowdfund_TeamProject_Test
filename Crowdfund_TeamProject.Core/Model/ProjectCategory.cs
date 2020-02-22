@@ -1,4 +1,4 @@
-﻿namespace Crowdfund.Core.Model
+﻿namespace Crowdfund_TeamProject.Core.Model
 {
     public enum ProjectCategory
     {

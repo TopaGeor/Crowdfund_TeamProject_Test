@@ -1,7 +1,6 @@
-﻿using Crowdfund_TeamProject.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Crowdfund.Core.Model
+namespace Crowdfund_TeamProject.Core.Model
 {
     public  class Backer
     {

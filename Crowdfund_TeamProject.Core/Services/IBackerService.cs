@@ -1,10 +1,10 @@
-﻿using Crowdfund.Core.Model;
-using Crowdfund.Core.Model.Options;
-using Crowdfund_TeamProject.Core;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Crowdfund_TeamProject.Core;
+using Crowdfund_TeamProject.Core.Model;
+using Crowdfund_TeamProject.Core.Model.Options;
 
-namespace Crowdfund.Core.Services
+namespace Crowdfund_TeamProject.Services
 {
     public  interface IBackerService
     {

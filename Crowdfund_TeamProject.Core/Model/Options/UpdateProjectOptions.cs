@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Crowdfund_TeamProject.Core.Model;
 
-namespace Crowdfund.Core.Model.Options
+namespace Crowdfund_TeamProject.Core.Model.Options
 {
    public class UpdateProjectOptions
     {

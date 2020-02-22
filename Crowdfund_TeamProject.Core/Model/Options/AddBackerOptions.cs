@@ -1,4 +1,4 @@
-﻿namespace Crowdfund.Core.Model.Options
+﻿namespace Crowdfund_TeamProject.Core.Model.Options
 {
     public  class AddBackerOptions
     {

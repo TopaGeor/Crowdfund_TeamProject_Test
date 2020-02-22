@@ -1,4 +1,4 @@
-﻿namespace Crowdfund_TeamProject.Model.Options
+﻿namespace Crowdfund_TeamProject.Core.Model.Options
 {
     public class UpdateTierOptions
     {

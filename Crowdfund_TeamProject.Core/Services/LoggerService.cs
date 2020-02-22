@@ -2,7 +2,7 @@
 using Serilog;
 using Serilog.Core;
 
-namespace Crowdfund.Core.Services
+namespace Crowdfund_TeamProject.Services
 {
     public class LoggerService : ILoggerService
     {

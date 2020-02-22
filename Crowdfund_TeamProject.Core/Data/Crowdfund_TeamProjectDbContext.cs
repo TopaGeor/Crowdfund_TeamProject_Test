@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Crowdfund.Core.Model;
-using Crowdfund_TeamProject.Model;
-using Crowdfund_TeamProject.Core.Model;
+﻿using Crowdfund_TeamProject.Core.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Crowdfund_TeamProject.Data
 {

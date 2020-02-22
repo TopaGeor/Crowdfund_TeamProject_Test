@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Autofac;
-using Autofac.Core;
-using Autofac.Core.Registration;
-using Crowdfund.Core.Services;
 using Crowdfund_TeamProject.Core.Services;
+using Crowdfund_TeamProject.Services;
 
-namespace Crowdfund_TeamProject
+namespace Crowdfund_TeamProject.Core
 {
     public class ServiceRegistrator : Module
     {

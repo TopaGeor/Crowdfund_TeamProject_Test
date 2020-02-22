@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Crowdfund_TeamProject.Core.Model;
+using Crowdfund_TeamProject.Services;
+using Crowdfund_TeamProject.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Crowdfund_TeamProject.Web.Models;
 
 namespace Crowdfund_TeamProject.Web.Controllers
 {
     public class CreatorController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ICreatorService crsrv_;
 
-        public CreatorController(ILogger<HomeController> logger)
+        public CreatorController(
+            ICreatorService crsrv)
         {
-            _logger = logger;
+            crsrv_ = crsrv;
         }
 
         public IActionResult Index()
@@ -23,10 +22,18 @@ namespace Crowdfund_TeamProject.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
+        [HttpPost]
+
+        public async Task<IActionResult> CreateCreator(
+            [FromBody] Core.Model.Options.AddCreatorOptions options)
+        {
+            var result = await crsrv_
+                .AddCreatorAsync(options);
+
+            return result.AsStatusResult();
+
+        }
+    
     }
 }

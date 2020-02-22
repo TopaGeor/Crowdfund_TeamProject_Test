@@ -1,6 +1,6 @@
 ﻿using Crowdfund_TeamProject.Core;
 
-namespace Crowdfund.Core.Services
+namespace Crowdfund_TeamProject.Services
 {
     public interface ILoggerService
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Crowdfund.Core.Services;
 using Crowdfund_TeamProject.Core.Model;
 using Crowdfund_TeamProject.Core.Model.Options;
 using Crowdfund_TeamProject.Data;
+using Crowdfund_TeamProject.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Crowdfund_TeamProject.Core.Services
