@@ -9,7 +9,5 @@ namespace Crowdfund_TeamProject.Core.Model.Options
         public string Post { get; set; }
 
         public DateTimeOffset DatePost { get; set; }
-
-        public int ProjectId { get; set; }
     }
 }

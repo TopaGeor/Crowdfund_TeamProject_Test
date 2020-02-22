@@ -12,10 +12,6 @@ namespace Crowdfund_TeamProject.Core.Services
     {
         Task<ApiResult<UpdatePost>> AddUpdatePostAsync(AddUpdatePostOptions options);
 
-        Task<ApiResult<UpdatePost>> UpdatePostAsync(int postId, UpdatePostOptions options);
-
         IQueryable<UpdatePost> SearchUpdatePost(SearchUpdatePostOptions options);
-
-
     }
 }

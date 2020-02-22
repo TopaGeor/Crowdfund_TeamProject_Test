@@ -35,24 +35,21 @@ namespace Crowdfund_TeamProject.Test
                 });
 
             Assert.NotNull(creator);
-
-         
         }
 
         [Fact]
         public async Task Create_Creator_Failure()
         {
-            var customer = await crsrv_.AddCreatorAsync(
+            var creator = await crsrv_.AddCreatorAsync(
                 new AddCreatorOptions()
                 {
                     Email = "",
                     Name = "creatorr_ioanna"
                 });
 
-            Assert.Equal(StatusCode.BadRequest, customer.ErrorCode);
+            Assert.Equal(StatusCode.BadRequest, creator.ErrorCode);
 
         }
-
 
         [Fact]
         public async Task Update_Creator_Success()
@@ -62,7 +59,6 @@ namespace Crowdfund_TeamProject.Test
                 {
                     Name = "ioanaaa"
                 });
-
         }
     }
 }
