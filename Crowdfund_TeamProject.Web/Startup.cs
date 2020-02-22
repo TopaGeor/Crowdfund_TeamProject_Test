@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +25,12 @@ namespace Crowdfund_TeamProject.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            // Register your own things directly with Autofac, like:
+            builder.RegisterModule(new ServiceRegistrator());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

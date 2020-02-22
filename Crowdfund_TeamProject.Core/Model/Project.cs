@@ -41,7 +41,7 @@ namespace Crowdfund.Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public string ExplirationDate { get; set; }
+        public DateTimeOffset ExplirationDate { get; set; }
 
         /// <summary>
         /// 
