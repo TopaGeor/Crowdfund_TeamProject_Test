@@ -29,8 +29,8 @@ namespace Crowdfund_TeamProject.Test
             var backer = await brsrv_.AddBackerAsync(
                 new AddBackerOptions()
                 {
-                    Email = "backer1@gmail.com",
-                    Name = "backer_ioanna"
+                    Email = "backerr1@gmail.com",
+                    Name = "backerr_ioanna"
                 });
 
             Assert.NotNull(backer);

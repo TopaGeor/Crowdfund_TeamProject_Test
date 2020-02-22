@@ -30,8 +30,8 @@ namespace Crowdfund_TeamProject.Test
             var creator = await crsrv_.AddCreatorAsync(
                 new AddCreatorOptions()
                 {
-                    Email = "creatorr4@gmail.com",
-                    Name = "creatorr_ioanna"
+                    Email = "creatorrr4@gmail.com",
+                    Name = "creatorrr_ioanna"
                 });
 
             Assert.NotNull(creator);
@@ -44,7 +44,7 @@ namespace Crowdfund_TeamProject.Test
                 new AddCreatorOptions()
                 {
                     Email = "",
-                    Name = "creatorr_ioanna"
+                    Name = "creatorrr_ioanna"
                 });
 
             Assert.Equal(StatusCode.BadRequest, creator.ErrorCode);
