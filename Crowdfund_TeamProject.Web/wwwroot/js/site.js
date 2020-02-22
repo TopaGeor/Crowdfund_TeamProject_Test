@@ -136,3 +136,38 @@ $('.js-submit-backer').on('click', () => {
         }, 300);
     });
 });
+
+$('.js-add-tier').on('click', () => {
+    $('.js-add-backer').attr('disabled', true);
+    let amount = $('.js-amount').val();
+    let description = $('.js-description').val();
+
+    let data = JSON.stringify({
+        amount: amount,
+        description: description
+    });
+
+    $.ajax({
+        url: '/tier/Create',
+        type: 'POST',
+        contentType: 'application/json',
+        data: data
+    }).done((tier) => {
+        $('.alert').hide();
+        let $alertArea = $('.js-create-tier-alert');
+        $alertArea.attr("class", "alert alert-success");
+        $alertArea.html(`Successfully added Reward  ${tier}`);
+        $alertArea.show();
+        $('form.js-create-tier').hide();
+    }).fail((xhr) => {
+        $('.alert').hide();
+        let $alertArea = $('.js-create-tier-alert');
+        $alertArea.attr("class", "alert alert-danger");
+        $alertArea.html(xhr.responseText);
+        $alertArea.fadeIn();
+
+        setTimeout(function () {
+            $('.js-add-backer').attr('disabled', false);
+        }, 300);
+    });
+});
