@@ -21,8 +21,8 @@ $('.js-datepicker').datepicker({
     todayHighlight: true
 });
 
-$('js-project-image').on('change', () => {
-    alert('aaas');
+$('js-project-image').change({
+    alert("aaas");
     //$('js-project-image').on(
 });
 
@@ -38,24 +38,25 @@ $('.js-create-project').on('click', () => {
     
     $('.js-create-project').prop('disabled', true);
     let data = JSON.stringify({
-        Goal: goal,
+        //Goal: goal,
         Title: title,
         //Photo: photo,
         //Video: video,
         //Expiration_date: expiration_date,
-        Description:  description,
+        //Description:  description,
         Category: category
     });
-    
+    debugger;
     $.ajax({
         url: '/project/create',
         type: 'POST',
         coententType: 'application/json',
-        data: data,
+        data: data
     }).done(() => {
         alert('asdadsa');
         $('.js-create-project').prop('disabled', false);
     }).fail((xhr) => {
+        debugger;
         alert('You are a failure');
         alert(xhr.responseText);
         $('.js-create-project').prop('disabled', false);
