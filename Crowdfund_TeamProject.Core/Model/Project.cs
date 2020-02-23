@@ -18,6 +18,11 @@ namespace Crowdfund_TeamProject.Core.Model
         /// <summary>
         /// 
         /// </summary>
+        public decimal Achieved { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Title { get; set; }
 
         /// <summary>

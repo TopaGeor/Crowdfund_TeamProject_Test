@@ -63,8 +63,6 @@ namespace Crowdfund_TeamProject.Services
                    $"not valid  {options.Title}");
             }
 
-            var tierList = new List<Tier>();
-
             if (options.Goal <= 0.00M) {
                 return new ApiResult<Project>
                    (StatusCode.BadRequest, $"not valid {options.Goal}");
@@ -85,14 +83,15 @@ namespace Crowdfund_TeamProject.Services
                    (StatusCode.BadRequest, $"not valid  {options.VideoUrl}");
             }
 
-            if (string.IsNullOrWhiteSpace(options.UpdatePost)) {
-                return new ApiResult<Project>
-                   (StatusCode.BadRequest, $"not valid  {options.UpdatePost}");
-            }
-
             if (options.Category == ProjectCategory.Invalid) {
                 return new ApiResult<Project>
                   (StatusCode.BadRequest, $"not valid  {options.Category}");
+            }
+
+            if(options.ExpirationDate == (default))
+            {
+                return new ApiResult<Project>
+                  (StatusCode.BadRequest, $"not valid  {options.ExpirationDate}");
             }
 
             var newProj = new Project() {
@@ -105,8 +104,6 @@ namespace Crowdfund_TeamProject.Services
                 PhotoUrl = options.PhotoUrl,
                 VideoUrl = options.VideoUrl
             };
-
-            newProj.Tiers = tierList;
 
             await context_.AddAsync(newProj);
             try {

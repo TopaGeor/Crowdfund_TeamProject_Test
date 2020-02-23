@@ -3,9 +3,9 @@
 
 // Write your JavaScript code.
 
-$('.js-product-category-button').on('click', () => {
-    let button = $('.js-product-category-button');
-    $('.js-product-category-dropdown').on('click', (evt) => {
+$('.js-project-category-button').on('click', () => {
+    let button = $('.js-project-category-button');
+    $('.js-project-category-dropdown').on('click', (evt) => {
         button.text(evt.target.textContent);
     });
 });
@@ -20,6 +20,55 @@ $('.js-datepicker').datepicker({
     autoclose: true,
     todayHighlight: true
 });
+
+$('js-project-image').on('change', () => {
+    alert('aaas');
+    //$('js-project-image').on(
+});
+
+
+$('.js-create-project').on('click', () => {
+    let goal = parseFloat($('.js-project-goal').val());
+    let title = $('.js-project-title').val();
+    //let photo = $('.js-project-image').val();
+    //let video = $('.js-project-video').val();
+    //let expiration_date = Date.parse($('.js-datepicker').val());
+    let description = $('.js-project-description').val();
+    let category = $('.js-project-category-button').text();
+    
+    $('.js-create-project').prop('disabled', true);
+    let data = JSON.stringify({
+        Goal: goal,
+        Title: title,
+        //Photo: photo,
+        //Video: video,
+        //Expiration_date: expiration_date,
+        Description:  description,
+        Category: category
+    });
+    
+    $.ajax({
+        url: '/project/create',
+        type: 'POST',
+        coententType: 'application/json',
+        data: data,
+    }).done(() => {
+        alert('asdadsa');
+        $('.js-create-project').prop('disabled', false);
+    }).fail((xhr) => {
+        alert('You are a failure');
+        alert(xhr.responseText);
+        $('.js-create-project').prop('disabled', false);
+    });
+    
+});
+        //public decimal Goal { get; set; }
+        //public string Title { get; set; }
+        //public string Description { get; set; }
+        //public ProjectCategory Category { get; set; }
+        //public DateTimeOffset ExpirationDate { get; set; }
+        //public string PhotoUrl { get; set; }
+        //public string  VideoUrl { get; set; }
 
 // To get value and post it as JSON you have to :
 // let jsonDate = JSON.stringify($('.js-datepicker').datepicker('getDate'));

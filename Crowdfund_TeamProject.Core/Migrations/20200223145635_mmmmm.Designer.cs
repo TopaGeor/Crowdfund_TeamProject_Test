@@ -4,14 +4,16 @@ using Crowdfund_TeamProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Crowdfund_TeamProject.Migrations
 {
     [DbContext(typeof(Crowdfund_TeamProjectDbContext))]
-    partial class Crowdfund_TeamProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200223145635_mmmmm")]
+    partial class mmmmm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

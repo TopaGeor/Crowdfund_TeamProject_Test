@@ -39,10 +39,5 @@ namespace Crowdfund_TeamProject.Core.Model.Options
         /// 
         /// </summary>
         public string  VideoUrl { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string UpdatePost { get; set; }
     }
 }
