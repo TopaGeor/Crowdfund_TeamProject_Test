@@ -10,7 +10,7 @@ $('.js-product-category-button').on('click', () => {
     });
 });
 
-$('#sandbox-container .input-group.date').datepicker({
+$('.js-datepicker').datepicker({
     format: "yyyy/mm/dd",
     weekStart: 1,
     startDate: "Today",
@@ -20,3 +20,6 @@ $('#sandbox-container .input-group.date').datepicker({
     autoclose: true,
     todayHighlight: true
 });
+
+// To get value and post it as JSON you have to :
+// let jsonDate = JSON.stringify($('.js-datepicker').datepicker('getDate'));
