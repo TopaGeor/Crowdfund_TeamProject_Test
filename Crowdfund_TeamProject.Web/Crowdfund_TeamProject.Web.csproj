@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Bootstrap.Datepicker" Version="1.8.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
@@ -20,6 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Watch Remove="Views\Project\Create.cshtml" />
 	  <Watch Remove="Views\Backer\Dashboard.cshtml" />
 	  <Watch Remove="Views\Creator\CreateCreator.cshtml" />
 	  <Watch Remove="Views\Creator\Dashboard.cshtml" />

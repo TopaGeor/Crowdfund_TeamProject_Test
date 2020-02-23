@@ -7,27 +7,45 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Crowdfund_TeamProject.Web.Models;
 using Crowdfund_TeamProject.Services;
+using Crowdfund_TeamProject.Web.Extensions;
 using Crowdfund_TeamProject.Core.Model.Options;
 using Crowdfund_TeamProject.Core.Model;
+
 
 namespace Crowdfund_TeamProject.Web.Controllers
 {
     public class ProjectController : Controller
     {
-        private readonly IProjectService prsrv_;
+        private readonly IProjectService project_;
         private readonly Data.Crowdfund_TeamProjectDbContext context_;
 
         public ProjectController(
-            IProjectService prsrv,
+            IProjectService project, 
             Data.Crowdfund_TeamProjectDbContext context)
-        {
+        {   
             context_ = context;
-            prsrv_ = prsrv;
+            project_ = project;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+            //return View(new CreateProjectViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] Core.Model.Options.AddProjectOptions options)
+        {            
+            var result = await project_.CreateProjectAsync(1, options);
+            //CreateProjectViewModel model
+            return result.AsStatusResult();
         }
 
         [HttpPost]
@@ -39,14 +57,14 @@ namespace Crowdfund_TeamProject.Web.Controllers
                 return BadRequest("Category is required");
             }
 
-            var resultList =  prsrv_.
+            var resultList =  project_.
                 SearchProject(
                 new SearchProjectOptions()
                 {
                    Category = category
                 })
-                .Select(c => new { c.Category,c.Creator.Name,
-                    c.Title,c.Goal,c.ExplirationDate})
+                .Select(c => new { c.Category, c.Creator.Name,
+                    c.Title, c.Goal, c.ExplirationDate})
                 .Take(100)
                 .ToList();
 
@@ -60,6 +78,5 @@ namespace Crowdfund_TeamProject.Web.Controllers
 
             return Json(result2);
         }
-       
     }
 }

@@ -1,7 +1,72 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+$('.js-project-category-button').on('click', () => {
+    let button = $('.js-project-category-button');
+    $('.js-project-category-dropdown').on('click', (evt) => {
+        button.text(evt.target.textContent);
+    });
+});
+
+$('.js-datepicker').datepicker({
+    format: "yyyy/mm/dd",
+    weekStart: 1,
+    startDate: "Today",
+    todayBtn: "linked",
+    clearBtn: true,
+    daysOfWeekHighlighted: "0,6",
+    autoclose: true,
+    todayHighlight: true
+});
+
+$("document").ready(function () {
+    $(".js-project-image").change(function () {
+        let label = $(".js-picture-label").val();
+        alert($(".js-picture-label").val());
+        //$(".js-picture-label").val() = $(".js-project-image").val();
+        $(".js-picture-label").text($(".js-project-image").val());
+        alert($(".js-picture-label").val());
+    });
+});
+
+$('.js-create-project').on('click', () => {
+    let goal = parseFloat($('.js-project-goal').val());
+    let title = $('.js-project-title').val();
+    //let photo = $('.js-project-image').val();
+    //let video = $('.js-project-video').val();
+    //let expiration_date = Date.parse($('.js-datepicker').val());
+    let description = $('.js-project-description').val();
+    let category = $('.js-project-category-button').text();
+    
+    $('.js-create-project').prop('disabled', true);
+    let data = JSON.stringify({
+        //Goal: goal,
+        Title: title,
+        //Photo: photo,
+        //Video: video,
+        //Expiration_date: expiration_date,
+        //Description:  description,
+        Category: category
+    });
+    debugger;
+    $.ajax({
+        url: '/project/Create',
+        type: 'POST',
+        coententType: 'application/json',
+        data: data
+    }).done((project) => {
+        alert('asdadsa');
+        $('.js-create-project').prop('disabled', false);
+    }).fail((xhr) => {
+        debugger;
+        alert('You are a failure');
+        alert(xhr.responseText);
+        $('.js-create-project').prop('disabled', false);
+    });
+    
+});
 
 function validateEmail(email) {
 
@@ -20,7 +85,6 @@ function validateEmail(email) {
     return true;
 }
 let emailOk = false;
-
 
 let $emailInput = $('.js-email');
 $emailInput.on('input', (evt) => {
@@ -78,7 +142,6 @@ $('.js-submit-creator').on('click', () => {
         }, 300);
     });
 });
-
 
 let $emailBacker = $('.js-email');
 $emailBacker.on('input', (evt) => {

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Crowdfund_TeamProject.Core
+﻿namespace Crowdfund_TeamProject.Core
 {
-   public class ApiResult<T>
+    public class ApiResult<T>
     {
         public StatusCode ErrorCode { get; set; }
 
@@ -16,7 +12,6 @@ namespace Crowdfund_TeamProject.Core
 
         public ApiResult()
         {
-
         }
 
         public ApiResult(StatusCode errorCode, string errorMsg)
@@ -43,11 +38,6 @@ namespace Crowdfund_TeamProject.Core
                 ErrorText = "OK",
                 Data = data
             };
-
         }
-
-
-
-
     }
 }

@@ -8,7 +8,7 @@ namespace Crowdfund_TeamProject.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "ExplirationDate",
+                name: "ExpirationDate",
                 table: "Project",
                 nullable: true,
                 oldClrType: typeof(DateTimeOffset),
@@ -18,7 +18,7 @@ namespace Crowdfund_TeamProject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "ExplirationDate",
+                name: "ExpirationDate",
                 table: "Project",
                 type: "datetimeoffset",
                 nullable: false,

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Crowdfund_TeamProject.Migrations
 {
     [DbContext(typeof(Crowdfund_TeamProjectDbContext))]
-    [Migration("20200221094900_NewVision_media_updatePost")]
-    partial class NewVision_media_updatePost
+    [Migration("20200223145353_forgot_an_immigrant")]
+    partial class forgot_an_immigrant
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace Crowdfund_TeamProject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Crowdfund.Core.Model.Backer", b =>
+            modelBuilder.Entity("Crowdfund_TeamProject.Core.Model.Backer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace Crowdfund_TeamProject.Migrations
                     b.ToTable("Backer");
                 });
 
-            modelBuilder.Entity("Crowdfund.Core.Model.Creator", b =>
+            modelBuilder.Entity("Crowdfund_TeamProject.Core.Model.Creator", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +69,7 @@ namespace Crowdfund_TeamProject.Migrations
                     b.ToTable("Creator");
                 });
 
-            modelBuilder.Entity("Crowdfund.Core.Model.Project", b =>
+            modelBuilder.Entity("Crowdfund_TeamProject.Core.Model.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,7 +113,7 @@ namespace Crowdfund_TeamProject.Migrations
                     b.ToTable("Project");
                 });
 
-            modelBuilder.Entity("Crowdfund.Core.Model.Tier", b =>
+            modelBuilder.Entity("Crowdfund_TeamProject.Core.Model.Tier", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -159,27 +159,27 @@ namespace Crowdfund_TeamProject.Migrations
                     b.ToTable("UpdatePost");
                 });
 
-            modelBuilder.Entity("Crowdfund.Core.Model.Project", b =>
+            modelBuilder.Entity("Crowdfund_TeamProject.Core.Model.Project", b =>
                 {
-                    b.HasOne("Crowdfund.Core.Model.Backer", "Backer")
+                    b.HasOne("Crowdfund_TeamProject.Core.Model.Backer", null)
                         .WithMany("FundedProject")
                         .HasForeignKey("BackerId");
 
-                    b.HasOne("Crowdfund.Core.Model.Creator", "Creator")
+                    b.HasOne("Crowdfund_TeamProject.Core.Model.Creator", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId");
                 });
 
-            modelBuilder.Entity("Crowdfund.Core.Model.Tier", b =>
+            modelBuilder.Entity("Crowdfund_TeamProject.Core.Model.Tier", b =>
                 {
-                    b.HasOne("Crowdfund.Core.Model.Project", "Project")
+                    b.HasOne("Crowdfund_TeamProject.Core.Model.Project", "Project")
                         .WithMany("Tiers")
                         .HasForeignKey("ProjectId");
                 });
 
             modelBuilder.Entity("Crowdfund_TeamProject.Core.Model.UpdatePost", b =>
                 {
-                    b.HasOne("Crowdfund.Core.Model.Project", "Project")
+                    b.HasOne("Crowdfund_TeamProject.Core.Model.Project", null)
                         .WithMany("UpdatePost")
                         .HasForeignKey("ProjectId");
                 });

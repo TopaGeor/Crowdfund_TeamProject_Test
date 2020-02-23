@@ -18,6 +18,11 @@ namespace Crowdfund_TeamProject.Core.Model
         /// <summary>
         /// 
         /// </summary>
+        public decimal Achieved { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Title { get; set; }
 
         /// <summary>
@@ -33,12 +38,7 @@ namespace Crowdfund_TeamProject.Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public Backer Backer { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTimeOffset ExplirationDate { get; set; }
+        public DateTimeOffset ExpirationDate { get; set; }
 
         /// <summary>
         /// 
@@ -73,6 +73,5 @@ namespace Crowdfund_TeamProject.Core.Model
             Tiers = new List<Tier>();
             UpdatePost = new List<UpdatePost>();
         }
-
     }
 }
