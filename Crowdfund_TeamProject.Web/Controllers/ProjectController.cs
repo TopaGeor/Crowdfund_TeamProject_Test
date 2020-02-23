@@ -30,13 +30,15 @@ namespace Crowdfund_TeamProject.Web.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(new CreateProjectViewModel());
+            return View();
+            //return View(new CreateProjectViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateProjectViewModel model)
+        public async Task<IActionResult> Create([FromBody] Core.Model.Options.AddProjectOptions options)
         {            
-            var result = await project_.CreateProjectAsync(1, model.Options);
+            var result = await project_.CreateProjectAsync(1, options);
+            //CreateProjectViewModel model
             return result.AsStatusResult();
         }
 

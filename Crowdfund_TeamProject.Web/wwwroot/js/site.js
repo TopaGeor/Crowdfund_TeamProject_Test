@@ -21,10 +21,23 @@ $('.js-datepicker').datepicker({
     todayHighlight: true
 });
 
-$('js-project-image').change({
-    alert("aaas");
-    //$('js-project-image').on(
+$("document").ready(function () {
+    $(".js-project-image").change(function () {
+        let label = $(".js-picture-label").val();
+        alert($(".js-picture-label").val());
+        //$(".js-picture-label").val() = $(".js-project-image").val();
+        $(".js-picture-label").text($(".js-project-image").val());
+        alert($(".js-picture-label").val());
+    });
+
+
 });
+
+
+//$('.js-project-image').change(function() {
+//    $alert("asd");
+//    //$('js-project-image').on(
+//});
 
 
 $('.js-create-project').on('click', () => {
@@ -48,11 +61,11 @@ $('.js-create-project').on('click', () => {
     });
     debugger;
     $.ajax({
-        url: '/project/create',
+        url: '/project/Create',
         type: 'POST',
         coententType: 'application/json',
         data: data
-    }).done(() => {
+    }).done((project) => {
         alert('asdadsa');
         $('.js-create-project').prop('disabled', false);
     }).fail((xhr) => {
