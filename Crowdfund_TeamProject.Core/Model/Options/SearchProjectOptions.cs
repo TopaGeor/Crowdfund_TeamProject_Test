@@ -4,7 +4,7 @@ namespace Crowdfund_TeamProject.Core.Model.Options
 {
     public class SearchProjectOptions
     {
-
+        public int Id { get; set; }
         /// <summary>
         /// 
         /// </summary>

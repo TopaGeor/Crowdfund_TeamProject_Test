@@ -122,7 +122,7 @@ namespace Crowdfund_TeamProject.Services
                     .CreateSuccess(newProj);
         }
 
-        public IQueryable<Project> SearchProject(int id, SearchProjectOptions options)
+        public IQueryable<Project> SearchProject( SearchProjectOptions options)
         {
             
             if(options == null) {
@@ -133,9 +133,9 @@ namespace Crowdfund_TeamProject.Services
                 .Set<Project>()
                 .AsQueryable();
 
-            if (id > 0 ) {
+            if (options.Id > 0 ) {
                 query = query
-                     .Where(p => p.Id == id);
+                     .Where(p => p.Id == options.Id);
             }
 
             if (!string.IsNullOrWhiteSpace(options.Title)) {
@@ -180,8 +180,10 @@ namespace Crowdfund_TeamProject.Services
                    (StatusCode.BadRequest, $"not valid Project {Projectid}");
             }
 
-            var project = await SearchProject(Projectid,
-                new SearchProjectOptions())
+            var project = await SearchProject(
+                new SearchProjectOptions() { 
+                   Id = Projectid
+                })
                 .SingleOrDefaultAsync();
 
             if (project == null) {

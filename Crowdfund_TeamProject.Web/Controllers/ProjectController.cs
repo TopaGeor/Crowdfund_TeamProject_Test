@@ -8,17 +8,22 @@ using Microsoft.Extensions.Logging;
 using Crowdfund_TeamProject.Web.Models;
 using Crowdfund_TeamProject.Services;
 using Crowdfund_TeamProject.Web.Extensions;
+using Crowdfund_TeamProject.Core.Model.Options;
+using Crowdfund_TeamProject.Core.Model;
+
 
 namespace Crowdfund_TeamProject.Web.Controllers
 {
     public class ProjectController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IProjectService project_;
+        private readonly Data.Crowdfund_TeamProjectDbContext context_;
 
-        public ProjectController(ILogger<HomeController> logger, IProjectService project)
-        {
-            _logger = logger;
+        public ProjectController(
+            IProjectService project, 
+            Data.Crowdfund_TeamProjectDbContext context)
+        {   
+            context_ = context;
             project_ = project;
         }
 
@@ -26,6 +31,7 @@ namespace Crowdfund_TeamProject.Web.Controllers
         {
             return View();
         }
+
 
         [HttpGet]
         public IActionResult Create()
@@ -42,5 +48,35 @@ namespace Crowdfund_TeamProject.Web.Controllers
             return result.AsStatusResult();
         }
 
+        [HttpPost]
+
+        public IActionResult SearchProject( 
+            Core.Model.ProjectCategory category)
+        {
+            if(category == Core.Model.ProjectCategory.Invalid) {
+                return BadRequest("Category is required");
+            }
+
+            var resultList =  project_.
+                SearchProject(
+                new SearchProjectOptions()
+                {
+                   Category = category
+                })
+                .Select(c => new { c.Category, c.Creator.Name,
+                    c.Title, c.Goal, c.ExplirationDate})
+                .Take(100)
+                .ToList();
+
+            if(resultList.Count > 0) {
+                return Json(resultList);
+            }
+            var result2 = context_
+                .Set<Project>()
+                .Take(100)
+                .ToList();
+
+            return Json(result2);
+        }
     }
 }

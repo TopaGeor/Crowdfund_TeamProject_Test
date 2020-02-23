@@ -1,0 +1,52 @@
+﻿@model Crowdfund_TeamProject.Web.Models.BackerProjectViewModel
+
+<div class="card border-primary mb-sm-3" style="max-width: 18rem;">
+
+    <div class="view overlay">
+        <img class="card-img-top" src="~/images/backerimage1.jpg"
+             alt="Card image cap">
+        <a href="#!">
+            <div class="mask rgba-white-slight"></div>
+        </a>
+    </div>
+
+    <div class="card-body "  >
+        <!-- Title -->
+        <h4 class="card-title">Backer Profile</h4>
+        <!-- Text -->
+        <p class="card-text font-weight-bolder" >
+            Username : @Model.Backer.Name <br />
+            Email : @Model.Backer.Email
+        </p>
+    </div>
+</div>
+
+@{ if (Model.ProjectList.Count > 0) {
+
+    <div class="card-deck">
+
+    @{ foreach (var project in Model.ProjectList) {
+
+            <div class="card">
+                <img src="@project.PhotoUrl" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">@project.Title</h5>
+                    <p class="card-text">
+                        Discreption:  @project.Description <br />
+                        Goal Ammount:  @project.Goal <br />
+                        Category : @project.Category
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Expliration Date @project.ExplirationDate</small>
+                </div>
+            </div>
+           }
+        }
+    </div>
+    }
+  }
+
+
+
+

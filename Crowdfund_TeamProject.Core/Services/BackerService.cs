@@ -35,12 +35,12 @@ namespace Crowdfund_TeamProject.Services
 
             if (string.IsNullOrWhiteSpace(options.Name)) {
                 return new ApiResult<Backer>
-                   (StatusCode.BadRequest, $"null {options.Name}");
+                   (StatusCode.BadRequest, $" You must enter Backer username { options.Name}");
             }
 
             if (string.IsNullOrWhiteSpace(options.Email)) {
                 return new ApiResult<Backer>
-                   (StatusCode.BadRequest, $"null {options.Email} ");
+                   (StatusCode.BadRequest, $"You must enter Email Address {options.Email} ");
             }
 
             var exist = await SearchBacker(
@@ -98,13 +98,13 @@ namespace Crowdfund_TeamProject.Services
                     Where(b => b.Id == options.Id);
             }
 
-            if (string.IsNullOrWhiteSpace(options.Name))
+            if (!string.IsNullOrWhiteSpace(options.Name))
             {
                 query = query.
                     Where(b => b.Name == options.Name);
             }
 
-            if (string.IsNullOrWhiteSpace(options.Email))
+            if (!string.IsNullOrWhiteSpace(options.Email))
             {
                 query = query.Where(b => b.Email == options.Email);
             }
