@@ -31,12 +31,12 @@ namespace Crowdfund_TeamProject.Services
 
             if (string.IsNullOrWhiteSpace(options.Email)) {
                 return new ApiResult<Creator>
-                   (StatusCode.BadRequest, $"null {options.Email} ");
+                   (StatusCode.BadRequest, $" You must enter Email Address");
             }
 
             if (string.IsNullOrWhiteSpace(options.Name)) {
                 return new ApiResult<Creator>
-                   (StatusCode.BadRequest, $"null {options.Name}");
+                   (StatusCode.BadRequest, $"You must enter Creator username");
             }
 
             var existName =  await SearchCreator(
@@ -99,12 +99,12 @@ namespace Crowdfund_TeamProject.Services
                     .Where(c => c.Id == options.Id);
             }
 
-            if (string.IsNullOrWhiteSpace(options.Name)) {
+            if (!string.IsNullOrWhiteSpace(options.Name)) {
                 query = query
                     .Where(c => c.Name == options.Name);
             }
 
-            if (string.IsNullOrWhiteSpace(options.Email)) {
+            if (!string.IsNullOrWhiteSpace(options.Email)) {
                 query = query
                     .Where(c => c.Email == options.Email);
             }

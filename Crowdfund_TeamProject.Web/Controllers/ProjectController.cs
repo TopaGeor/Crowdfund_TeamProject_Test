@@ -6,16 +6,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Crowdfund_TeamProject.Web.Models;
+using Crowdfund_TeamProject.Services;
+using Crowdfund_TeamProject.Core.Model.Options;
+using Crowdfund_TeamProject.Core.Model;
 
 namespace Crowdfund_TeamProject.Web.Controllers
 {
     public class ProjectController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IProjectService prsrv_;
+        private readonly Data.Crowdfund_TeamProjectDbContext context_;
 
-        public ProjectController(ILogger<HomeController> logger)
+        public ProjectController(
+            IProjectService prsrv,
+            Data.Crowdfund_TeamProjectDbContext context)
         {
-            _logger = logger;
+            context_ = context;
+            prsrv_ = prsrv;
         }
 
         public IActionResult Index()
@@ -23,15 +30,36 @@ namespace Crowdfund_TeamProject.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        [HttpPost]
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult SearchProject( 
+            Core.Model.ProjectCategory category)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if(category == Core.Model.ProjectCategory.Invalid) {
+                return BadRequest("Category is required");
+            }
+
+            var resultList =  prsrv_.
+                SearchProject(
+                new SearchProjectOptions()
+                {
+                   Category = category
+                })
+                .Select(c => new { c.Category,c.Creator.Name,
+                    c.Title,c.Goal,c.ExplirationDate})
+                .Take(100)
+                .ToList();
+
+            if(resultList.Count > 0) {
+                return Json(resultList);
+            }
+            var result2 = context_
+                .Set<Project>()
+                .Take(100)
+                .ToList();
+
+            return Json(result2);
         }
+       
     }
 }

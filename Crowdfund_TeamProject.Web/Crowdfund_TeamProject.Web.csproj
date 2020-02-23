@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -17,6 +17,14 @@
 		<!-- extends watching group to include *.js files -->
 		<Watch Include="**\*.js" Exclude="node_modules\**\*;**\*.js.map;obj\**\*;bin\**\*" />
 		<Watch Include="**\*.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Watch Remove="Views\Backer\Dashboard.cshtml" />
+	  <Watch Remove="Views\Creator\CreateCreator.cshtml" />
+	  <Watch Remove="Views\Creator\Dashboard.cshtml" />
+	  <Watch Remove="Views\Project\SearchProject.cshtml" />
+	  <Watch Remove="Views\Tier\Create.cshtml" />
 	</ItemGroup>
 
 </Project>

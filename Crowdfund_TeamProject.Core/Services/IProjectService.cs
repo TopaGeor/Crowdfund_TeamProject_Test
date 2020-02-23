@@ -29,7 +29,7 @@ namespace Crowdfund_TeamProject.Services
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        IQueryable<Project> SearchProject(int id, SearchProjectOptions options);
+        IQueryable<Project> SearchProject(SearchProjectOptions options);
 
         /// <summary>
         /// 

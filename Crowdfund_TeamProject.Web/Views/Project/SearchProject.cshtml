@@ -1,0 +1,53 @@
+﻿@model List<Crowdfund_TeamProject.Core.Model.Project>
+
+
+
+    <div class="container">
+        <input class="form-control js-search-text mb-4" type="text"
+               placeholder="Type something to search ">
+
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Creator</th>
+                    <th>Title</th>
+                    <th>Goal</th>
+                    <th>Expliration Date</th>
+                </tr>
+            </thead>
+      
+            <tbody class="js-project-list">
+                @{
+                    foreach (var project in Model) {
+                       <tr>
+                        <td>@project.Category</td>
+                        <td>@project.Creator.Name</td>
+                        <td>@project.Title</td>
+                        <td>@project.Title</td>
+                        <td>@project.Goal</td>
+                        <td>@project.ExplirationDate</td>
+                       </tr>
+                    }
+
+                }
+
+            </tbody>
+
+        </table>
+
+
+        
+
+
+
+
+
+
+
+
+        
+
+
+    </div>
