@@ -3,13 +3,8 @@ using System.Collections.Generic;
 
 namespace Crowdfund_TeamProject.Core.Model.Options
 {
-   public class AddProjectOptions
+    public class AddProjectOptions
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Description { get;  set; }
-
         /// <summary>
         /// 
         /// </summary>
@@ -23,7 +18,7 @@ namespace Crowdfund_TeamProject.Core.Model.Options
         /// <summary>
         /// 
         /// </summary>
-        public Creator Creator { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// 
@@ -33,12 +28,7 @@ namespace Crowdfund_TeamProject.Core.Model.Options
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<int> TiersId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTimeOffset ExplirationDate { get; set; }
+        public DateTimeOffset ExpirationDate { get; set; }
 
         /// <summary>
         /// 
@@ -54,7 +44,5 @@ namespace Crowdfund_TeamProject.Core.Model.Options
         /// 
         /// </summary>
         public string UpdatePost { get; set; }
-
-
     }
 }

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Bootstrap.Datepicker" Version="1.8.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
@@ -17,6 +18,10 @@
 		<!-- extends watching group to include *.js files -->
 		<Watch Include="**\*.js" Exclude="node_modules\**\*;**\*.js.map;obj\**\*;bin\**\*" />
 		<Watch Include="**\*.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Watch Remove="Views\Project\Create.cshtml" />
 	</ItemGroup>
 
 </Project>

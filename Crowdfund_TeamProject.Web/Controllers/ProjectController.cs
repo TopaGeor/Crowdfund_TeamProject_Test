@@ -33,5 +33,18 @@ namespace Crowdfund_TeamProject.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View(new CreateProjectViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateProjectViewModel model)
+        {
+            return View();
+        }
+
     }
 }

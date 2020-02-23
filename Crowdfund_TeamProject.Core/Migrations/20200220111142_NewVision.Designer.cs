@@ -88,7 +88,7 @@ namespace Crowdfund_TeamProject.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("ExplirationDate")
+                    b.Property<DateTimeOffset>("ExpirationDate")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<decimal>("Goal")

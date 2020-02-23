@@ -63,23 +63,7 @@ namespace Crowdfund_TeamProject.Services
                    $"not valid  {options.Title}");
             }
 
-            if(options.TiersId == null ||
-              options.TiersId.Count == 0) {
-                return new ApiResult<Project>
-                   (StatusCode.BadRequest, $"not valid  {options.TiersId}");
-            }
-
             var tierList = new List<Tier>();
-
-            foreach (var t in options.TiersId) {
-                var result = await tiers_.GetTierByIdAsync(t);
-
-                if (result.ErrorCode != StatusCode.OK) {
-                    return result.GetApi<Project>();
-                }
-
-                tierList.Add(result.Data);
-            }
 
             if (options.Goal <= 0.00M) {
                 return new ApiResult<Project>
@@ -116,10 +100,10 @@ namespace Crowdfund_TeamProject.Services
                 Title = options.Title,
                 Creator = creator,
                 Category = options.Category,
-                ExplirationDate = options.ExplirationDate,
+                ExpirationDate = options.ExpirationDate,
                 Goal = options.Goal,
-                //PhotoUrl = options.PhotoUrl,
-                //VideoUrl = options.VideoUrl
+                PhotoUrl = options.PhotoUrl,
+                VideoUrl = options.VideoUrl
             };
 
             newProj.Tiers = tierList;
@@ -180,7 +164,7 @@ namespace Crowdfund_TeamProject.Services
 
             if(options.ExplirationDate != (default)) {
                 query = query
-                    .Where(p => p.ExplirationDate == options.ExplirationDate);
+                    .Where(p => p.ExpirationDate == options.ExplirationDate);
             }
 
             return query.Take(500);
@@ -221,7 +205,7 @@ namespace Crowdfund_TeamProject.Services
             }
 
             if (options.ExplirationDate != (default)) {
-                project.ExplirationDate = options.ExplirationDate;
+                project.ExpirationDate = options.ExplirationDate;
             }
 
             var updPost = updatePost_.SearchUpdatePost(

@@ -28,7 +28,7 @@ namespace Crowdfund_TeamProject.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTimeOffset>(
-                name: "ExplirationDate",
+                name: "ExpirationDate",
                 table: "Project",
                 nullable: false,
                 defaultValue: new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)));
@@ -62,7 +62,7 @@ namespace Crowdfund_TeamProject.Migrations
                 table: "Project");
 
             migrationBuilder.DropColumn(
-                name: "ExplirationDate",
+                name: "ExpirationDate",
                 table: "Project");
 
             migrationBuilder.AddColumn<int>(

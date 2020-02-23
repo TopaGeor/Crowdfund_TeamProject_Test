@@ -1,0 +1,44 @@
+﻿@using Crowdfund_TeamProject.Core.Model
+@model Crowdfund_TeamProject.Web.Models.CreateProjectViewModel
+
+<form method="post" action=@Url.Action("create", "project")>
+
+    <div class="form-row flex-row">
+
+        <div class="col-md-4 mb-3">
+            <label for="Title">Title</label>
+            <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label for="Goal">Goal</label>
+            <input type="text" class="form-control">
+        </div>
+
+        <div class="dropdown align-items-center">
+            <label for="Goal">Category</label>
+            <br>
+            <button class="btn btn-secondary dropdown-toggle js-product-category-button"
+                    type="button"
+                    data-toggle="dropdown">
+                Select Category
+            </button>
+
+            <div class="dropdown-menu js-product-category-dropdown">
+                @Html.ListBoxFor(c => c.Options.Category, new SelectList(Enum.GetValues(typeof(ProjectCategory))))
+            </div>
+        </div>
+
+    </div>
+
+    <div class="input-group date">
+        <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Description</label>
+        <textarea class="form-control" rows="3"></textarea>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit form</button>
+</form>
