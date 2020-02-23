@@ -20,7 +20,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Watch Remove="Views\Backer\Dashboard.cshtml" />
 	  <Watch Remove="Views\Creator\CreateCreator.cshtml" />
+	  <Watch Remove="Views\Creator\Dashboard.cshtml" />
+	  <Watch Remove="Views\Project\SearchProject.cshtml" />
 	  <Watch Remove="Views\Tier\Create.cshtml" />
 	</ItemGroup>
 

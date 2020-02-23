@@ -8,17 +8,21 @@ using Microsoft.Extensions.Logging;
 using Crowdfund_TeamProject.Web.Models;
 using Crowdfund_TeamProject.Services;
 using Crowdfund_TeamProject.Web.Extensions;
+using Crowdfund_TeamProject.Core.Model;
 
 namespace Crowdfund_TeamProject.Web.Controllers
 {
     public class BackerController : Controller
     {
         private readonly IBackerService bksrv_;
+        private readonly Data.Crowdfund_TeamProjectDbContext context_;
 
         public BackerController(
-         IBackerService bksrv)
+         IBackerService bksrv,
+         Data.Crowdfund_TeamProjectDbContext context)
         {
             bksrv_ = bksrv;
+            context_ = context;
         }
 
         public IActionResult Index()
@@ -41,6 +45,29 @@ namespace Crowdfund_TeamProject.Web.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpGet]
+
+        public async Task<IActionResult> DashBoard()
+        {
+            var projlist = context_
+                .Set<Project>()
+                .Where(p => p.Backer.Id == 1)
+                .ToList();
+
+            var backer = await bksrv_
+                .GetBackerByIdAsync(1);
+ 
+
+            var model = new BackerProjectViewModel()
+            {
+                Backer = backer.Data,
+                ProjectList = projlist
+            };
+
+            return View(model);
+
         }
 
 

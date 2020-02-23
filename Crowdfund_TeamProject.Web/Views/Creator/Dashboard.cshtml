@@ -1,0 +1,71 @@
+﻿@model Crowdfund_TeamProject.Web.Models.CreatorProjectViewModel
+
+<div class="card border-primary mb-sm-3" style="max-width: 18rem;">
+
+    <div class="view overlay">
+        <img class="card-img-top" src="~/images/creatorimage.jpeg"
+             alt="Card image cap">
+        <a href="#!">
+            <div class="mask rgba-white-slight"></div>
+        </a>
+    </div>
+
+    <div class="card-body ">
+        <!-- Title -->
+        <h4 class="card-title">Creator Profile</h4>
+        <!-- Text -->
+        <p class="card-text font-weight-bolder" >
+            Username : @Model.Creator.Name <br />
+            Email : @Model.Creator.Email
+        </p>
+    </div>
+</div>
+
+@{ if (Model.ProjectList.Count > 0) {
+
+    <div class="card-deck">
+
+    @{ foreach (var project in Model.ProjectList) {
+
+            <div class="card">
+                <img src="@project.PhotoUrl" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">@project.Title</h5>
+                    <p class="card-text">
+                        Discreption:  @project.Description <br />
+                        Goal Ammount:  @project.Goal <br />
+                        Category : @project.Category
+                    </p>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Ammount</th>
+                                <th scope="col">Description</th>
+                            </tr>
+                        </thead>
+                        @{
+                            foreach (var tier in project.Tiers) {
+                                <tr>
+
+                                    <td>@tier.Amount</td>
+                                    <td>@tier.Description</td>
+                                </tr>
+
+                            }
+                        }
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Expliration Date @project.ExplirationDate</small>
+                </div>
+
+            </div>
+           }
+        }
+    </div>
+    }
+  }
+
+
+
+

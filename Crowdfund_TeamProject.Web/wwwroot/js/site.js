@@ -171,3 +171,12 @@ $('.js-add-tier').on('click', () => {
         }, 300);
     });
 });
+
+ $(document).ready(function () {
+    $(".js-search-text").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("js-project-list tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+ });
