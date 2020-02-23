@@ -45,10 +45,8 @@ namespace Crowdfund_TeamProject.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] JsonResult JsonResult)
-        {
-            CreateProjectViewModel model = new CreateProjectViewModel();
-            
+        public async Task<IActionResult> Create([FromBody] CreateProjectViewModel model)
+        {            
             var result = await project_.CreateProjectAsync(1, model.Options);
             return result.AsStatusResult();
         }
