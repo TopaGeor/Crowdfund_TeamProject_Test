@@ -36,7 +36,6 @@ namespace Crowdfund_TeamProject.Web.Controllers
             var result = await bksrv_
                 .AddBackerAsync(options);
                 
-
             return result.AsStatusResult();
 
         }
@@ -51,26 +50,20 @@ namespace Crowdfund_TeamProject.Web.Controllers
 
         public async Task<IActionResult> DashBoard()
         {
-            var projlist = context_
-                .Set<Project>()
-                .Where(p => p.Backer.Id == 1)
-                .ToList();
-
+            
             var backer = await bksrv_
                 .GetBackerByIdAsync(1);
  
-
             var model = new BackerProjectViewModel()
             {
                 Backer = backer.Data,
-                ProjectList = projlist
+                ProjectList = backer.Data.FundedProject
             };
 
             return View(model);
 
         }
 
-
     }
-    
+   
 }
