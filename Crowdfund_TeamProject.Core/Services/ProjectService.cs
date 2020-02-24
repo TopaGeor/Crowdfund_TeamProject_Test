@@ -73,45 +73,45 @@ namespace Crowdfund_TeamProject.Services
                   (StatusCode.BadRequest, $"not valid  {options.Description}");
             }
 
-            if (string.IsNullOrWhiteSpace(options.PhotoUrl)) {
-                return new ApiResult<Project>
-                   (StatusCode.BadRequest, $"not valid  {options.PhotoUrl}");
-            }
+            //if (string.IsNullOrWhiteSpace(options.PhotoUrl)) {
+            //    return new ApiResult<Project>
+            //       (StatusCode.BadRequest, $"not valid  {options.PhotoUrl}");
+            //}
 
-            if (string.IsNullOrWhiteSpace(options.VideoUrl)) {
-                return new ApiResult<Project>
-                   (StatusCode.BadRequest, $"not valid  {options.VideoUrl}");
-            }
+            //if (string.IsNullOrWhiteSpace(options.VideoUrl)) {
+            //    return new ApiResult<Project>
+            //       (StatusCode.BadRequest, $"not valid  {options.VideoUrl}");
+            //}
 
-            if (options.Category == ProjectCategory.Invalid) {
-                return new ApiResult<Project>
-                  (StatusCode.BadRequest, $"not valid  {options.Category}");
-            }
+            //if (options.Category == ProjectCategory.Invalid) {
+            //    return new ApiResult<Project>
+            //      (StatusCode.BadRequest, $"not valid  {options.Category}");
+            //}
 
-            if(options.ExpirationDate == (default))
-            {
-                return new ApiResult<Project>
-                  (StatusCode.BadRequest, $"not valid  {options.ExpirationDate}");
-            }
+            //if(options.ExpirationDate == (default))
+            //{
+            //    return new ApiResult<Project>
+            //      (StatusCode.BadRequest, $"not valid  {options.ExpirationDate}");
+            //}
 
             var newProj = new Project() {
                 Description = options.Description,
                 Title = options.Title,
                 Creator = creator,
-                Category = options.Category,
-                ExpirationDate = options.ExpirationDate,
+                //Category = options.Category,
+                //ExpirationDate = options.ExpirationDate,
                 Goal = options.Goal,
-                PhotoUrl = options.PhotoUrl,
-                VideoUrl = options.VideoUrl
+                //PhotoUrl = options.PhotoUrl,
+                //VideoUrl = options.VideoUrl
             };
 
             await context_.AddAsync(newProj);
             try {
                 await  context_.SaveChangesAsync();
-            } catch (Exception) {
+            } catch (Exception ex) {
 
                 logger_.LogError(StatusCode.InternalServerError,
-                    $"Error Save Project with Title {newProj.Title}");
+                    $"Error Save Project with Title {newProj.Title} {ex}");
 
                 return new ApiResult<Project>(
                     StatusCode.InternalServerError,

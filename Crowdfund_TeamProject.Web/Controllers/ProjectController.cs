@@ -41,7 +41,7 @@ namespace Crowdfund_TeamProject.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Core.Model.Options.AddProjectOptions options)
+        public async Task<IActionResult> Create([FromBody] AddProjectOptions options)
         {            
             var result = await project_.CreateProjectAsync(1, options);
             //CreateProjectViewModel model
@@ -64,7 +64,7 @@ namespace Crowdfund_TeamProject.Web.Controllers
                    Category = category
                 })
                 .Select(c => new { c.Category, c.Creator.Name,
-                    c.Title, c.Goal, c.ExplirationDate})
+                    c.Title, c.Goal, c.ExpirationDate})
                 .Take(100)
                 .ToList();
 

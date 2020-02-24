@@ -7,6 +7,7 @@ $('.js-project-category-button').on('click', () => {
     let button = $('.js-project-category-button');
     $('.js-project-category-dropdown').on('click', (evt) => {
         button.text(evt.target.textContent);
+        $('js-project-category-dropdown').val() = evt.target.textContent;
     });
 });
 
@@ -23,43 +24,50 @@ $('.js-datepicker').datepicker({
 
 $("document").ready(function () {
     $(".js-project-image").change(function () {
-        let label = $(".js-picture-label").val();
-        alert($(".js-picture-label").val());
-        //$(".js-picture-label").val() = $(".js-project-image").val();
         $(".js-picture-label").text($(".js-project-image").val());
-        alert($(".js-picture-label").val());
+    });
+
+    $(".js-project-video").change(function () {
+        $(".js-video-label").text($(".js-project-video").val());
     });
 });
 
 $('.js-create-project').on('click', () => {
     let goal = parseFloat($('.js-project-goal').val());
     let title = $('.js-project-title').val();
-    //let photo = $('.js-project-image').val();
-    //let video = $('.js-project-video').val();
-    //let expiration_date = Date.parse($('.js-datepicker').val());
+    let photo = $('.js-project-image').val();
+    let video = $('.js-project-video').val();
+    let expiration_date = $('.js-datepicker').val();
     let description = $('.js-project-description').val();
-    let category = $('.js-project-category-button').text();
+    let category = $('.js-project-category-dropdown').val();
     
+    //alert(expiration_date);
+    //alert(new Date(expiration_date));
+    alert(typeof photo);
+    alert(photo);
+
     $('.js-create-project').prop('disabled', true);
     let data = JSON.stringify({
-        //Goal: goal,
+        Goal: goal,
         Title: title,
         //Photo: photo,
         //Video: video,
         //Expiration_date: expiration_date,
-        //Description:  description,
-        Category: category
+        Description:  description,
+        //Category: category
     });
-    debugger;
+    
+    alert(data)
     $.ajax({
         url: '/project/Create',
         type: 'POST',
-        coententType: 'application/json',
+        contentType: 'application/json',
         data: data
     }).done((project) => {
         alert('asdadsa');
         $('.js-create-project').prop('disabled', false);
     }).fail((xhr) => {
+        alert(data)
         debugger;
         alert('You are a failure');
         alert(xhr.responseText);
