@@ -250,11 +250,38 @@ $('.js-add-tier').on('click', () => {
     });
 });
 
- $(document).ready(function () {
-    $(".js-search-text").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("js-project-list tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
+$('.js-btn-search').on('click', function () {
+    let title = $('.js-search-title').val();
+    let category = parseInt($('.js-project-category').val());
+
+    let data = JSON.stringify({
+        title: title,
+        category: category
     });
- });
+
+    $.ajax({
+        url: '/project/search',
+        type: 'POST',
+        contentType: 'application/json',
+        data: data
+    }).done(function (projects) {
+        debugger;
+        $('.js-project-list').html('');
+
+        projects.forEach(p => {
+            debugger;
+            let row =
+                `<tr>
+                    <td>${p.category}</td>
+                    <td>${p.creator.name}</td>
+                    <td>${p.title}</td>
+                    <td>${p.goal}</td>
+                    <td>${p.expirationDate}</td> 
+                </tr>`;
+
+            $('.js-project-list').append(row);
+        });
+    }).fail(function (xhr) {
+        debugger;
+    });
+});
