@@ -7,6 +7,7 @@ $('.js-project-category-button').on('click', () => {
     let button = $('.js-project-category-button');
     $('.js-project-category-dropdown').on('click', (evt) => {
         button.text(evt.target.textContent);
+        $('js-project-category-dropdown').val() = evt.target.textContent;
     });
 });
 
@@ -23,44 +24,52 @@ $('.js-datepicker').datepicker({
 
 $("document").ready(function () {
     $(".js-project-image").change(function () {
-        let label = $(".js-picture-label").val();
-        alert($(".js-picture-label").val());
-        //$(".js-picture-label").val() = $(".js-project-image").val();
         $(".js-picture-label").text($(".js-project-image").val());
-        alert($(".js-picture-label").val());
+    });
+
+    $(".js-project-video").change(function () {
+        $(".js-video-label").text($(".js-project-video").val());
     });
 });
 
 $('.js-create-project').on('click', () => {
     let goal = parseFloat($('.js-project-goal').val());
     let title = $('.js-project-title').val();
-    //let photo = $('.js-project-image').val();
-    //let video = $('.js-project-video').val();
-    //let expiration_date = Date.parse($('.js-datepicker').val());
+    let photo = $('.js-project-image').val();
+    let video = $('.js-project-video').val();
+    let expiration_date = $('.js-datepicker').val();
     let description = $('.js-project-description').val();
-    let category = $('.js-project-category-button').text();
-    
+    //let category = $('.js-project-category-dropdown').val();
+    //let category = $('.js-project-category').val();
+    //alert(category
+    //alert(expiration_date);
+    //alert(new Date(expiration_date));
+
     $('.js-create-project').prop('disabled', true);
     let data = JSON.stringify({
-        //Goal: goal,
+        Goal: goal,
         Title: title,
-        //Photo: photo,
-        //Video: video,
-        //Expiration_date: expiration_date,
-        //Description:  description,
-        Category: category
+        PhotoUrl: photo,
+        VideoUrl: video,
+        ExpirationDate: expiration_date,
+        Description:  description,
+        //Category: category
     });
-    debugger;
+    
+    //alert(data)
     $.ajax({
         url: '/project/Create',
         type: 'POST',
-        coententType: 'application/json',
+        contentType: 'application/json',
         data: data
     }).done((project) => {
-        alert('asdadsa');
-        $('.js-create-project').prop('disabled', false);
+        alert('It may succed but you are still a failure');
+        //debugger;
+        //alert(project.id);
+        window.location.href = "../tier/create/" + project.id;
+        //$('.js-create-project-form').hide();
+        //$('.js-create-project').prop('disabled', false);
     }).fail((xhr) => {
-        debugger;
         alert('You are a failure');
         alert(xhr.responseText);
         $('.js-create-project').prop('disabled', false);
@@ -84,9 +93,10 @@ function validateEmail(email) {
 
     return true;
 }
-let emailOk = false;
 
+let emailOk = false;
 let $emailInput = $('.js-email');
+
 $emailInput.on('input', (evt) => {
     let $email = $(evt.currentTarget).val();
     let result = validateEmail($email);
@@ -204,12 +214,16 @@ $('.js-add-tier').on('click', () => {
     $('.js-add-backer').attr('disabled', true);
     let amount = $('.js-amount').val();
     let description = $('.js-description').val();
-
+    let id = parseInt($('.js-id').val());
+    alert('asdads');
     let data = JSON.stringify({
-        amount: amount,
-        description: description
+        Options: {
+            Ammount: parseFloat(amount),
+            Description: description
+        },
+        ProjectId: id
     });
-
+    alert(data);
     $.ajax({
         url: '/tier/Create',
         type: 'POST',
@@ -223,6 +237,7 @@ $('.js-add-tier').on('click', () => {
         $alertArea.show();
         $('form.js-create-tier').hide();
     }).fail((xhr) => {
+        debugger;
         $('.alert').hide();
         let $alertArea = $('.js-create-tier-alert');
         $alertArea.attr("class", "alert alert-danger");

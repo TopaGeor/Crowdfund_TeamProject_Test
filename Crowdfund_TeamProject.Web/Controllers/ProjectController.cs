@@ -41,7 +41,7 @@ namespace Crowdfund_TeamProject.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Core.Model.Options.AddProjectOptions options)
+        public async Task<IActionResult> Create([FromBody] AddProjectOptions options)
         {            
             var result = await project_.CreateProjectAsync(1, options);
             //CreateProjectViewModel model
@@ -52,7 +52,6 @@ namespace Crowdfund_TeamProject.Web.Controllers
 
         public IActionResult SearchProject( )
         {
-
             var resultList = context_
                 .Set<Project>()
                 .Take(100)

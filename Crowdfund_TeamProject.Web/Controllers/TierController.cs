@@ -8,16 +8,20 @@ using Microsoft.Extensions.Logging;
 using Crowdfund_TeamProject.Web.Models;
 using Crowdfund_TeamProject.Services;
 using Crowdfund_TeamProject.Web.Extensions;
+using Crowdfund_TeamProject.Core.Model;
 
 namespace Crowdfund_TeamProject.Web.Controllers
 {
     public class TierController : Controller
     {
         private readonly ITierService trsrv_;
+        private readonly Data.Crowdfund_TeamProjectDbContext context_;
 
         public TierController(
-         ITierService trsrv)
+            ITierService trsrv,
+            Data.Crowdfund_TeamProjectDbContext context)
         {
+            context_ = context;
             trsrv_ = trsrv;
         }
 
@@ -26,14 +30,25 @@ namespace Crowdfund_TeamProject.Web.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create(
-           [FromBody] Core.Model.Options.AddTierOptions options)
+           [FromBody] CreateTierViewModel options)
         {
+            options.Options.Project = context_
+                .Set<Project>()
+                .Where(p => p.Id == options.ProjectId)
+                .SingleOrDefault();
+
             var result = await trsrv_
-                .AddTierServiceAsync(options);
+                .AddTierServiceAsync(options.Options);
                 
             return result.AsStatusResult();
+        }
 
+        [HttpGet ("tier/create/{id}")]
+        public IActionResult Create(int id)
+        {
+            return View(new CreateTierViewModel(id));
         }
 
         [HttpGet]
@@ -41,8 +56,5 @@ namespace Crowdfund_TeamProject.Web.Controllers
         {
             return View();
         }
-
-
-    }
-    
+    }   
 }

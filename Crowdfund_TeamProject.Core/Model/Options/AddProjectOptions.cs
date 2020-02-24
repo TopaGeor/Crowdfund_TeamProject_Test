@@ -28,7 +28,7 @@ namespace Crowdfund_TeamProject.Core.Model.Options
         /// <summary>
         /// 
         /// </summary>
-        public DateTimeOffset ExpirationDate { get; set; }
+        public string ExpirationDate { get; set; }
 
         /// <summary>
         /// 

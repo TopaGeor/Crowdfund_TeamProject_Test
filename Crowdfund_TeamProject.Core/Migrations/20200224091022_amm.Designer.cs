@@ -4,14 +4,16 @@ using Crowdfund_TeamProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Crowdfund_TeamProject.Migrations
 {
     [DbContext(typeof(Crowdfund_TeamProjectDbContext))]
-    partial class Crowdfund_TeamProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200224091022_amm")]
+    partial class amm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,8 +91,8 @@ namespace Crowdfund_TeamProject.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ExpirationDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTimeOffset>("ExpirationDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<decimal>("Goal")
                         .HasColumnType("decimal(18,2)");
@@ -173,7 +175,7 @@ namespace Crowdfund_TeamProject.Migrations
 
             modelBuilder.Entity("Crowdfund_TeamProject.Core.Model.Tier", b =>
                 {
-                    b.HasOne("Crowdfund_TeamProject.Core.Model.Project", null)
+                    b.HasOne("Crowdfund_TeamProject.Core.Model.Project", "Project")
                         .WithMany("Tiers")
                         .HasForeignKey("ProjectId");
                 });

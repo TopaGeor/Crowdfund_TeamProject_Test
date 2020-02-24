@@ -1,4 +1,6 @@
-﻿namespace Crowdfund_TeamProject.Core.Model
+﻿using System.Text.Json.Serialization;
+
+namespace Crowdfund_TeamProject.Core.Model
 {
     public class Tier
     {
@@ -10,6 +12,7 @@
         /// <summary>
         /// 
         /// </summary>
+        [JsonIgnore]
         public Project Project { get; set; }
 
         /// <summary>
