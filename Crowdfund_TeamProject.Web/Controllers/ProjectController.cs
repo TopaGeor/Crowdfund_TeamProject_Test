@@ -78,10 +78,7 @@ namespace Crowdfund_TeamProject.Web.Controllers
                 .Take(100)
                 .ToList();
 
-
-
             return Json(resultList);
         }
-
     }
 }

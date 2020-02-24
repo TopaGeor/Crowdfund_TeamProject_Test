@@ -27,14 +27,17 @@ namespace Crowdfund_TeamProject.Test
             var project = await prsrv_.CreateProjectAsync(1,
                 new AddProjectOptions()
                 {
-                    Category = Core.Model.ProjectCategory.Book,
-                    Description = "lola ena axladi",
-                    Title = "axladi",
-                    Goal = 100,
+                    Category = Core.Model.ProjectCategory.Art,
+                    Description = "pinakas 2020",
+                    Title = "pinakas",
+                    Goal = 1200,
                     ExpirationDate = DateTimeOffset.Now ,
-                    PhotoUrl = "picture2",
-                    VideoUrl = "video2"
+                    PhotoUrl = "picture3",
+                    VideoUrl = "video3",
                 });
+            project.Data.Achieved = 160.00M;
+
+           await  context_.SaveChangesAsync();
             Assert.Equal(StatusCode.OK, project.ErrorCode);
           
         }
