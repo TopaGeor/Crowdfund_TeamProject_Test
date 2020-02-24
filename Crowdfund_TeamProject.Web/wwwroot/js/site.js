@@ -39,36 +39,37 @@ $('.js-create-project').on('click', () => {
     let video = $('.js-project-video').val();
     let expiration_date = $('.js-datepicker').val();
     let description = $('.js-project-description').val();
-    let category = $('.js-project-category-dropdown').val();
-    
+    //let category = $('.js-project-category-dropdown').val();
+    //let category = $('.js-project-category').val();
+    //alert(category
     //alert(expiration_date);
     //alert(new Date(expiration_date));
-    alert(typeof photo);
-    alert(photo);
 
     $('.js-create-project').prop('disabled', true);
     let data = JSON.stringify({
         Goal: goal,
         Title: title,
-        //Photo: photo,
-        //Video: video,
-        //Expiration_date: expiration_date,
+        PhotoUrl: photo,
+        VideoUrl: video,
+        ExpirationDate: expiration_date,
         Description:  description,
         //Category: category
     });
     
-    alert(data)
+    //alert(data)
     $.ajax({
         url: '/project/Create',
         type: 'POST',
         contentType: 'application/json',
         data: data
     }).done((project) => {
-        alert('asdadsa');
-        $('.js-create-project').prop('disabled', false);
+        alert('It may succed but you are still a failure');
+        //debugger;
+        //alert(project.id);
+        window.location.href = "../tier/create/" + project.id;
+        //$('.js-create-project-form').hide();
+        //$('.js-create-project').prop('disabled', false);
     }).fail((xhr) => {
-        alert(data)
-        debugger;
         alert('You are a failure');
         alert(xhr.responseText);
         $('.js-create-project').prop('disabled', false);
@@ -92,9 +93,10 @@ function validateEmail(email) {
 
     return true;
 }
-let emailOk = false;
 
+let emailOk = false;
 let $emailInput = $('.js-email');
+
 $emailInput.on('input', (evt) => {
     let $email = $(evt.currentTarget).val();
     let result = validateEmail($email);
@@ -212,6 +214,7 @@ $('.js-add-tier').on('click', () => {
     $('.js-add-backer').attr('disabled', true);
     let amount = $('.js-amount').val();
     let description = $('.js-description').val();
+    let id = $('@Model.ProjectId').val();
 
     let data = JSON.stringify({
         amount: amount,

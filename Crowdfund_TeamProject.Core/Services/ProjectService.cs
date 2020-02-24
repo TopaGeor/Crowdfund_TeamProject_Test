@@ -88,18 +88,18 @@ namespace Crowdfund_TeamProject.Services
             //      (StatusCode.BadRequest, $"not valid  {options.Category}");
             //}
 
-            //if(options.ExpirationDate == (default))
-            //{
-            //    return new ApiResult<Project>
-            //      (StatusCode.BadRequest, $"not valid  {options.ExpirationDate}");
-            //}
+            if (string.IsNullOrWhiteSpace(options.ExpirationDate))
+            {
+                return new ApiResult<Project>
+                  (StatusCode.BadRequest, $"not valid  {options.ExpirationDate}");
+            }
 
             var newProj = new Project() {
                 Description = options.Description,
                 Title = options.Title,
                 Creator = creator,
                 //Category = options.Category,
-                //ExpirationDate = options.ExpirationDate,
+                ExpirationDate = options.ExpirationDate,
                 Goal = options.Goal,
                 //PhotoUrl = options.PhotoUrl,
                 //VideoUrl = options.VideoUrl
