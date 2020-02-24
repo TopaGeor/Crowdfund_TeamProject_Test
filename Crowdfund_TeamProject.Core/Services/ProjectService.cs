@@ -143,17 +143,6 @@ namespace Crowdfund_TeamProject.Services
                     .Where(p => p.Title == options.Title);
             }
 
-            var creator = creator_.SearchCreator(
-                new SearchCreatorOptions()
-                {
-                    Id = options.Creator.Id
-                }).SingleOrDefault();
-
-            if(creator != null) {
-                query = query
-                    .Where(p => p.Creator == creator);
-            }
-
             if(options.Category != ProjectCategory.Invalid) {
                 query = query
                     .Where(p => p.Category == options.Category);
