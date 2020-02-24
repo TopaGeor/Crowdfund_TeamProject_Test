@@ -8,7 +8,7 @@
     <div class="form-group mx-sm-3 mb-2">
         <label for="@Html.IdFor(t => t.Options.Ammount)">Price Reward</label>
         @Html.TextBoxFor(t => t.Options.Ammount,
-            new { @class = "form-control js-ammount", placeholder = "enter the price for the Reward" })
+            new { @class = "form-control js-amount", placeholder = "enter the price for the Reward" })
     </div>
 
     <div class="form-group mx-sm-3 mb-2">
@@ -22,6 +22,10 @@
 
     <button type="button" class="btn btn-primary js-add-tier mx-sm-3 mb-2">Add</button>
 </form>
+
+<div class="js-project-id" hidden="hidden">
+    @Html.TextAreaFor(c => c.ProjectId, new { @class = "form-control js-id" })
+</div>
 
 <div class="alert mx-sm-3 mb-2 js-create-tier-alert" role="alert"
      style="display: none">

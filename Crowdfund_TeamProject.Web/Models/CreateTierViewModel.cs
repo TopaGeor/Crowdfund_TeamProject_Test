@@ -15,5 +15,9 @@ namespace Crowdfund_TeamProject.Web.Models
         {
             ProjectId = id;
         }
+
+        public CreateTierViewModel()
+        {
+        }
     }
 }

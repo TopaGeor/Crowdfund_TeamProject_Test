@@ -214,13 +214,16 @@ $('.js-add-tier').on('click', () => {
     $('.js-add-backer').attr('disabled', true);
     let amount = $('.js-amount').val();
     let description = $('.js-description').val();
-    let id = $('@Model.ProjectId').val();
-
+    let id = parseInt($('.js-id').val());
+    alert('asdads');
     let data = JSON.stringify({
-        amount: amount,
-        description: description
+        Options: {
+            Ammount: parseFloat(amount),
+            Description: description
+        },
+        ProjectId: id
     });
-
+    alert(data);
     $.ajax({
         url: '/tier/Create',
         type: 'POST',

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Crowdfund_TeamProject.Web.Models;
 using Crowdfund_TeamProject.Services;
 using Crowdfund_TeamProject.Web.Extensions;
+using Crowdfund_TeamProject.Core.Model;
 
 namespace Crowdfund_TeamProject.Web.Controllers
 {
@@ -33,6 +34,10 @@ namespace Crowdfund_TeamProject.Web.Controllers
         public async Task<IActionResult> Create(
            [FromBody] CreateTierViewModel options)
         {
+            options.Options.Project = context_
+                .Set<Project>()
+                .Where(p => p.Id == options.ProjectId)
+                .SingleOrDefault();
 
             var result = await trsrv_
                 .AddTierServiceAsync(options.Options);
