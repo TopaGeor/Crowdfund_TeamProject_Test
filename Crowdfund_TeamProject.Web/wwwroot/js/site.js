@@ -237,6 +237,7 @@ $('.js-add-tier').on('click', () => {
         $alertArea.show();
         $('form.js-create-tier').hide();
     }).fail((xhr) => {
+        debugger;
         $('.alert').hide();
         let $alertArea = $('.js-create-tier-alert');
         $alertArea.attr("class", "alert alert-danger");
