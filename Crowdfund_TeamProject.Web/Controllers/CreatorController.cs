@@ -27,9 +27,7 @@ namespace Crowdfund_TeamProject.Web.Controllers
             return View();
         }
 
-
         [HttpPost]
-
         public async Task<IActionResult> CreateCreator(
             [FromBody] Core.Model.Options.AddCreatorOptions options)
         {
@@ -46,9 +44,7 @@ namespace Crowdfund_TeamProject.Web.Controllers
             return View();
         }
 
-
         [HttpGet]
-
         public async Task<IActionResult> DashBoard()
         {
             var projlist = context_
@@ -58,9 +54,6 @@ namespace Crowdfund_TeamProject.Web.Controllers
 
             var creator = await crsrv_
                 .GetCreatorByIdAsync(1);
-                
-                
-                
 
             var model = new Models.CreatorProjectViewModel()
             {
@@ -69,9 +62,6 @@ namespace Crowdfund_TeamProject.Web.Controllers
             };
 
             return View(model);
-
         }
-
-
     }
 }
