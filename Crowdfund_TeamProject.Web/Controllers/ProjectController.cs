@@ -48,35 +48,40 @@ namespace Crowdfund_TeamProject.Web.Controllers
             return result.AsStatusResult();
         }
 
-        [HttpPost]
+      
 
-        public IActionResult SearchProject( 
-            Core.Model.ProjectCategory category)
+        public IActionResult SearchProject( )
         {
-            if(category == Core.Model.ProjectCategory.Invalid) {
-                return BadRequest("Category is required");
-            }
 
-            var resultList =  project_.
-                SearchProject(
-                new SearchProjectOptions()
-                {
-                   Category = category
-                })
-                .Select(c => new { c.Category, c.Creator.Name,
-                    c.Title, c.Goal, c.ExplirationDate})
-                .Take(100)
-                .ToList();
-
-            if(resultList.Count > 0) {
-                return Json(resultList);
-            }
-            var result2 = context_
+            var resultList = context_
                 .Set<Project>()
                 .Take(100)
                 .ToList();
 
-            return Json(result2);
+            return View(resultList);
         }
+
+        [HttpPost]
+        public IActionResult Search(
+           [FromBody] Core.Model.Options.SearchProjectOptions options)
+        {
+            if (options.Category == ProjectCategory.Invalid) {
+                return BadRequest("Project Category is required");
+            }
+
+            var resultList = project_.SearchProject(
+                new SearchProjectOptions()
+                {
+                    Category = options.Category
+                })
+                .Select(r => new { r.Category, r.Creator, r.Title, r.Goal, r.ExpirationDate })
+                .Take(100)
+                .ToList();
+
+
+
+            return Json(resultList);
+        }
+
     }
 }
