@@ -1,0 +1,62 @@
+﻿@model Crowdfund_TeamProject.Core.Model.Project
+
+ 
+    
+
+<div class="card">
+    <img src="~/images/pletter1.jpg" class="card-img-top" style="max-width:200px">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <p class="card-text">
+            Discreption:  @Model.Description <br />
+            Amount: @Model.Achieved / @Model.Goal <br />
+            Category : @Model.Category<br />
+            @Html.ActionLink("Go Back", "Index", new { })
+        </p>
+
+    </div>
+
+    @{ if (Model.Tiers.Count > 0) {
+        <table>
+            <thead>
+            <th>Amount</th>
+            <th>Description</th>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var t in Model.Tiers) {
+                    <tbody>
+                        <tr>
+                            <td>@t.Amount</td>
+                            <td>@t.Amount</td>
+
+                        </tr>
+
+                    </tbody>
+
+                }
+               
+
+                }
+
+                </tbody>
+
+            </table>
+
+
+
+        } }
+
+
+
+
+
+
+    <div class="card-footer">
+        <small class="text-muted">Expliration Date @Model.ExpirationDate</small>
+    </div>
+
+</div>
+<br />
+           
+        
