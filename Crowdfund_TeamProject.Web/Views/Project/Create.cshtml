@@ -56,25 +56,11 @@
 
         </div>
 
-        @*<div class="dropdown align-items-center">
-            <label for="Category">Category</label>
-            <br>
-            <button class="btn btn-secondary dropdown-toggle js-project-category-button"
-                    type="button"
-                    data-toggle="dropdown">
-                Select Category
-            </button>
-
-            <div class="dropdown-menu js-project-category-dropdown">
-                @Html.ListBoxFor(c => c.Category, new SelectList(Enum.GetValues(typeof(ProjectCategory))))
-            </div>
-        </div>*@
-        @Html.DropDownList("category",
-            Html.GetEnumSelectList(typeof(Crowdfund_TeamProject.Core.Model.ProjectCategory)),
-                new { @class = "form-control js-project-category" })
+        @Html.DropDownList(
+        "category", 
+        Html.GetEnumSelectList(typeof(Crowdfund_TeamProject.Core.Model.ProjectCategory)), 
+        new { @class = "form-control js-project-category" })
             
-        
-
     </div>
 
     <button class="btn btn-primary js-create-project" type="button">Submit</button>

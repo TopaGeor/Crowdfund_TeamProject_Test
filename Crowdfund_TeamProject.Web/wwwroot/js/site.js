@@ -39,11 +39,7 @@ $('.js-create-project').on('click', () => {
     let video = $('.js-project-video').val();
     let expiration_date = $('.js-datepicker').val();
     let description = $('.js-project-description').val();
-    //let category = $('.js-project-category-dropdown').val();
-    //let category = $('.js-project-category').val();
-    //alert(category
-    //alert(expiration_date);
-    //alert(new Date(expiration_date));
+    let category = parseInt($('.js-project-category').val());
 
     $('.js-create-project').prop('disabled', true);
     let data = JSON.stringify({
@@ -53,28 +49,24 @@ $('.js-create-project').on('click', () => {
         VideoUrl: video,
         ExpirationDate: expiration_date,
         Description:  description,
-        //Category: category
+        Category: category
     });
     
-    //alert(data)
     $.ajax({
         url: '/project/Create',
         type: 'POST',
         contentType: 'application/json',
         data: data
+
     }).done((project) => {
         alert('It may succed but you are still a failure');
-        //debugger;
-        //alert(project.id);
         window.location.href = "../tier/create/" + project.id;
-        //$('.js-create-project-form').hide();
-        //$('.js-create-project').prop('disabled', false);
+
     }).fail((xhr) => {
         alert('You are a failure');
         alert(xhr.responseText);
         $('.js-create-project').prop('disabled', false);
     });
-    
 });
 
 function validateEmail(email) {
@@ -215,7 +207,7 @@ $('.js-add-tier').on('click', () => {
     let amount = $('.js-amount').val();
     let description = $('.js-description').val();
     let id = parseInt($('.js-id').val());
-    alert('asdads');
+    
     let data = JSON.stringify({
         Options: {
             Ammount: parseFloat(amount),
@@ -223,21 +215,35 @@ $('.js-add-tier').on('click', () => {
         },
         ProjectId: id
     });
-    alert(data);
+    
     $.ajax({
         url: '/tier/Create',
         type: 'POST',
         contentType: 'application/json',
         data: data
+
     }).done((tier) => {
         $('.alert').hide();
+
+        $('form.js-create-tier').hide();
+
         let $alertArea = $('.js-create-tier-alert');
         $alertArea.attr("class", "alert alert-success");
-        $alertArea.html(`Successfully added Reward  ${tier}`);
+        $alertArea.html(`Successfully added Reward  ${tier.id}, soon a new form will be loaded`);
         $alertArea.show();
-        $('form.js-create-tier').hide();
+        
+        setTimeout(function () {
+            $alertArea.fadeOut();
+        }, 3000);
+
+        $('.js-amount').val('');
+        $('.js-description').val('');
+
+        setTimeout(function () {
+            $('form.js-create-tier').show();
+        }, 4000);
+
     }).fail((xhr) => {
-        debugger;
         $('.alert').hide();
         let $alertArea = $('.js-create-tier-alert');
         $alertArea.attr("class", "alert alert-danger");
@@ -246,7 +252,7 @@ $('.js-add-tier').on('click', () => {
 
         setTimeout(function () {
             $('.js-add-backer').attr('disabled', false);
-        }, 300);
+        }, 3000);
     });
 });
 
@@ -285,3 +291,33 @@ $('.js-btn-search').on('click', function () {
         debugger;
     });
 });
+
+let tiers = [];
+$('.js-add-tier-form').on('click', function () {
+    let $amount = $('.js-amount');
+    let $description = $('.js-description');
+
+    let amount = $amount.val();
+    let description = $description.val();
+
+    if (description.length === 0 || amount.length === 0) {
+        return;
+    }
+
+    tiers.push({
+        Amount: amount,
+        Description: description
+    });
+
+    amount.val('');
+    $description.val('');
+    console.log(tiers);
+});
+
+//$('.js-add-tier-form').on('click', function () {
+//    $("js-tier-form > p:first-child").clone(true).insertBefore("js-tier-form > p:last-child");
+//});
+
+//$('.js-delete-tier-form').on('click', function () {
+//    $("js-tier-form > p:first-child").clone(true).insertBefore("js-tier-form > p:last-child");
+//});

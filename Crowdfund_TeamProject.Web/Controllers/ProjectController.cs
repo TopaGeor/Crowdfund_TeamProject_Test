@@ -35,13 +35,10 @@ namespace Crowdfund_TeamProject.Web.Controllers
             return View("List",resultList);
         }
 
-
         [HttpGet("project/{id}")]
-
         public async Task<IActionResult> Details(
            int id)
         {
-
             var result = await project_
                 .SearchProjectByIdAaync(id);
             if(result.ErrorCode == Core.StatusCode.OK) {
@@ -49,28 +46,20 @@ namespace Crowdfund_TeamProject.Web.Controllers
             }
 
             return result.AsStatusResult();
-
         }
-
-
-
 
         [HttpGet]
         public IActionResult Create()
         {
             return View();
-            //return View(new CreateProjectViewModel());
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AddProjectOptions options)
         {            
             var result = await project_.CreateProjectAsync(1, options);
-            //CreateProjectViewModel model
             return result.AsStatusResult();
         }
-
-      
 
         public IActionResult SearchProject( )
         {
