@@ -292,24 +292,22 @@ $('.js-btn-search').on('click', function () {
     });
 });
 
-let tiers = [];
-$('.js-add-tier-form').on('click', function () {
-    let $amount = $('.js-amount');
-    let $description = $('.js-description');
+let posts = [];
 
-    let amount = $amount.val();
-    let description = $description.val();
-
-    if (description.length === 0 || amount.length === 0) {
+$('.js-btn-add-update').on('click', function () {
+    let $updatetext = $('.js-post-text');
+    
+    let updatetext = $updatetext.val();
+    
+    if (updatetext.length === 0) {
         return;
     }
 
-    tiers.push({
-        Amount: amount,
-        Description: description
+    posts.push({
+        updatetext: updatetext,
     });
 
-    amount.val('');
-    $description.val('');
-    console.log(tiers);
+    $updatetext.val('');
+
+    console.log(posts);
 });

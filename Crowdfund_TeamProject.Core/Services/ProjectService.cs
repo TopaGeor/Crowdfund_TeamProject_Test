@@ -73,15 +73,28 @@ namespace Crowdfund_TeamProject.Services
                   (StatusCode.BadRequest, $"not valid  {options.Description}");
             }
 
+
+            if (string.IsNullOrWhiteSpace(options.PhotoUrl)) {
+                return new ApiResult<Project>
+                   (StatusCode.BadRequest, $"not valid  {options.PhotoUrl}");
+            }
+
             //if (string.IsNullOrWhiteSpace(options.PhotoUrl)) {
             //    return new ApiResult<Project>
             //       (StatusCode.BadRequest, $"not valid  {options.PhotoUrl}");
             //}
 
+
             //if (string.IsNullOrWhiteSpace(options.VideoUrl)) {
             //    return new ApiResult<Project>
             //       (StatusCode.BadRequest, $"not valid  {options.VideoUrl}");
             //}
+
+
+            if (options.Category == ProjectCategory.Invalid) {
+                return new ApiResult<Project>
+                  (StatusCode.BadRequest, $"not valid  {options.Category}");
+            }
 
             //if (options.Category == ProjectCategory.Invalid) {
             //    return new ApiResult<Project>
@@ -101,6 +114,7 @@ namespace Crowdfund_TeamProject.Services
                 //Category = options.Category,
                 ExpirationDate = options.ExpirationDate,
                 Goal = options.Goal,
+                PhotoUrl = options.PhotoUrl
                 //PhotoUrl = options.PhotoUrl,
                 //VideoUrl = options.VideoUrl
             };
@@ -220,6 +234,7 @@ namespace Crowdfund_TeamProject.Services
             var result = await context_
                 .Set<Project>()
                 .Where(s => s.Id == id)
+                .Include(t => t.Tiers)
                 .SingleOrDefaultAsync();
 
             if (result == null) {
