@@ -3,6 +3,7 @@
 
 @{
     var tiers = Model.Tiers.ToList();
+    var posts = Model.UpdatePost.ToList();
 }
 
 <div class="card">
@@ -65,7 +66,7 @@
             <tbody>
 
                 @{
-                    foreach (var t in Model.UpdatePost) {
+                    foreach (var t in posts) {
                     <tbody>
                         <tr>
                             <td>@t.Post</td>
