@@ -329,7 +329,7 @@ $('.js-claim-tier').on('click', () => {
     }).done((tier) => {
         alert('yes');
         //$('js-claim-tier').attr('Claimed');
-    }).fail((xhr) => 
+    }).fail((xhr) => {
         alert('NOOO');
     });
 });
