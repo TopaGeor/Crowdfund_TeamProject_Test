@@ -1,0 +1,27 @@
+﻿@model List<Crowdfund_TeamProject.Core.Model.Project>
+
+    <h1> Project List</h1>
+
+@{ 
+     foreach (var project in Model) {
+
+<div class="card">
+    <img src="~/images/pletter1.jpg" class="card-img-top" style="max-width:200px">
+    <div class="card-body">
+        <h5 class="card-title">@project.Title</h5>
+        <p class="card-text">
+            Discreption:  @project.Description <br />
+            Amount: @project.Achieved / @project.Goal <br />
+            Category : @project.Category<br />
+            @Html.ActionLink("View more", "Details", new { id = project.Id })
+        </p>
+
+    </div>
+    <div class="card-footer">
+        <small class="text-muted">Expliration Date @project.ExpirationDate</small>
+    </div>
+
+</div>
+<br />
+           }
+        }

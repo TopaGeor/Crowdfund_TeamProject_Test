@@ -9,27 +9,35 @@
             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
             <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="~/images/trav_found.jpg" class="d-block min-vw-100" alt="...">
+                <img src="~/images/artcar.jpg" class="d-block min-vw-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Travel Fund</h5>
-                    <p>Make travel dream coma true !.</p>
+                    <h3>Art</h3>
+                    <p>This is your Chance to bring to live !</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="~/images/book_fund.jpg" class="d-block min-vw-100" alt="...">
+                <img src="~/images/bookcar.jpg" class="d-block min-vw-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Book Fund</h5>
-                    <p>Make your novel published</p>
+                    <h5>Book</h5>
+                    <p>Give the chance to your book travel the world</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="~/images/art.jpg" class="d-block min-vw-100" alt="...">
+                <img src="~/images/sportcar.webp" class="d-block min-vw-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Art Fund</h5>
-                    <p>Make your Art be in history</p>
+                    <h5>Sport</h5>
+                    <p>Show the world the Sport you love !</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/gcar.jpg" class="d-block min-vw-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Game</h5>
+                    <p>Show us how big Gamer you ar !</p>
                 </div>
             </div>
         </div>
@@ -41,17 +49,37 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
+    </div><br />
+
+    <div>
+        <blockquote class="blockquote text-center">
+            <p class="font-weight-bold mb-0">Top Trending Projects</p>
+        </blockquote>
     </div>
 
+    <div class="container d-flex justify-content-around marketing">
+
+     @{
+       if (Model.Count > 0) {
+          <div class="row col-md-12">
+            @{ 
+               foreach(var p in Model) {
+
+                <div class="col-lg-4">
+                <img class="img-circle" src="~/images/pletter1.jpg" alt="Generic placeholder image" width="140" height="140">
+                  <h2>@p.Title</h2>
+                  <p>Description : @p.Description<br />
+                  Progress: @p.Achieved / @p.Goal</p>
+                  <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                </div>
+
+                }
+
+               }
+          </div>
+        }
+
+     }
 
 
-
-
-
-
-
-
-
-
-
-        
+    </div>

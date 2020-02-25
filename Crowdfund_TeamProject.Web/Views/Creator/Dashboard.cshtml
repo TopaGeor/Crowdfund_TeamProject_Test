@@ -23,49 +23,31 @@
 
 @{ if (Model.ProjectList.Count > 0) {
 
-    <div class="card-deck">
+    
 
-    @{ foreach (var project in Model.ProjectList) {
+     foreach (var project in Model.ProjectList) {
 
             <div class="card">
-                <img src="@project.PhotoUrl" class="card-img-top">
+                <img src="~/images/pletter1.jpg" class="card-img-top" style="max-width:200px">
                 <div class="card-body">
                     <h5 class="card-title">@project.Title</h5>
                     <p class="card-text">
                         Discreption:  @project.Description <br />
                          Amount: @project.Achieved / @project.Goal <br />
                         Category : @project.Category
-                        Rewards List
                     </p>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">Ammount</th>
-                                <th scope="col">Description</th>
-                            </tr>
-                        </thead>
-                        @{
-                            foreach (var tier in project.Tiers) {
-                                <tr>
-
-                                    <td>@tier.Amount</td>
-                                    <td>@tier.Description</td>
-                                </tr>
-
-                            }
-                        }
-                    </table>
+                
                 </div>
                 <div class="card-footer">
                     <small class="text-muted">Expliration Date @project.ExpirationDate</small>
                 </div>
 
-            </div>
+            </div><br />
            }
         }
-    </div>
+    
     }
-  }
+  
 
 
 
