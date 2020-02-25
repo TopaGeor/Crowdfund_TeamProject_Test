@@ -235,6 +235,7 @@ namespace Crowdfund_TeamProject.Services
                 .Set<Project>()
                 .Where(s => s.Id == id)
                 .Include(t => t.Tiers)
+                .Include(r => r.UpdatePost)
                 .SingleOrDefaultAsync();
 
             if (result == null) {
