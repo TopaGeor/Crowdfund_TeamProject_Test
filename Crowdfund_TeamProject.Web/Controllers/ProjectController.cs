@@ -28,7 +28,23 @@ namespace Crowdfund_TeamProject.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var resultList = context_
+                .Set<Project>().ToList();
+
+            return View("List",resultList);
+        }
+
+        [HttpGet("project/{id}")]
+        public async Task<IActionResult> Details(
+           int id)
+        {
+            var result = await project_
+                .SearchProjectByIdAaync(id);
+            if(result.ErrorCode == Core.StatusCode.OK) {
+                return View(result.Data);
+            }
+
+            return result.AsStatusResult();
         }
 
         [HttpGet]
