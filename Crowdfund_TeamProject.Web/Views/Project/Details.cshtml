@@ -1,7 +1,9 @@
 ﻿@model Crowdfund_TeamProject.Core.Model.Project
 
  
-    
+    @{ 
+        var tiers = Model.Tiers.ToList();
+    }
 
 <div class="card">
     <img src="~/images/pletter1.jpg" class="card-img-top" style="max-width:200px">
@@ -23,33 +25,27 @@
             <th>Description</th>
             </thead>
             <tbody>
+               
                 @{
-                    foreach (var t in Model.Tiers) {
+                    foreach (var t in tiers) {
                     <tbody>
                         <tr>
                             <td>@t.Amount</td>
-                            <td>@t.Amount</td>
+                            <td>@t.Description</td>
 
                         </tr>
 
                     </tbody>
-
-                }
+                    }
                
-
                 }
 
-                </tbody>
+                
+          </tbody>
 
             </table>
 
-
-
         } }
-
-
-
-
 
 
     <div class="card-footer">
@@ -58,5 +54,13 @@
 
 </div>
 <br />
+
+<div class="form-group green-border-focus js-updates">
+    <label for="exampleFormControlTextarea5">You can Post your Updates here</label>
+    <textarea class="form-control js-post-text" id="exampleFormControlTextarea5" rows="3"></textarea><br />
+    <button type="button" class="btn btn-primary js-btn-add-update">Post</button>
+</div>
+
+
            
         

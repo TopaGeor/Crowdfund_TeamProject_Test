@@ -270,3 +270,24 @@ $('.js-btn-search').on('click', function () {
         debugger;
     });
 });
+
+let posts = [];
+
+$('.js-btn-add-update').on('click', function () {
+    let $updatetext = $('.js-post-text');
+    
+    let updatetext = $updatetext.val();
+    
+    if (updatetext.length === 0) {
+        return;
+    }
+
+    posts.push({
+        updatetext: updatetext,
+    });
+
+    $updatetext.val('');
+
+    console.log(posts);
+
+});
