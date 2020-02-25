@@ -65,35 +65,27 @@
 
 <br/>
 @{ if (Model.UpdatePost.Count > 0) {
-        <h5>Post List</h5>
+      <h5>Post List</h5>
         <table class=" table table-striped col-md-12">
-            <thead>
-                <td>Post</td>
-                <td>Post Date</td>
+           <thead>
+               <tr>
+                   <td>Post</td>
+                   <td>Post Date</td>
+               </tr>
+
             </thead>
             <tbody>
-
-                @{
-                    foreach (var t in posts) {
+            @{foreach (var t in posts) {
                     <tbody>
                         <tr>
                             <td>@t.Post</td>
                             <td>@t.DatePost</td>
-
                         </tr>
-
                     </tbody>
-                }
-
-                }
-
-
-                </tbody>
-
-            </table>
-
-        
-
+              }
+            }
+            </tbody>
+        </table>
 
     }
 }
