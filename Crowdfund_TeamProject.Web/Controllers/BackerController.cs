@@ -37,7 +37,6 @@ namespace Crowdfund_TeamProject.Web.Controllers
                 .AddBackerAsync(options);
                 
             return result.AsStatusResult();
-
         }
 
         [HttpGet]
@@ -47,10 +46,8 @@ namespace Crowdfund_TeamProject.Web.Controllers
         }
 
         [HttpGet]
-
         public async Task<IActionResult> DashBoard()
         {
-            
             var backer = await bksrv_
                 .GetBackerByIdAsync(1);
  
@@ -61,9 +58,13 @@ namespace Crowdfund_TeamProject.Web.Controllers
             };
 
             return View(model);
-
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddTier([FromBody] BackerAddProjectViewModel options)
+        {
+            var result = await bksrv_.SelectProjectAsync(1, options.ProjectId);
+            return Ok();//View("~/Views/Project/Details.cshtml");
+        }
     }
-   
 }
