@@ -1,26 +1,47 @@
-﻿@model Crowdfund_TeamProject.Core.Model.Options.AddTierOptions
+﻿@*@model Crowdfund_TeamProject.Core.Model.Options.AddTierOptions*@
+@model Crowdfund_TeamProject.Web.Models.CreateTierViewModel
 
-<form class=" js-create-tier " method="post"
-      action="@Url.Action("create", "tier")">
-    <img class="mx-sm-3 mb-2" src="~/images/rew1.png" alt="" width="150" height="150">
-    <h1 class="h3 mb-3 font-weight-normal">Please add your Reward</h1>
-    <div class="form-group mx-sm-3 mb-2">
-        <label for="@Html.IdFor(t => t.Ammount)">Price Reward</label>
-        @Html.TextBoxFor(t => t.Ammount,
-            new { @class = "form-control js-ammount", placeholder = "enter the price for the Reward" })
-    </div>
+    <form class=" js-create-tier " method="post"
+          action="@Url.Action("create", "tier")">
 
-    <div class="form-group mx-sm-3 mb-2">
-        <label for="@Html.IdFor(c => c.Description)">Reward Description</label>
-        @Html.TextAreaFor(c => c.Description,
-          new { @class = "form-control js-description", placeholder = "enter your description for your Reward" })
-    <small id="desclHelp" class="form-text text-muted">
-        Be creative for your Backer
-    </small>
-    </div>
+        <img class="mx-sm-3 mb-2" src="~/images/rew1.png" alt="" width="150" height="150">
 
-    <button type="button" class="btn btn-primary js-add-tier mx-sm-3 mb-2">Add</button>
-</form>
+        <h1 class="h3 mb-3 font-weight-normal">Please add your Reward</h1>
+
+        <div class="form-group mx-sm-3 mb-2">
+
+            <label for="@Html.IdFor(t => t.Options.Ammount)">Price Reward</label>
+
+            @Html.TextBoxFor(t => t.Options.Ammount,
+                new {
+                    @class = "form-control js-amount",
+                    placeholder = "enter the price for the Reward"
+                })
+        </div>
+
+        <div class="form-group mx-sm-3 mb-2">
+
+            <label for="@Html.IdFor(c => c.Options.Description)">Reward Description</label>
+
+            @Html.TextAreaFor(c => c.Options.Description,
+                new {
+                    @class = "form-control js-description",
+                    placeholder = "enter your description for your Reward"
+                })
+
+            <small id="desclHelp" class="form-text text-muted">
+                Be creative for your Backer
+            </small>
+
+        </div>
+
+        <button type="button" class="btn btn-primary js-add-tier">Save</button>
+
+    </form>
+
+<div class="js-project-id" hidden="hidden">
+    @Html.TextAreaFor(c => c.ProjectId, new { @class = "form-control js-id" })
+</div>
 
 <div class="alert mx-sm-3 mb-2 js-create-tier-alert" role="alert"
      style="display: none">

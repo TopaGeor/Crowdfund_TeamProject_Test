@@ -2,7 +2,7 @@
 @model Crowdfund_TeamProject.Core.Model.Options.AddProjectOptions
 @*@model Crowdfund_TeamProject.Web.Models.CreateProjectViewModel*@
 
-<form method="post" action=@Url.Action("create", "project")>
+<form method="post" class="js-create-project-form" style="display:contents" action=@Url.Action("create", "project")>
 
     <div class="form-row flex-row">
 
@@ -51,28 +51,20 @@
 
             <div class="custom-file">
                 <input type="file" class="custom-file-input js-project-video" accept="video/*">
-                <label class="custom-file-label">Choose video</label>
+                <label class="custom-file-label js-video-label">Choose video</label>
             </div>
 
         </div>
 
-        <div class="dropdown align-items-center">
-            <label for="Category">Category</label>
-            <br>
-            <button class="btn btn-secondary dropdown-toggle js-project-category-button"
-                    type="button"
-                    data-toggle="dropdown">
-                Select Category
-            </button>
-
-            <div class="dropdown-menu js-project-category-dropdown">
-                @Html.ListBoxFor(c => c.Category, new SelectList(Enum.GetValues(typeof(ProjectCategory))))
-            </div>
-
-        </div>
-
+        @Html.DropDownList(
+        "category", 
+        Html.GetEnumSelectList(typeof(Crowdfund_TeamProject.Core.Model.ProjectCategory)), 
+        new { @class = "form-control js-project-category" })
+            
     </div>
 
     <button class="btn btn-primary js-create-project" type="button">Submit</button>
 
 </form>
+
+
