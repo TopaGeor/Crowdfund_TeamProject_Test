@@ -59,11 +59,8 @@ $('.js-create-project').on('click', () => {
         data: data
 
     }).done((project) => {
-        alert('It may succed but you are still a failure');
         window.location.href = "../tier/create/" + project.id;
-
     }).fail((xhr) => {
-        alert('You are a failure');
         alert(xhr.responseText);
         $('.js-create-project').prop('disabled', false);
     });
@@ -312,3 +309,28 @@ $('.js-btn-add-update').on('click', function () {
 
     console.log(posts);
 });
+
+$('.js-claim-tier').on('click', () => {
+    $('js-claim-tier').attr('disabled', true);
+
+    let tierId = parseInt($('.js-tier-id').val());
+    let projectId = parseInt($('.js-project-id').val());
+
+    let data = JSON.stringify({
+        ProjectId: projectId,
+        TierId: tierId
+    });
+
+    $.ajax({
+        url: '/backer/AddTier',
+        type: 'POST',
+        contentType: 'application/json',
+        data:data
+    }).done((tier) => {
+        alert('yes');
+        //$('js-claim-tier').attr('Claimed');
+    }).fail((xhr) => 
+        alert('NOOO');
+    });
+});
+    

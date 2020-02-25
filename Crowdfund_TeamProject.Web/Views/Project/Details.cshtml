@@ -8,8 +8,10 @@
 
 <div class="card">
     <img src="~/images/pletter1.jpg" class="card-img-top" style="max-width:200px">
+
     <div class="card-body">
         <h5 class="card-title">@Model.Title</h5>
+
         <p class="card-text">
             Discreption:  @Model.Description <br />
             Amount: @Model.Achieved / @Model.Goal <br />
@@ -23,45 +25,51 @@
             <h5>Reward List</h5>
             <table class=" table table-striped col-md-12">
                 <thead>
-                <td>Amount</td>
-                <td>Description</td>
+                    <tr>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Claim</th>
+                    </tr>
                 </thead>
                 <tbody>
-
-                    @{
-                        foreach (var t in tiers) {
-                        <tbody>
+                    @{foreach (var t in tiers)
+                        {
                             <tr>
                                 <td>@t.Amount</td>
                                 <td>@t.Description</td>
+                                <td>
+                                    <button type="button" class="btn-primary js-claim-tier">Claim</button>
+                                    
+                                    <div hidden="hidden">
+                                        @Html.TextAreaFor(c => t.Id, new { @class = "form-control js-tier-id" })
+                                    </div>
 
+                                    <div hidden="hidden">
+                                        @Html.TextAreaFor(c => c.Id, new { @class = "form-control js-project-id" })
+                                    </div>
+
+                                </td>
                             </tr>
-
-                        </tbody>
+                        }
                     }
-
-                    }
-
-
-                    </tbody>
-
-                </table>
-
-            } }
-
+                </tbody>
+            </table>
+            } 
+    }
 
     <div class="card-footer">
         <small class="text-muted">Expliration Date @Model.ExpirationDate</small>
     </div>
 
 </div>
-<br />
+
+<br/>
 @{ if (Model.UpdatePost.Count > 0) {
         <h5>Post List</h5>
         <table class=" table table-striped col-md-12">
             <thead>
-            <td>Post</td>
-            <td>Post Date</td>
+                <td>Post</td>
+                <td>Post Date</td>
             </thead>
             <tbody>
 
@@ -88,9 +96,6 @@
 
 
     }
-
-
-
 }
 
 <div class="form-group green-border-focus js-updates">

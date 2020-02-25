@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Crowdfund_TeamProject.Core;
 using Crowdfund_TeamProject.Core.Model;
@@ -196,6 +197,17 @@ namespace Crowdfund_TeamProject.Services
             }
 
             backer.Data.FundedProject.Add(proj.Data);
+
+            try
+            {
+                await context_.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                return new ApiResult<Backer>
+                     (StatusCode.InternalServerError,
+                       "Error Save Backer account");
+            }
 
             return ApiResult<Backer>.CreateSuccess(backer.Data);
         }
