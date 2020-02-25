@@ -93,7 +93,5 @@ namespace Crowdfund_TeamProject.Web.Controllers
 
             return Json(resultList);
         }
-
-       
     }
 }
