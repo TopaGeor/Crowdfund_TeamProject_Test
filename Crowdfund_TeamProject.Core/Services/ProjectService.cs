@@ -79,11 +79,10 @@ namespace Crowdfund_TeamProject.Services
                    (StatusCode.BadRequest, $"not valid  {options.PhotoUrl}");
             }
 
-            //if (string.IsNullOrWhiteSpace(options.PhotoUrl)) {
-            //    return new ApiResult<Project>
-            //       (StatusCode.BadRequest, $"not valid  {options.PhotoUrl}");
-            //}
-
+            if (string.IsNullOrWhiteSpace(options.PhotoUrl)) {
+                return new ApiResult<Project>
+                   (StatusCode.BadRequest, $"not valid  {options.PhotoUrl}");
+            }
 
             //if (string.IsNullOrWhiteSpace(options.VideoUrl)) {
             //    return new ApiResult<Project>
@@ -96,11 +95,6 @@ namespace Crowdfund_TeamProject.Services
                   (StatusCode.BadRequest, $"not valid  {options.Category}");
             }
 
-            //if (options.Category == ProjectCategory.Invalid) {
-            //    return new ApiResult<Project>
-            //      (StatusCode.BadRequest, $"not valid  {options.Category}");
-            //}
-
             if (string.IsNullOrWhiteSpace(options.ExpirationDate))
             {
                 return new ApiResult<Project>
@@ -111,11 +105,10 @@ namespace Crowdfund_TeamProject.Services
                 Description = options.Description,
                 Title = options.Title,
                 Creator = creator,
-                //Category = options.Category,
+                Category = options.Category,
                 ExpirationDate = options.ExpirationDate,
                 Goal = options.Goal,
                 PhotoUrl = options.PhotoUrl
-                //PhotoUrl = options.PhotoUrl,
                 //VideoUrl = options.VideoUrl
             };
 
