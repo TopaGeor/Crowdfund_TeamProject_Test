@@ -313,11 +313,3 @@ $('.js-add-tier-form').on('click', function () {
     $description.val('');
     console.log(tiers);
 });
-
-//$('.js-add-tier-form').on('click', function () {
-//    $("js-tier-form > p:first-child").clone(true).insertBefore("js-tier-form > p:last-child");
-//});
-
-//$('.js-delete-tier-form').on('click', function () {
-//    $("js-tier-form > p:first-child").clone(true).insertBefore("js-tier-form > p:last-child");
-//});

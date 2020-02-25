@@ -11,7 +11,6 @@ using Crowdfund_TeamProject.Web.Extensions;
 using Crowdfund_TeamProject.Core.Model.Options;
 using Crowdfund_TeamProject.Core.Model;
 
-
 namespace Crowdfund_TeamProject.Web.Controllers
 {
     public class ProjectController : Controller
