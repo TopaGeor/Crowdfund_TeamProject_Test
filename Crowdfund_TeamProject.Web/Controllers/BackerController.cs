@@ -50,11 +50,16 @@ namespace Crowdfund_TeamProject.Web.Controllers
         {
             var backer = await bksrv_
                 .GetBackerByIdAsync(1);
- 
+
+            var projlist = context_
+                .Set<Project>()
+                .Where(p => p.Creator.Id == 1)
+                .ToList();
+
             var model = new BackerProjectViewModel()
             {
                 Backer = backer.Data,
-                ProjectList = backer.Data.FundedProject
+                ProjectList = projlist
             };
 
             return View(model);

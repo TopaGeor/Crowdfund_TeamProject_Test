@@ -11,8 +11,8 @@ a.navbar-brand {
 a {
   color: #0366d6;
 }
-.carousel-inner{
-max-height:300px;
+.carousel-inner img{
+max-height:400px;
 }
 
 .green-border-focus .form-control:focus {

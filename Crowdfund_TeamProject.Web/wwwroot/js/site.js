@@ -296,6 +296,7 @@ let posts = [];
 
 $('.js-btn-add-update').on('click', function () {
     let $updatetext = $('.js-post-text');
+
     
     let updatetext = $updatetext.val();
     

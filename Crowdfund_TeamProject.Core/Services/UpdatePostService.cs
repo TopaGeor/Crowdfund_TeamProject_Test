@@ -24,7 +24,7 @@ namespace Crowdfund_TeamProject.Core.Services
             logger_ = logger;
         }
 
-        public async Task<ApiResult<UpdatePost>> AddUpdatePostAsync(AddUpdatePostOptions options)
+        public async Task<ApiResult<UpdatePost>> AddUpdatePostAsync(int id, AddUpdatePostOptions options)
         {
             if(options == null) {
                 return new ApiResult<UpdatePost>(
@@ -40,6 +40,7 @@ namespace Crowdfund_TeamProject.Core.Services
             {
                 Post = options.Post,
                 DatePost = DateTime.Now,
+                
             };
 
             await context_.AddAsync(newUpdPost);

@@ -7,7 +7,7 @@ namespace Crowdfund_TeamProject.Core.Services
 {
     public  interface IUpdatePostService
     {
-        Task<ApiResult<UpdatePost>> AddUpdatePostAsync(AddUpdatePostOptions options);
+        Task<ApiResult<UpdatePost>> AddUpdatePostAsync(int id, AddUpdatePostOptions options);
 
         IQueryable<UpdatePost> SearchUpdatePost(SearchUpdatePostOptions options);
     }
