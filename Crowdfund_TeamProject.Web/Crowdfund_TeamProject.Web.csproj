@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -21,9 +21,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Watch Remove="Views\Creator\Create.cshtml" />
 	  <Watch Remove="Views\Project\Create.cshtml" />
 	  <Watch Remove="Views\Backer\Dashboard.cshtml" />
-	  <Watch Remove="Views\Creator\CreateCreator.cshtml" />
 	  <Watch Remove="Views\Creator\Dashboard.cshtml" />
 	  <Watch Remove="Views\Project\Details.cshtml" />
 	  <Watch Remove="Views\Project\List.cshtml" />

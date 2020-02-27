@@ -121,7 +121,7 @@ $('.js-submit-creator').on('click', () => {
     });
 
     $.ajax({
-        url: '/creator/CreateCreator',
+        url: '/creator/Create',
         type: 'POST',
         contentType: 'application/json',
         data: data

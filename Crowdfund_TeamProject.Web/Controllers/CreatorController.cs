@@ -26,7 +26,7 @@ namespace Crowdfund_TeamProject.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCreator(
+        public async Task<IActionResult> Create(
             [FromBody] Core.Model.Options.AddCreatorOptions options)
         {
             var result = await crsrv_
@@ -37,7 +37,7 @@ namespace Crowdfund_TeamProject.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateCreator()
+        public IActionResult Create()
         {
             return View();
         }
