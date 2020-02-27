@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Crowdfund_TeamProject.Core;
+﻿using Crowdfund_TeamProject.Core;
 using Crowdfund_TeamProject.Core.Model;
 using Crowdfund_TeamProject.Core.Model.Options;
 using Crowdfund_TeamProject.Core.Services;
 using Crowdfund_TeamProject.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Crowdfund_TeamProject.Services
 {
@@ -88,7 +87,6 @@ namespace Crowdfund_TeamProject.Services
             //    return new ApiResult<Project>
             //       (StatusCode.BadRequest, $"not valid  {options.VideoUrl}");
             //}
-
 
             if (options.Category == ProjectCategory.Invalid) {
                 return new ApiResult<Project>

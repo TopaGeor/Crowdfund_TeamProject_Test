@@ -16,10 +16,8 @@ namespace Crowdfund_TeamProject.Web.Extensions
 
             if (@this.Success) {
                 result = new ObjectResult(@this.Data);
-
             } else {
                 result = new ObjectResult(@this.ErrorText);
-
             }
 
             result.StatusCode = (int)@this.ErrorCode;

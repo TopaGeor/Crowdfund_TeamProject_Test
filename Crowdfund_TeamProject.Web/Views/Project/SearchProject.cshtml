@@ -1,16 +1,20 @@
-﻿@using Crowdfund_TeamProject.Core.Model
-@model List<Crowdfund_TeamProject.Core.Model.Project>
+﻿@model List<Crowdfund_TeamProject.Core.Model.Project>
 
     <div class="container">
         <form>
             <input class="form-control js-search-title mb-4" type="text"
                    placeholder="enter a title">
+
             @Html.DropDownList("category",
                 Html.GetEnumSelectList(typeof(Crowdfund_TeamProject.Core.Model.ProjectCategory)),
-                    new { @class="form-control js-project-category" }) <br />
-            <button type="button" class="btn btn-primary js-btn-search">Search projects</button><br />
+                new { @class = "form-control js-project-category" }) <br />
+
+            <button type="button" class="btn btn-primary js-btn-search">Search projects</button>
+
         </form>
- 
+
+        <br />
+
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -23,8 +27,8 @@
             </thead>
 
             <tbody class="js-project-list">
-                @{
-                    foreach (var project in Model) {
+                @{foreach (var project in Model)
+                    {
                         <tr>
                             <td>@project.Category</td>
                             <td>@project.Creator</td>
@@ -33,12 +37,7 @@
                             <td>@project.ExpirationDate</td>
                         </tr>
                     }
-
                 }
-
             </tbody>
-
         </table>
-
-
     </div>

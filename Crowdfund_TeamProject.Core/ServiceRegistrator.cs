@@ -49,7 +49,6 @@ namespace Crowdfund_TeamProject.Core
                 .RegisterType<Data.Crowdfund_TeamProjectDbContext>()
                 .InstancePerLifetimeScope()
                 .AsSelf();
-
         }
 
         public static IContainer CreateContainer()

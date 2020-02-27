@@ -1,15 +1,18 @@
 ﻿@model Crowdfund_TeamProject.Core.Model.Options.AddBackerOptions
 
-
-
     <form class=" js-create-backer col-md-6" method="post"
           action="@Url.Action("create", "backer")">
+
         <img class="col-md-6" src="~/images/backerimage1.jpg" alt="" width="150" height="150">
+
         <h1 class="h3 col-md-6 font-weight-normal">Please sign in</h1>
+
         <div class="form-group col-md-6">
             <label for="@Html.IdFor(c => c.Name)">Backer Username</label>
+
             @Html.TextBoxFor(c => c.Name,
                 new { @class = "form-control js-name", placeholder = "enter your username" })
+
             <small id="namelHelp" class="form-text text-muted">
                 Your userName must be unique
             </small>
@@ -17,21 +20,20 @@
 
         <div class="col-md-6">
             <label for="@Html.IdFor(c => c.Email)">Email</label>
+
             @Html.TextBoxFor(c => c.Email,
               new { @class = "form-control js-email", placeholder = "enter your email address" })
+
             <div class="js-validation-email validation-error" style="display: none">
                 Invalid Email
             </div>
+
         </div>
 
         <button type="button" class="btn btn-primary js-submit-backer col-md-6" disabled>Submit</button>
+
         </form>
 
         <div class="alert col-md-6 js-create-backer-alert" role="alert"
              style="display: none">
         </div>
-
-
-      
-
-

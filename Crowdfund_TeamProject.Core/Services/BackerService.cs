@@ -15,7 +15,6 @@ namespace Crowdfund_TeamProject.Services
          private readonly IProjectService project_;
          private readonly ILoggerService logger_;
 
-
         public BackerService(
             Crowdfund_TeamProjectDbContext context,
             IProjectService prsv,

@@ -1,6 +1,5 @@
 ﻿@model Crowdfund_TeamProject.Core.Model.Project
 
-
 @{
     var tiers = Model.Tiers.ToList();
     var posts = Model.UpdatePost.ToList();
@@ -23,7 +22,9 @@
 
     @{ if (Model.Tiers.Count > 0) {
             <h5>Reward List</h5>
+
             <table class=" table table-striped col-md-12">
+
                 <thead>
                     <tr>
                         <th scope="col">Amount</th>
@@ -31,9 +32,9 @@
                         <th scope="col">Claim</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    @{foreach (var t in tiers)
-                        {
+                    @{foreach (var t in tiers){
                             <tr>
                                 <td>@t.Amount</td>
                                 <td>@t.Description</td>
@@ -50,11 +51,11 @@
 
                                 </td>
                             </tr>
-                        }
+                      }
                     }
                 </tbody>
             </table>
-            } 
+       } 
     }
 
     <div class="card-footer">
@@ -66,28 +67,27 @@
 <br/>
 @{ if (Model.UpdatePost.Count > 0) {
       <h5>Post List</h5>
-        <table class=" table table-striped col-md-12">
-           <thead>
-               <tr>
+
+      <table class=" table table-striped col-md-12">
+
+            <thead>
+                <tr>
                    <td>Post</td>
                    <td>Post Date</td>
-               </tr>
-
+                </tr>
             </thead>
+
             <tbody>
-            @{foreach (var t in posts) {
-                    <tbody>
-                        <tr>
-                            <td>@t.Post</td>
-                            <td>@t.DatePost</td>
-                        </tr>
-                    </tbody>
-              }
+            @{ foreach (var t in posts) {
+                    <tr>
+                        <td>@t.Post</td>
+                        <td>@t.DatePost</td>
+                    </tr>
+               }
             }
             </tbody>
         </table>
-
-    }
+   }
 }
 
 <div class="form-group green-border-focus js-updates">
@@ -95,6 +95,3 @@
     <textarea class="form-control js-post-text" id="exampleFormControlTextarea5" rows="3"></textarea><br />
     <button type="button" class="btn btn-primary js-btn-add-update">Post</button>
 </div>
-
-
-

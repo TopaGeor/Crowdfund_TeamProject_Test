@@ -5,9 +5,11 @@
     <div class="view overlay">
         <img class="card-img-top" src="~/images/backerimage1.jpg"
              alt="Card image cap">
+
         <a href="#!">
             <div class="mask rgba-white-slight"></div>
         </a>
+
     </div>
 
     <div class="card-body "  >
@@ -18,35 +20,33 @@
             Username : @Model.Backer.Name <br />
             Email : @Model.Backer.Email
         </p>
+
     </div>
 </div>
 
 @{ if (Model.ProjectList.Count > 0) {
 
-    
-
-    foreach (var project in Model.ProjectList) {
+        foreach (var project in Model.ProjectList) {
 
             <div class="card" >
                 <img src="~/images/pletter1.jpg" class="card-img-top" style="max-width:200px">
+
                 <div class="card-body">
                     <h5 class="card-title">@project.Title</h5>
+
                     <p class="card-text">
                         Discreption:  @project.Description <br />
                         Goal Ammount:@project.Achieved / @project.Goal <br />
                         Category : @project.Category
                     </p>
                 </div>
+
                 <div class="card-footer">
                     <small class="text-muted">Expliration Date @project.ExpirationDate</small>
                 </div>
+
             </div>
-           }
         }
-    
-    }
+   }
+}
   
-
-
-
-

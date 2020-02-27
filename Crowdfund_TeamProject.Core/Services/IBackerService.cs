@@ -13,7 +13,7 @@ namespace Crowdfund_TeamProject.Services
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-         Task<ApiResult<Backer>> AddBackerAsync(AddBackerOptions options);
+        Task<ApiResult<Backer>> AddBackerAsync(AddBackerOptions options);
 
         /// <summary>
         /// 
@@ -43,6 +43,5 @@ namespace Crowdfund_TeamProject.Services
         /// <param name="projectId"></param>
         /// <returns></returns>
         Task<ApiResult<Backer>> SelectProjectAsync(int backerId, int projectId);
-
     }
 }

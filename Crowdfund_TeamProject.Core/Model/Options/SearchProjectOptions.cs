@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Crowdfund_TeamProject.Core.Model.Options
+﻿namespace Crowdfund_TeamProject.Core.Model.Options
 {
     public class SearchProjectOptions
     {

@@ -31,17 +31,14 @@ namespace Crowdfund_TeamProject.Test
                     Description = "pinakas 2020",
                     Title = "pinakas",
                     Goal = 1200,
-                    ExpirationDate = DateTimeOffset.Now ,
+                    ExpirationDate = DateTimeOffset.Now.ToString(),
                     PhotoUrl = "picture3",
                     VideoUrl = "video3",
                 });
             project.Data.Achieved = 160.00M;
 
            await  context_.SaveChangesAsync();
-            Assert.Equal(StatusCode.OK, project.ErrorCode);
-          
+           Assert.Equal(StatusCode.OK, project.ErrorCode); 
         }
-
-       
     }
 }

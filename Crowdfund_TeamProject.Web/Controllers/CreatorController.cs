@@ -1,11 +1,9 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Crowdfund_TeamProject.Core.Model;
+﻿using Crowdfund_TeamProject.Core.Model;
 using Crowdfund_TeamProject.Services;
 using Crowdfund_TeamProject.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Crowdfund_TeamProject.Web.Controllers
 {

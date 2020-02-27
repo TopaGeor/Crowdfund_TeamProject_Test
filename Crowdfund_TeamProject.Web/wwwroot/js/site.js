@@ -3,6 +3,7 @@
 
 // Write your JavaScript code.
 
+/*for creating project*/
 $('.js-project-category-button').on('click', () => {
     let button = $('.js-project-category-button');
     $('.js-project-category-dropdown').on('click', (evt) => {
@@ -66,6 +67,10 @@ $('.js-create-project').on('click', () => {
     });
 });
 
+/* email validation */
+let emailOk = false;
+let $emailInput = $('.js-email');
+
 function validateEmail(email) {
 
     if (!email || email.trim().length === 0) {
@@ -83,9 +88,6 @@ function validateEmail(email) {
     return true;
 }
 
-let emailOk = false;
-let $emailInput = $('.js-email');
-
 $emailInput.on('input', (evt) => {
     let $email = $(evt.currentTarget).val();
     let result = validateEmail($email);
@@ -100,6 +102,7 @@ $emailInput.on('input', (evt) => {
     button();
 });
 
+/* for creating creator */ 
 function button() {
     if (emailOk) {
         let $button = $('.js-submit-creator');
@@ -142,6 +145,7 @@ $('.js-submit-creator').on('click', () => {
     });
 });
 
+/* for creating backer */
 let $emailBacker = $('.js-email');
 $emailBacker.on('input', (evt) => {
     let $email = $(evt.currentTarget).val();
@@ -199,6 +203,7 @@ $('.js-submit-backer').on('click', () => {
     });
 });
 
+/*for additing tiers*/
 $('.js-add-tier').on('click', () => {
     $('.js-add-backer').attr('disabled', true);
     let amount = $('.js-amount').val();
@@ -253,6 +258,7 @@ $('.js-add-tier').on('click', () => {
     });
 });
 
+/*search project*/
 $('.js-btn-search').on('click', function () {
     let title = $('.js-search-title').val();
     let category = parseInt($('.js-project-category').val());
@@ -289,12 +295,10 @@ $('.js-btn-search').on('click', function () {
     });
 });
 
+/*for adding posts*/
 let posts = [];
-
 $('.js-btn-add-update').on('click', function () {
     let $updatetext = $('.js-post-text');
-
-    
     let updatetext = $updatetext.val();
     
     if (updatetext.length === 0) {
@@ -306,10 +310,10 @@ $('.js-btn-add-update').on('click', function () {
     });
 
     $updatetext.val('');
-
     console.log(posts);
 });
 
+/*for claiming tier */
 $('.js-claim-tier').on('click', () => {
     $('js-claim-tier').attr('disabled', true);
 
@@ -333,4 +337,5 @@ $('.js-claim-tier').on('click', () => {
         alert('NOOO');
     });
 });
-    
+
+

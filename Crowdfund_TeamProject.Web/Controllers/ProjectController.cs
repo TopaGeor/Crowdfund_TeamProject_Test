@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Crowdfund_TeamProject.Web.Models;
+﻿using Crowdfund_TeamProject.Core.Model;
+using Crowdfund_TeamProject.Core.Model.Options;
+using Crowdfund_TeamProject.Core.Services;
 using Crowdfund_TeamProject.Services;
 using Crowdfund_TeamProject.Web.Extensions;
-using Crowdfund_TeamProject.Core.Model.Options;
-using Crowdfund_TeamProject.Core.Model;
-using Crowdfund_TeamProject.Core.Services;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Crowdfund_TeamProject.Web.Controllers
 {

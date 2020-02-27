@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Crowdfund_TeamProject.Core.Model
 {
-   public  class UpdatePost
+    public  class UpdatePost
     {
         public int Id { get; set; }
 

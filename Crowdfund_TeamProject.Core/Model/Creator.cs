@@ -19,7 +19,10 @@ namespace Crowdfund_TeamProject.Core.Model
         /// </summary>
         public string Email { get; set; }
 
-        ICollection<Project> CreatedProject { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<Project> CreatedProject { get; set; }
 
         /// <summary>
         /// 

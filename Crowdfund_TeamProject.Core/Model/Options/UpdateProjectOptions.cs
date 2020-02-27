@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Crowdfund_TeamProject.Core.Model;
+﻿using System.Collections.Generic;
 
 namespace Crowdfund_TeamProject.Core.Model.Options
 {
-   public class UpdateProjectOptions
+    public class UpdateProjectOptions
     {
         /// <summary>
         /// 
@@ -45,6 +43,5 @@ namespace Crowdfund_TeamProject.Core.Model.Options
         /// 
         /// </summary>
         public UpdatePost UpdatePost { get; set; }
-
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Crowdfund_TeamProject.Web.Models
+﻿namespace Crowdfund_TeamProject.Web.Models
 {
     public class BackerAddProjectViewModel
     {
@@ -13,7 +8,6 @@ namespace Crowdfund_TeamProject.Web.Models
 
         public BackerAddProjectViewModel()
         {
-
         }
     }
 }

@@ -1,6 +1,5 @@
-using System;
-using System.Collections.Generic;
 using Crowdfund_TeamProject.Core.Model;
+using System.Collections.Generic;
 
 namespace Crowdfund_TeamProject.Web.Models
 {
@@ -9,7 +8,5 @@ namespace Crowdfund_TeamProject.Web.Models
         public Backer Backer { get; set; }
 
         public ICollection<Project> ProjectList { get; set; }
-
-      
     }
 }

@@ -112,7 +112,9 @@ namespace Crowdfund_TeamProject.Services
             return query.Take(500);
         }
 
-        public async Task<ApiResult<Creator>> UpdateCreatorAsync(int id, UpdateCreatorOptions options)
+        public async Task<ApiResult<Creator>> UpdateCreatorAsync(
+            int id, 
+            UpdateCreatorOptions options)
         {
             if (options == null) {
                 return new ApiResult<Creator>

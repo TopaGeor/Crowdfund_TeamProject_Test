@@ -19,7 +19,6 @@ namespace Crowdfund_TeamProject.Test
             brsrv_ = fixture.Container.Resolve<IBackerService>();
         }
 
-
         [Fact]
         public async Task Create_Backer_Success()
         {
@@ -32,6 +31,5 @@ namespace Crowdfund_TeamProject.Test
 
             Assert.NotNull(backer);
         }
-
     }
 }
