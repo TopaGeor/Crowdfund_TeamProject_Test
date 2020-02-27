@@ -56,6 +56,11 @@ namespace Crowdfund_TeamProject.Web.Controllers
         public async Task<IActionResult> Create([FromBody] AddProjectOptions options)
         {            
             var result = await project_.CreateProjectAsync(1, options);
+            
+            if (result.ErrorCode == Core.StatusCode.OK){
+                return Ok(result.Data);
+            }
+            
             return result.AsStatusResult();
         }
 
@@ -71,7 +76,7 @@ namespace Crowdfund_TeamProject.Web.Controllers
 
         [HttpPost]
         public IActionResult Search(
-           [FromBody] Core.Model.Options.SearchProjectOptions options)
+           [FromBody] SearchProjectOptions options)
         {
             if (options.Category == ProjectCategory.Invalid) {
                 return BadRequest("Project Category is required");

@@ -34,7 +34,8 @@
                 </thead>
 
                 <tbody>
-                    @{foreach (var t in tiers){
+                    @{foreach (var t in tiers)
+                        {
                             <tr>
                                 <td>@t.Amount</td>
                                 <td>@t.Description</td>
@@ -45,16 +46,15 @@
                                         @Html.TextAreaFor(c => t.Amount, new { @class = "form-control js-tier-amount" })
                                     </div>
 
-                                    <div hidden="hidden">
-                                        @Html.TextAreaFor(c => c.Id, new { @class = "form-control js-project-id" })
-                                    </div>
-
                                 </td>
                             </tr>
-                      }
+                        }
                     }
                 </tbody>
             </table>
+            <div hidden="hidden">
+                    @Html.TextAreaFor(c => c.Id, new { @class = "form-control js-project-id" })
+            </div>
        } 
     }
 

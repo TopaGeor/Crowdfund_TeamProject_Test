@@ -12,10 +12,15 @@
             <label for="@Html.IdFor(t => t.Options.Amount)">Price Reward</label>
 
             @Html.TextBoxFor(t => t.Options.Amount,
-                new {
-                    @class = "form-control js-amount",
+                new
+                     {
+                    @class = "form-control invalid-feedback js-amount js-money",
                     placeholder = "enter the price for the Reward"
                 })
+
+            <div class="js-validation-money validation-error" style="display: none">
+                Invalid Amount
+            </div>
         </div>
 
         <div class="form-group mx-sm-3 mb-2">

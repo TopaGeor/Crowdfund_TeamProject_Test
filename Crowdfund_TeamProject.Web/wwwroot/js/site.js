@@ -67,12 +67,25 @@ $('.js-create-project').on('click', () => {
     });
 });
 
+/* validation for money */
+let $moneyInput = $('.js-money');
+
+$moneyInput.on('input', (evt) => {
+    let $money = $(evt.currentTarget).val();
+    let $validationMessage = $('.js-validation-money');
+
+    if (Number.isNaN(parseFloat($money))) {
+        $validationMessage.show();
+    } else {
+        $validationMessage.hide();
+    }
+});
+
 /* email validation */
 let emailOk = false;
 let $emailInput = $('.js-email');
 
 function validateEmail(email) {
-
     if (!email || email.trim().length === 0) {
         return false;
     }
@@ -86,6 +99,13 @@ function validateEmail(email) {
     }
 
     return true;
+}
+
+function button() {
+    if (emailOk) {
+        let $button = $('.js-submit-creator');
+        $button.attr('disabled', false);
+    }
 }
 
 $emailInput.on('input', (evt) => {
@@ -102,14 +122,7 @@ $emailInput.on('input', (evt) => {
     button();
 });
 
-/* for creating creator */ 
-function button() {
-    if (emailOk) {
-        let $button = $('.js-submit-creator');
-        $button.attr('disabled', false);
-    }
-}
-
+/* for creating creator */
 $('.js-submit-creator').on('click', () => {
     $('.js-submit-creator').attr('disabled', true);
     let name = $('.js-name').val();
@@ -316,7 +329,7 @@ $('.js-btn-add-update').on('click', function () {
 /*for claiming tier */
 $('.js-claim-tier').on('click', () => {
     $('js-claim-tier').attr('disabled', true);
-
+    
     let tierId = parseInt($('.js-tier-id').val());
     let projectId = parseInt($('.js-project-id').val());
     let amount = parseFloat($('.js-tier-amount').val());
@@ -333,11 +346,9 @@ $('.js-claim-tier').on('click', () => {
         contentType: 'application/json',
         data:data
     }).done((tier) => {
-        alert('yes');
+        alert('New tier has been added');
         //$('js-claim-tier').attr('Claimed');
     }).fail((xhr) => {
-        alert('NOOO');
+        alert('An Error occurred');
     });
 });
-
-

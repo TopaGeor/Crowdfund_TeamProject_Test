@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Crowdfund_TeamProject.Core.Model
 {
@@ -32,6 +33,7 @@ namespace Crowdfund_TeamProject.Core.Model
         /// <summary>
         /// 
         /// </summary>
+        [JsonIgnore]
         public Creator Creator { get; set; }
 
         /// <summary>
