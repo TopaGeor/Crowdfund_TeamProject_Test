@@ -212,7 +212,7 @@ $('.js-add-tier').on('click', () => {
     
     let data = JSON.stringify({
         Options: {
-            Ammount: parseFloat(amount),
+            Amount: parseFloat(amount),
             Description: description
         },
         ProjectId: id
@@ -319,10 +319,12 @@ $('.js-claim-tier').on('click', () => {
 
     let tierId = parseInt($('.js-tier-id').val());
     let projectId = parseInt($('.js-project-id').val());
+    let amount = parseFloat($('.js-tier-amount').val());
 
     let data = JSON.stringify({
         ProjectId: projectId,
-        TierId: tierId
+        TierId: tierId,
+        Amount: amount
     });
 
     $.ajax({

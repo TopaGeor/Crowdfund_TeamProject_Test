@@ -64,8 +64,8 @@ namespace Crowdfund_TeamProject.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTier([FromBody] BackerAddProjectViewModel options)
         {
-            var result = await bksrv_.SelectProjectAsync(1, options.ProjectId);
-            return Ok();//View("~/Views/Project/Details.cshtml");
+            var result = await bksrv_.SelectProjectAsync(1, options.ProjectId, options.Amount);
+            return Ok();
         }
     }
 }

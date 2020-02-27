@@ -10,7 +10,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public decimal Ammount { get; set; }
+        public decimal Amount { get; set; }
 
         /// <summary>
         /// 

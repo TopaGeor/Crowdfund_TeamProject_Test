@@ -38,9 +38,9 @@ namespace Crowdfund_TeamProject.Services
                     (StatusCode.BadRequest, $"not valid {options.Project.Id}");
             }
 
-            if (options.Ammount < 1){
+            if (options.Amount < 1){
                 return new ApiResult<Tier>
-                     (StatusCode.BadRequest, $"not valid {options.Ammount}");
+                     (StatusCode.BadRequest, $"not valid {options.Amount}");
             }
 
             if (string.IsNullOrWhiteSpace(options.Description)){
@@ -50,7 +50,7 @@ namespace Crowdfund_TeamProject.Services
 
             Tier tier = new Tier()
             {
-                Amount = options.Ammount,
+                Amount = options.Amount,
                 Project = options.Project,
                 Description = options.Description
             };
@@ -96,9 +96,9 @@ namespace Crowdfund_TeamProject.Services
                    (StatusCode.NotFound, $"not found {tier}");
             }
 
-            if(options.Ammount > 0)
+            if(options.Amount > 0)
             {
-                tier.Data.Amount = options.Ammount;
+                tier.Data.Amount = options.Amount;
             }
 
             if(!string.IsNullOrWhiteSpace(options.Description))

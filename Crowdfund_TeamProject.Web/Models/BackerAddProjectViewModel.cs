@@ -4,7 +4,7 @@
     {
         public int ProjectId { get; set; }
 
-        public int TierId { get; set; }
+        public decimal Amount { get; set; }
 
         public BackerAddProjectViewModel()
         {

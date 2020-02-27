@@ -42,6 +42,6 @@ namespace Crowdfund_TeamProject.Services
         /// <param name="backerId"></param>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        Task<ApiResult<Backer>> SelectProjectAsync(int backerId, int projectId);
+        Task<ApiResult<Backer>> SelectProjectAsync(int backerId, int projectId, decimal increase);
     }
 }

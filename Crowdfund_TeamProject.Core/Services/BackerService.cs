@@ -177,7 +177,7 @@ namespace Crowdfund_TeamProject.Services
             return ApiResult<Backer>.CreateSuccess(result);
         }
 
-        public async Task<ApiResult<Backer>> SelectProjectAsync(int backerId, int projectId)
+        public async Task<ApiResult<Backer>> SelectProjectAsync(int backerId, int projectId, decimal increase)
         {
             var proj = await project_.SearchProjectByIdAaync(projectId);
 
@@ -196,6 +196,7 @@ namespace Crowdfund_TeamProject.Services
             }
 
             backer.Data.FundedProject.Add(proj.Data);
+            proj.Data.Achieved = proj.Data.Achieved + increase;
 
             try
             {
