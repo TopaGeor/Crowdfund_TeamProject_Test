@@ -44,7 +44,12 @@ namespace Crowdfund_TeamProject.Web.Controllers
         [HttpGet ("tier/create/{id}")]
         public IActionResult Create(int id)
         {
-            return View(new CreateTierViewModel(id));
+            var project = context_
+                .Set<Project>()
+                .Where(p => p.Id == id)
+                .SingleOrDefault();
+
+            return View(new CreateTierViewModel(id, project.Title));
         }
 
         [HttpGet]
